@@ -1,0 +1,77 @@
+% Data and options structure
+clear
+clc
+
+% Measurement error variance as percent of sample variance
+F.meper = 0.1;
+
+% Number of particles and tuning parameters
+F.nparticles = 4e4;
+
+% Initialize priors
+%   parameter name, distribution, mean, std, lower bound, upper bound
+F.priors = {...  
+    'varphi',   'norm',   100,    25,      0.01,   1000;   % Price adjustment cost (Gust et al. 2017)
+    'phipi',    'norm',   1.7,    0.3,     1.01,   20;     % Inflation response (Gust et al. 2017)
+    'phiy',     'norm',   0.40,   0.3,     0,      5;      % Output response (Gust et al. 2017)
+    'h',        'beta',   0.6,    0.1,     0,      0.99;   % Habit parameter (Gust et al. 2017)
+    'rhoa',     'beta',   0.6,    0.2,     0,      0.99;   % Preference shock persistence
+    'rhoi',     'beta',   0.6,    0.2,     0,      0.99;   % Notional rate persistence (Gust et al. 2017)
+    'sige',     'invgam', 0.005,  0.005,   1e-5,   1;      % Growth shock std (Gust et al. 2017)
+    'sigu',     'invgam', 0.01,   0.01,    1e-5,   1;      % Preference shock std (Justiniano et al. 2011)
+    'sigv',     'invgam', 0.005,  0.005,   1e-5,   1};     % Interest rate shock std (Gust et al. 2017)
+F.nparam = size(F.priors,1);
+F.paramstrs = {'Rotemberg','Inflation Rsponse',...
+             'Consumption Growth Response','Habit Persistence',...
+             'Preference Shock Persistence',...
+             'Int. Rate Inertia',...
+             'Growth Shock SD','Preference Shock SD','MP Shock SD'};
+F.paramtex = {'\varphi','\phi_\pi','\phi_y',...
+            'h','\rho_a','\rho_i',...
+            '\sigma_\varepsilon','\sigma_\upsilon','\sigma_\nu'};
+
+% Model solution variables and options
+V = variables;
+
+% Solution space
+%   Problem size
+O.nstates = 3;
+O.npfs = 2;
+O.nshocks = 3;
+%   Density
+O.g_pts = 8;     	% Growth state
+O.a_pts = 12;     	% Preference shock state
+O.mp_pts = 8;    	% Policy shock state
+O.e_pts = O.g_pts; 	% Growth shock
+O.u_pts = O.a_pts;	% Preference shock
+O.v_pts = O.mp_pts;	% MP shock
+
+% Parameters, steady state, and grids
+P = parameters;
+P.zlbflag = 1;
+S = steadystate(P);
+G = grids(O,P,S);
+
+% For filter
+%   Data
+%F.ntrain = 4;
+%subsample = [1989,2016.75];
+%F.quarters = subsample(1):.25:subsample(2);
+%F.firstplotq = F.quarters(1)+F.ntrain*.25;
+%F.plotquarters = F.firstplotq:.25:subsample(2);
+%F.plotidx = find(F.quarters == F.firstplotq):find(F.quarters == subsample(2));
+%F.ZLBidx = find(F.plotquarters == 2008.75);
+%F.varidx = [V.cg,V.pi,V.i];
+%data = textread('../../data.txt','%f');
+%F.data = reshape(data,[numel(data)/numel(F.varidx),numel(F.varidx)]);
+%   Filter parameters
+%nobs = size(F.data,2);
+%F.H = zeros(V.nvar,nobs);
+%for iobs = 1:nobs
+%    F.H(F.varidx(iobs),iobs) = 1;
+%end
+%F.xi0 = zeros(V.nvar,1);
+%F.R = F.meper*diag(var(F.data));
+
+% Save
+save('solutions/options.mat','V','O','P','S','G')%,'F')
