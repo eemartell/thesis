@@ -19,12 +19,12 @@ O.it = 'fp';
 sim = true;
 if sim == true
     if strcmp(O.it,'fp')
-        load('solutions/eeerrors_simfp')
+        load('../solutions/eeerrors_simfp')
     elseif strcmp(O.it,'ti')
-        load('solutions/eeerrors_simti')
+        load('../solutions/eeerrors_simti')
     end
 else
-    load('solutions/eeerrors')
+    load('../solutions/eeerrors')
 end
 
 EE(:,1) = R.EE1(:);
