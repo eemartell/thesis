@@ -35,7 +35,7 @@ O.alg = 'ART';
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
-pf = guess(P,S,G);
+pf = guess(P,S,G,O);
 
 disp('Solving the model with MATLAB...'); pause(0.5)
 % Exogenous processes   
@@ -83,11 +83,11 @@ for inode = 1:G.nodes
 end
 
 % Policy function distances
-dist_c = abs(pf_hh_up - pf.hh);
-dist_pigap = abs(pf_firm_up - pf.firm);
+dist_hh = abs(pf_hh_up - pf.hh);
+dist_firm = abs(pf_firm_up - pf.firm);
 
 % Maximum distance
-dist_max = max([dist_c(:)',dist_pigap(:)']);
+dist_max = max([dist_hh(:)',dist_firm(:)']);
 
 % Update policy functions
 pf.hh = pf_hh_up;
@@ -95,9 +95,9 @@ pf.firm = pf_firm_up;
 
 % Find where ZLB binds
 if strcmp(O.alg,'ART')
-    inp = G.in_gr.^P.rhoi.*(S.i*firm_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
+    inp = G.in_gr.^P.rhoi.*(S.i*pf_firm_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
 elseif strcmp(O.alg,'Gust')
-    pigap_up = (1+sqrt((P.varphi + 4*firm_up)/P.varphi))/2;
+    pigap_up = (1+sqrt((P.varphi + 4*pf_firm_up)/P.varphi))/2;
     inp = G.in_gr.^P.rhoi.*(S.i*pigap_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
 end
 locs = find(inp <= 1);
