@@ -1,4 +1,4 @@
-function V = variables
+function V = variables_gustetal
 
 % Variables: Names variables and assigns locations
 % Inputs:
@@ -10,14 +10,16 @@ function V = variables
 V.names = { 'c'          %1  Consumption            
             'i'          %2  Nominal interest rate
             'in'         %3  Notional interest rate
-            'lam'        %4 Inverse MUC
+            'lam'        %4  Inverse MUC
             'w'          %5  Real wage rate
             'pi'         %6  Gross inflation
-            'y'          %7  Output
-            'n'          %8  Labor hours
-            'g'          %9  Growth rate
-            's'          %10  Risk premium shock
-            'mp'         %11 Monetary policy shock            
+            'Vlam'       %7  GustEtAl equation for lambda
+            'y'          %8  Output
+            'Vpi'        %9  GustEtAl equation for pigap
+            'n'          %10  Labor hours
+            'g'          %11  Growth rate
+            's'          %12  Risk premium shock
+            'mp'         %13 Monetary policy shock            
           };
 
 % Variables titles        
@@ -27,7 +29,9 @@ V.desc = {  'Consumption'
             'Inverse MUC'
             'Real Wage Rate'
             'Inflation Rate'
+            'V eq. for lambda'
             'Output'
+            'V eq. for pigap'
             'Labor Hours'
             'Growth'
             'Risk premium shock'
