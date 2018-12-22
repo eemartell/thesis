@@ -21,7 +21,7 @@ in = state(4);  	%Notional interest rate last period
 for icol = 1:Rdim   
     % Policy Function Guesses
 % Put V functions here instead
-    Vlamp = x(1,icol); %Vlam policy current period
+    Vlambdap = x(1,icol); %Vlambda policy current period
     Vpip = x(2,icol);     % Vpi policy current period
     %cp = x(1,icol);     %Consumption policy current period 
     %pigap = x(2,icol);	%Inflation policy current period     
@@ -30,7 +30,7 @@ for icol = 1:Rdim
     %----------------------------------------------------------------------
 % solve for other time t variables, in particular c and pigap, given state and the V functions
 % with goal of updating the state variables
-    lam = 1/Vlamp;
+    lam = 1/Vlambdap;
     c = lam;
     pigap = (1+sqrt((P.varphi + 4*Vpip)/P.varphi))/2;
     % Aggregate resource constraint (6)    
@@ -50,11 +50,11 @@ for icol = 1:Rdim
 % interpolate V functions (instead of c and pigap) at updated state
     if ~EEflag         
         %[cppArr3,pigappArr3] = Fallterp423_R(...
-        [VlampArr3,VpipArr3] = Fallterp423_R(...
+        [VlambdapArr3,VpipArr3] = Fallterp423_R(...
             O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
             G.in_grid,...
             inp,...
-            pf.Vlam,pf.Vpi);
+            pf.Vlambda,pf.Vpi);
             %pf.c,pf.pigap);
     else
         % Growth rate
@@ -62,10 +62,10 @@ for icol = 1:Rdim
         % Preferences 
         spVec = ((1-P.rhos)*P.s + P.rhos*s + GH.u_nodes);
         %[cppArr3,pigappArr3] = allterp423(...
-        [VlampArr3,VpipArr3] = allterp423(...
+        [VlambdapArr3,VpipArr3] = allterp423(...
                                 G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
                                 gpVec,spVec,GH.v_nodes,inp,...
-                                pf.Vlam,pf.Vpi);
+                                pf.Vlambda,pf.Vpi);
                                 %pf.c,pf.pigap);
         gpArr3 = gpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));
     end
@@ -75,7 +75,7 @@ for icol = 1:Rdim
     %---------------------------------------------------------------------- 
 % replicate the update at time t for t+1 variables instead only using the
 % equations you need to get variables to evaulate the expectation operators
-    lampArr3 = VlampArr3;
+    lampArr3 = VlambdapArr3;
     cppArr3 = lampArr3;
     pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3)/P.varphi))/2;
     % Aggregate resource constraint  

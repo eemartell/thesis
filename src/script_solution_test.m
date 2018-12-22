@@ -38,8 +38,8 @@ gpArr3 = repmat(G.e_nodes,[1,O.u_pts,O.v_pts]);
 spArr3 = permute(repmat(G.u_nodes,[1,O.e_pts,O.v_pts]),[2,1,3]); 
 
 % Preallocate arrays to store policy function updates
-pf_Vlam_up = zeros(G.griddim);
-pf_Vpi_up = zeros(G.griddim);
+pf_c_up = zeros(G.griddim);
+pf_pigap_up = zeros(G.griddim);
 it = 1;                                 % Iteration Counter
 converged = -1;                         % Convergence Flag
 reason = 0; 							% Stopping reason
@@ -49,7 +49,7 @@ istart = tic;                       % Iteration timer start
 %        parfor inode = 1:G.nodes
 for inode = 1:G.nodes
     % Find optimal policy functions on each node  
-    start = [pf.Vlam(inode),pf.Vpi(inode)]';
+    start = [pf.c(inode),pf.pigap(inode)]';
     state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),G.in_gr(inode)]; 
     e_weightVec = G.e_weight(G.g_gr(inode) == G.g_grid,:)';
     u_weightVec = G.u_weight(G.s_gr(inode) == G.s_grid,:)';
@@ -68,24 +68,23 @@ for inode = 1:G.nodes
                          O,P,S,G,pf,gpArr3,spArr3,weightArr3);
     end
     % Store updated policy functions       
-    pf_Vlam_up(inode) = argzero(1);
-    pf_Vpi_up(inode) = argzero(2);
+    pf_c_up(inode) = argzero(1);
+    pf_pigap_up(inode) = argzero(2);
 end
 
 % Policy function distances
-dist_c = abs(pf_Vlam_up - pf.Vlam);
-dist_pigap = abs(pf_Vpi_up - pf.Vpi);
+dist_c = abs(pf_c_up - pf.c);
+dist_pigap = abs(pf_pigap_up - pf.pigap);
 
 % Maximum distance
 dist_max = max([dist_c(:)',dist_pigap(:)']);
 
 % Update policy functions
-pf.Vlam = pf_Vlam_up;
-pf.Vpi = pf_Vpi_up;
+pf.c = pf_c_up;
+pf.pigap = pf_pigap_up;
 
 % Find where ZLB binds
-pigap = (1+sqrt((P.varphi + 4*pf.Vpi)/P.varphi))/2;
-inp = G.in_gr.^P.rhoi.*(S.i*pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
+inp = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
 locs = find(inp <= 1);
 %   Percent nodes binding
 perbind = 100*numel(locs)/G.nodes;
@@ -93,7 +92,7 @@ perbind = 100*numel(locs)/G.nodes;
 % Stopping reasons
 if dist_max > 0.5
     reason = 1;
-elseif (all(pf_Vlam_up(:) < 0) || any(pf_Vpi_up(:) < 0.5))
+elseif (all(pf_c_up(:) < 0) || any(pf_pigap_up(:) < 0.5))
     reason = 2;
 end
 
