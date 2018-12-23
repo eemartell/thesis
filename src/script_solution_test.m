@@ -30,7 +30,7 @@ O.it = 'fp';
 % Solution algorithm
 %   ART:  pf.hh = pf.hh;    pf.firm = pf.firm
 %   Gust: pf.hh = pf.Vlam; pf.firm = pf.Vpi 
-O.alg = 'Gust';
+O.alg = 'ART';
 
 %% Run Policy Function Iteration Algorithm
 
@@ -138,6 +138,6 @@ end
 end
 %% Save results
 if strcmp(saving,'on')
-    fname = ['solution' O.it num2str(P.zlbflag)];
+    fname = ['solution' O.it O.alg];
     save(['solutions/' fname],'pf','O','P','S','G','V','perbind');    
 end
