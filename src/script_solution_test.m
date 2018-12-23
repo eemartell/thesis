@@ -105,7 +105,7 @@ locs = find(inp <= 1);
 perbind = 100*numel(locs)/G.nodes;
 
 % Stopping reasons
-if dist_max > 0.5
+if dist_max > 1%0.5
     reason = 1;
 end
 if strcmp(O.alg,'ART')

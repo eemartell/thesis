@@ -1,4 +1,4 @@
-function R = eqm(x,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3,varargin)
+function R = eqm_gustetal(x,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3,varargin)
 
 % Get original grids and GH nodes
 if ~isempty(varargin)

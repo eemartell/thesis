@@ -38,7 +38,7 @@ w = S.chi*y^P.eta*lam;
 %----------------------------------------------------------------------        
 % Solve for variables inside expectations
 %----------------------------------------------------------------------    
-lampArr3 = VlambdapArr3;
+lampArr3 = 1/VlambdapArr3;
 cppArr3 = lampArr3;
 pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3)/P.varphi))/2;
 % Aggregate resource constraint (1)  
@@ -52,13 +52,13 @@ sdfArr3 = P.beta*lam./lampArr3;
 EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*pigappArr3);
 EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
-Vlambda = s*i*sum(EbondArr3(:))/(P.pi*lam);
-Vpi = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y;
+x_up(1) = s*i*sum(EbondArr3(:))/(P.pi*lam);
+x_up(2) = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y;
 %----------------------------------------------------------------------
 % First-order conditions
 %----------------------------------------------------------------------
-% Consumption Euler Equation (6)
-x_up(1) = 1/Vlambda;
-% Firm Pricing (7)
-x_up(2) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2;
+%%% Consumption Euler Equation (6)
+%%x_up(1) = 1/Vlambda;
+%%% Firm Pricing (7)
+%%x_up(2) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2;
 end
