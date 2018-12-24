@@ -30,22 +30,12 @@ O.it = 'fp';
 % Solution algorithm
 %   ART:  pf.hh = pf.hh;    pf.firm = pf.firm
 %   Gust: pf.hh = pf.Vlam; pf.firm = pf.Vpi 
-O.alg = 'Gust';
+O.alg = 'ART';
 
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
 pf = guess(P,S,G,O);
-
-% Obtain guess for ZLB nodes binding
-% Find where ZLB binds
-if strcmp(O.alg,'ART')
-    inp = G.in_gr.^P.rhoi.*(S.i*pf.firm.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
-elseif strcmp(O.alg,'Gust')
-    pigap_up = (1+sqrt((P.varphi + 4*pf.firm)/P.varphi))/2;
-    inp = G.in_gr.^P.rhoi.*(S.i*pigap_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
-end
-statezlbinfo = (inp <= 1);
 
 disp('Solving the model with MATLAB...'); pause(0.5)
 % Exogenous processes   
@@ -85,13 +75,6 @@ for inode = 1:G.nodes
         elseif strcmp(O.alg,'Gust')
             argzero = eqm_fp_gustetal(start,state,...
                             O,P,S,G,pf,gpArr3,spArr3,weightArr3);
-            if statezlbinfo(inode) == 1 
-                % does something diff need to happen in eqm for zlb case?
-                argzerozlb = eqm_fp_gustetal(start,state,...
-                                O,P,S,G,pf,gpArr3,spArr3,weightArr3);
-            else
-                argzerozlb = argzero;
-            end
         end
     end
     % Store updated policy functions       
