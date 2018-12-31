@@ -154,8 +154,42 @@ Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{V}_{\la
   \hat{V}_{\pi,t} = (\theta-1)\hat{w}_t+\beta\varphi E_t\hat{\pi}_{t+1}\\
   \varphi\hat{\pi}_t = \hat{V}_{\pi,t}\\
   %\varphi\hat{\pi}_t = (\theta-1)\hat{w}_t+\beta\varphi E_t\hat{\pi}_{t+1}\\ 
-  \hat{y}_t = \hat{n}_t 
+  \hat{y}_t = \hat{n}_t
 \end{gather}
+
+\setcounter{equation}{0}
+\noindent Gust et al Indicator Functions\\
+\begin{gather}
+  \tilde{V}_{\lambda,t,1} = \beta E_t[(1/\tilde{\lambda}_{t+1})(s_ti_t/(\bar{\pi}\pi^{gap}_{t+1}g_{t+1}))]\\%
+  \tilde{V}_{\lambda,t,2} = \beta E_t[(1/\tilde{\lambda}_{t+1})(s_t/(\bar{\pi}\pi^{gap}_{t+1}g_{t+1}))]\\%  
+\tilde{V}_{\pi_t,i} = 1 - \theta + \theta\tilde{w}_t + \beta\varphi E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(\pi^{gap}_{t+1}-1)\pi^{gap}_{t+1}(\tilde{y}_{t+1}/\tilde{y}_t)]\\
+\end{gather}
+for $i=1,2$ where $i=1$ corresponds to the non-ZLB regime and $i=2$ corresponds to the ZLB regime.
+\begin{gather}
+V_l = V_{l,1}I + V_{l,2}(1-I) 
+\end{gather}
+for $l \in \{\lambda, \pi\}$ and $j=1,2$ and where $I$ is defined by:
+\begin{gather}
+  I = 1 \text{ if } i > 1\\
+  \text{  } = 0 \text{ otherwise}
+\end{gather}
+
+%We use the functions, $V_l$, to determine the decisions rule though we do not approximate $V_l$ directly, because they inherit a kink associated with the ZLB constraint. Instead, we approximate functions, $V_{l,i}$, that are smoother and easier to approximate by specifying:
+%\begin{gather}
+%V_l = V_{l,1}I + V_{l,2}(1-I) 
+%\end{gather}
+%for $l \in \{\lambda, \pi\}$ and $j=1,2$ and where $I$ is defined by:
+%\begin{gather}
+%  I = 1 \text{ if } i > 1\\
+%  \text{  } = 0 \text{ otherwise}
+%\end{gather}
+%In the above, $i = \max(1,i^*)$ where $i^*$ denotes the value of the notional rate derived from evaluating the functions $V_{l,1}$ and using (2). (For each variable, we use $j=1$ to denote the function associated with the regime with a positive nominal interest rate and $j=2$ to denote the function associated with the ZLB regime. \\
+%Because the functions, $V_l$ depend directly on the nominal interest rate, we expect then to have a kink or non-differentiability. By contrast, the counterpart functions, $V_{l,j}$, that are indexed by the interest-rate regime do not depend on the current indicator function and thus are more likely to be smooth. \\
+%Specifically, $V_{\pi,1}$ and $V_{\pi,2}$ are both described by (8) because the nominal interest rate does not appear in that equation. $V_{\lambda,1}$ is described by (6), but for the ZLB regime:
+%\begin{gather}
+%V_{\lambda,t,2} =  \beta E_t[(1/\lambda_{t+1})(s_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\  
+%\end{gather}
+%where $i_t$ is replaced by 1.
 
 \end{document}
 
