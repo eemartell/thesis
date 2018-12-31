@@ -30,7 +30,7 @@ O.it = 'fp';
 % Solution algorithm
 %   ART:  pf.hh = pf.hh;    pf.firm = pf.firm
 %   Gust: pf.hh = pf.Vlam; pf.firm = pf.Vpi 
-O.alg = 'ART';
+O.alg = 'Gust';
 
 %% Run Policy Function Iteration Algorithm
 

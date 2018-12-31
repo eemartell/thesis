@@ -19,11 +19,7 @@ pigap = (1+sqrt((P.varphi + 4*Vpip)/P.varphi))/2;
 y = c/(1-P.varphi*(pigap-1)^2/2);
 % Interest rate rule (2,3)
 inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
-if P.zlbflag
-    i = max(1,inp);
-else
-    i = inp;
-end
+i = max(1,inp);
 % FOC Labor (4,5)
 w = S.chi*y^P.eta*lam;
 %----------------------------------------------------------------------
@@ -55,10 +51,10 @@ EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 x_up(1) = s*i*sum(EbondArr3(:))/(P.pi*lam);
 x_up(2) = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y;
 %----------------------------------------------------------------------
-% First-order conditions
+% Select regime and update first policy function accordingly
 %----------------------------------------------------------------------
-%%% Consumption Euler Equation (6)
-%%x_up(1) = 1/Vlambda;
-%%% Firm Pricing (7)
-%%x_up(2) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2;
+pigap_up = (1+sqrt((P.varphi + 4*x_up(2))/P.varphi))/2;
+inp_up = in^P.rhoi*(S.i*pigap_up^P.phipi)^(1-P.rhoi)*exp(mp);
+if inp_up <= 1
+    x_up(1) = s*sum(EbondArr3(:))/(P.pi*lam);
 end
