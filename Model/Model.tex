@@ -43,12 +43,12 @@
 
 \noindent Preferences:
 \begin{gather*}
-  E_0\textstyle\sum_{t=0}^\infty\beta^t a_t[\log(c_t)-\chi n_t^{1+\eta}/(1+\eta)]
+  E_0\textstyle\sum_{t=0}^\infty\beta^t [\log(c_t)-\chi n_t^{1+\eta}/(1+\eta)]
 \end{gather*}
 
 \noindent Budget Constraint:
 \begin{gather*}
-  c_t+b_t/(i_t\bar{s})=w_tn_t+b_{t-1}/\pi_t+d_t
+  c_t+b_t/(i_ts_t)=w_tn_t+b_{t-1}/\pi_t+d_t
 \end{gather*}
 
 \setcounter{equation}{0}
@@ -83,7 +83,7 @@ i_t=\max\{1,i_t^*\}\\
   g_t= (1-\rho_g)\bar{g}+\rho_gg_{t-1} + \sigma_\varepsilon\varepsilon_t \\
   s_t=(1-\rho_s)s_t+\rho_ss_{t-1} + \sigma_\upsilon\upsilon_t
 \end{gather}
-Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{y},n,g,s,z\}$\\ 
+Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{y},n,g,s\}$\\ 
 
 \setcounter{equation}{0}
 \noindent Log-linear Equilibrium System:
@@ -102,17 +102,15 @@ Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{y},n,g,
 \subsection{Gust Et Al Model}
 \noindent Equilibrium system (13 equations):
 \small\begin{gather}
+1/\lambda_t = V_{\lambda,t}\\
+\lambda_t = c_t \\
+\varphi(\pi_t^{gap}-1)\pi_t^{gap} = V_{\pi,t}\\
 c_t = [1-\varphi(\pi_t^{gap}-1)^2/2]y_t\\
 i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi})^{1-\rho_i}\exp(\sigma_\nu\nu_t)\\
 i_t=\max\{1,i_t^*\}\\
-\lambda_t = c_t \\
 w_t = \chi n_t^\eta \lambda_t\\
 V_{\lambda,t} =  \beta E_t[(1/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\
-1/\lambda_t = V_{\lambda,t}\\
 V_{\pi,t} = 1-\theta + \theta w_t/z_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)]\\
-\varphi(\pi_t^{gap}-1)\pi_t^{gap} = V_{\pi,t}\\
-%1 =  \beta E_t[(\lambda_t/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\
-%\varphi(\pi_t^{gap}-1)\pi_t^{gap} = 1-\theta + \theta w_t/z_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)]\\
   y_t=z_t n_t\\  
   g_t= (1-\rho_g)\bar{g}+\rho_gg_{t-1} + \sigma_\varepsilon\varepsilon_t \\
   s_t=(1-\rho_s)\bar{s}+\rho_ss_{t-1} + \sigma_\upsilon\upsilon_t\\
@@ -123,37 +121,33 @@ Variables: $\{c,i^*,i,\lambda,w,\pi^{gap},V_{\lambda},y,V_{\pi},n,g,s,z\}$\\
 \setcounter{equation}{0}
 \noindent De-trended Equilibrium System (12 equations):
 \small\begin{gather}
+1/\tilde{\lambda}_t = \tilde{V}_{\lambda,t}\\%
+\tilde{\lambda}_t = \tilde{c}_t\\
+\varphi(\pi_t^{gap}-1){\pi}_t^{gap} = \tilde{V}_{\pi,t}\\
 \tilde{c}_t = [1-\varphi(\pi_t^{gap} - 1)^2/2]\tilde{y}_t\\
 i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi_t^{gap})^{\phi_\pi})^{1-\rho_i}\exp(\sigma_\nu\nu_t)\\
 i_t=\max\{1,i_t^*\}\\
-\tilde{\lambda}_t = \tilde{c}_t\\
 \tilde{w}_t = \chi n_t^\eta \tilde{\lambda}_t  \\
-  %1 = \beta E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\ %rewrite in terms of V_\lambda
-%\varphi(\pi_t^{gap}-1)\hat{\pi}_t^{gap} = 1-\theta + \theta\tilde{w}_t + \beta\varphi E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1}) (\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(\tilde{y}_{t+1}/\tilde{y}_t)]\\ %rewrite in terms of V_\pi
 \tilde{V}_{\lambda,t} = \beta E_t[(1/\tilde{\lambda}_{t+1})(s_ti_t/(\bar{\pi}\pi^{gap}_{t+1}g_{t+1}))]\\%
-1/\tilde{\lambda}_t = \tilde{V}_{\lambda,t}\\%
 \tilde{V}_{\pi_t} = 1 - \theta + \theta\tilde{w}_t + \beta\varphi E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(\pi^{gap}_{t+1}-1)\pi^{gap}_{t+1}(\tilde{y}_{t+1}/\tilde{y}_t)]\\
-\varphi(\pi_t^{gap}-1){\pi}_t^{gap} = \tilde{V}_{\pi,t}\\
   \tilde{y}_t= n_t\\  
   g_t= (1-\rho_g)\bar{g}+\rho_gg_{t-1} + \sigma_\varepsilon\varepsilon_t \\
   s_t=(1-\rho_s)s_t+\rho_ss_{t-1} + \sigma_\upsilon\upsilon_t
 \end{gather}
-Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{V}_{\lambda},\tilde{y},\tilde{V}_{\pi},n,g,s,z\}$\\ 
+Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{V}_{\lambda},\tilde{y},\tilde{V}_{\pi},n,g,s\}$\\ 
 
 \setcounter{equation}{0}
 \noindent Log-linear Equilibrium System:
 \begin{gather}
+  -\hat{\lambda}_t = \hat{V}_{\lambda,t} \\
+  \hat{\lambda}_t = \hat{c}_t \\
+  \varphi\hat{\pi}_t = \hat{V}_{\pi,t}\\   
   \hat{c}_t = \hat{y}_t\\
   \hat{\imath}_t^n = \rho_i\hat{\imath}^n_{t-1} + (1-\rho_i)\phi_\pi\hat{\pi}_t+\sigma_\nu\nu_t \\
   \hat{\imath}_t = \hat{\imath}_t^n\\
-  \hat{\lambda}_t = \hat{c}_t \\
   \hat{w}_t =  \eta\hat{n}_t + \hat{\lambda}_t\\
   \hat{V}_{\lambda,t} =  \hat{\imath}_t + s_t - E_t\hat{\lambda}_{t+1} - E_t\hat{\pi}_{t+1} \\
-  -\hat{\lambda}_t = \hat{V}_{\lambda,t} \\
-  %\hat{\lambda}_t + \hat{\imath}_t + s_t  = E_t\hat{\lambda}_{t+1}+E_t\hat{\pi}_{t+1} \\
   \hat{V}_{\pi,t} = (\theta-1)\hat{w}_t+\beta\varphi E_t\hat{\pi}_{t+1}\\
-  \varphi\hat{\pi}_t = \hat{V}_{\pi,t}\\
-  %\varphi\hat{\pi}_t = (\theta-1)\hat{w}_t+\beta\varphi E_t\hat{\pi}_{t+1}\\ 
   \hat{y}_t = \hat{n}_t
 \end{gather}
 
@@ -162,18 +156,19 @@ Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{V}_{\la
 \begin{gather}
   \tilde{V}_{\lambda,t,1} = \beta E_t[(1/\tilde{\lambda}_{t+1})(s_ti_t/(\bar{\pi}\pi^{gap}_{t+1}g_{t+1}))]\\%
   \tilde{V}_{\lambda,t,2} = \beta E_t[(1/\tilde{\lambda}_{t+1})(s_t/(\bar{\pi}\pi^{gap}_{t+1}g_{t+1}))]\\%  
-\tilde{V}_{\pi_t,i} = 1 - \theta + \theta\tilde{w}_t + \beta\varphi E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(\pi^{gap}_{t+1}-1)\pi^{gap}_{t+1}(\tilde{y}_{t+1}/\tilde{y}_t)]
+\tilde{V}_{\pi,t,k} = 1 - \theta + \theta\tilde{w}_{t,k} + \beta\varphi E_t[(\tilde{\lambda}_{t,k}/\tilde{\lambda}_{t+1})(\pi^{gap}_{t+1}-1)\pi^{gap}_{t+1}(\tilde{y}_{t+1}/\tilde{y}_{t,k})]
 \end{gather}
-for $i=1,2$ where $i=1$ corresponds to the non-ZLB regime and $i=2$ corresponds to the ZLB regime.
+for $k=1,2$ where $k=1$ corresponds to the non-ZLB regime and $k=2$ corresponds to the ZLB regime.
 \begin{gather}
-V_l = V_{l,1}I + V_{l,2}(1-I) 
+V_{l,t} = V_{l,t,1}I + V_{l,t,2}(1-I) 
 \end{gather}
 for $l \in \{\lambda, \pi\}$ and $j=1,2$ and where $I$ is defined by:
-\begin{gather}
-  I = 1 \text{ if } i > 1\\
-  \text{  } = 0 \text{ otherwise}
-\end{gather}
-
+$$
+\begin{cases}
+  I = 1 & \text{ if } i > 1\\
+  I = 0 & \text{ otherwise.}
+\end{cases}
+$$
 %We use the functions, $V_l$, to determine the decisions rule though we do not approximate $V_l$ directly, because they inherit a kink associated with the ZLB constraint. Instead, we approximate functions, $V_{l,i}$, that are smoother and easier to approximate by specifying:
 %\begin{gather}
 %V_l = V_{l,1}I + V_{l,2}(1-I) 

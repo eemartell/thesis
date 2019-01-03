@@ -12,15 +12,16 @@ Vpip = x(2);     % Vpi policy current period
 %----------------------------------------------------------------------
 % Solve for variables
 %----------------------------------------------------------------------
-lam = 1/Vlambdap;
-c = lam;
-pigap = (1+sqrt((P.varphi + 4*Vpip)/P.varphi))/2;
-% Aggregate resource constraint (1)    
+% Back out inflation gap
+lam = 1/Vlambdap; %(1)
+c = lam; %(2)
+pigap = (1+sqrt((P.varphi + 4*Vpip)/P.varphi))/2; %(3)
+% Aggregate resource constraint (4)    
 y = c/(1-P.varphi*(pigap-1)^2/2);
-% Interest rate rule (2,3)
+% Interest rate rule (5,6)
 inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
 i = max(1,inp);
-% FOC Labor (4,5)
+% FOC Labor (7)
 w = S.chi*y^P.eta*lam;
 %----------------------------------------------------------------------
 % Linear interpolation of the policy variables
@@ -34,12 +35,13 @@ w = S.chi*y^P.eta*lam;
 %----------------------------------------------------------------------        
 % Solve for variables inside expectations
 %----------------------------------------------------------------------    
-lampArr3 = 1/VlambdapArr3;
-cppArr3 = lampArr3;
-pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3)/P.varphi))/2;
-% Aggregate resource constraint (1)  
+% Back out inflation gap
+lampArr3 = 1/VlambdapArr3; %(1)
+cppArr3 = lampArr3; %(2)
+pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3)/P.varphi))/2; %(3)
+% Aggregate resource constraint (4)  
 ypArr3 = cppArr3./(1-P.varphi*(pigappArr3-1).^2/2);
-% Stochastic discount factor (4,5)
+% Stochastic discount factor
 sdfArr3 = P.beta*lam./lampArr3;
 %----------------------------------------------------------------------
 % Numerical integration
@@ -48,8 +50,8 @@ sdfArr3 = P.beta*lam./lampArr3;
 EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*pigappArr3);
 EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
-x_up(1) = s*i*sum(EbondArr3(:))/(P.pi*lam);
-x_up(2) = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y;
+x_up(1) = s*i*sum(EbondArr3(:))/(P.pi*lam); %(8)
+x_up(2) = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %(9)
 %----------------------------------------------------------------------
 % Select regime and update first policy function accordingly
 %----------------------------------------------------------------------
