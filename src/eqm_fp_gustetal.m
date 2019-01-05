@@ -1,18 +1,18 @@
 function x_up = eqm_fp_gustetal(x,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3)
 
 % State Values
-g = state(1);      %Notional interest rate last period
-s = state(2);       %Growth state current period
-mp = state(3);       %Preference state current period
-in = state(4);      %Monetary policy state current period
-
+g = state(1);      %Growth state current period
+s = state(2);      %Risk premium state current period
+mp = state(3);     %Monetary policy state current period  
+in = state(4);     %Notional interest rate last period
+ 
 % Policy Function Guesses
 Vlambdap = x(1); %Vlambda policy current period
 Vpip = x(2);     % Vpi policy current period   
 %----------------------------------------------------------------------
 % Solve for variables
 %----------------------------------------------------------------------
-% Back out inflation gap
+% Back out pigap
 lam = 1/Vlambdap; %(1)
 c = lam; %(2)
 pigap = (1+sqrt((P.varphi + 4*Vpip)/P.varphi))/2; %(3)
@@ -20,7 +20,11 @@ pigap = (1+sqrt((P.varphi + 4*Vpip)/P.varphi))/2; %(3)
 y = c/(1-P.varphi*(pigap-1)^2/2);
 % Interest rate rule (5,6)
 inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
-i = max(1,inp);
+if P.zlbflag
+    i = max(1,inp);
+else
+    i = inp;
+end
 % FOC Labor (7)
 w = S.chi*y^P.eta*lam;
 %----------------------------------------------------------------------
@@ -35,7 +39,7 @@ w = S.chi*y^P.eta*lam;
 %----------------------------------------------------------------------        
 % Solve for variables inside expectations
 %----------------------------------------------------------------------    
-% Back out inflation gap
+% Back out pigap 
 lampArr3 = 1/VlambdapArr3; %(1)
 cppArr3 = lampArr3; %(2)
 pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3)/P.varphi))/2; %(3)
@@ -52,11 +56,4 @@ EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
 x_up(1) = s*i*sum(EbondArr3(:))/(P.pi*lam); %(8)
 x_up(2) = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %(9)
-%----------------------------------------------------------------------
-% Select regime and update first policy function accordingly
-%----------------------------------------------------------------------
-pigap_up = (1+sqrt((P.varphi + 4*x_up(2))/P.varphi))/2;
-inp_up = in^P.rhoi*(S.i*pigap_up^P.phipi)^(1-P.rhoi)*exp(mp);
-if inp_up <= 1
-    x_up(1) = s*sum(EbondArr3(:))/(P.pi*lam);
 end
