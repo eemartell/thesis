@@ -1,4 +1,4 @@
-function x_up = eqm_fp_gustetal(x,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3)
+function x_up = eqm_fp_gustetal(x,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3)
 
 % State Values
 g = state(1);      %Growth state current period
@@ -26,23 +26,18 @@ inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
 i = max(1,inp);
 if inp > 1
     lam = 1/Vlambdap; %(1)
-    c = lam; %(2)
-    % Aggregate resource constraint (4)    
-    y = c/(1-P.varphi*(pigap-1)^2/2);
-    % FOC Labor (7)
-    w = S.chi*y^P.eta*lam;
 else
     lam = 1/Vlambdap_zlb; %(1)
-    c = lam; %(2)
     pigap = (1+sqrt((P.varphi + 4*Vpip_zlb)/P.varphi))/2; %(3)
     % Interest rate rule (5,6)
     inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
     i = max(1,inp);
-    % Aggregate resource constraint (4)    
-    y = c/(1-P.varphi*(pigap-1)^2/2);
-    % FOC Labor (7)
-    w = S.chi*y^P.eta*lam;
 end
+c = lam; %(2)
+% Aggregate resource constraint (4)    
+y = c/(1-P.varphi*(pigap-1)^2/2);
+% FOC Labor (7)
+w = S.chi*y^P.eta*lam;
 %----------------------------------------------------------------------
 % Linear interpolation of the policy variables
 %----------------------------------------------------------------------
@@ -69,7 +64,7 @@ end
 %%%otherwise. 
 % Back out pigap 
 pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3)/P.varphi))/2; %(3)
-inpArr3 = in^P.rhoi.*(S.i*pigappArr3.^P.phipi).^(1-P.rhoi)*exp(mp); %???
+inpArr3 = inp^P.rhoi.*(S.i*pigappArr3.^P.phipi).^(1-P.rhoi).*exp(mpArr3);
 VlambdapArr3_combined = VlambdapArr3.*(inpArr3>1) + VlambdapArr3_zlb.*(inpArr3<=1);
 VpipArr3_combined = VpipArr3.*(inpArr3>1) + VpipArr3_zlb.*(inpArr3<=1);
 %%% Solve for all time t variables (inc ones above) using new V.
@@ -89,7 +84,7 @@ EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*pigappArr3);
 EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
 x_up(1) = s*i*sum(EbondArr3(:))/(P.pi*lam); %(8)
-x_up(2) = s*i*sum(EbondArr3(:))/(P.pi*lam); %???
+x_up(2) = s*sum(EbondArr3(:))/(P.pi*lam);
 x_up(3) = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %(9)
-x_up(4) = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %???
+x_up(4) = x_up(3); %Don't separate for Vpip_zlb???
 end
