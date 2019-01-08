@@ -39,7 +39,6 @@ O.alg = 'Gust';
 pf = guess(P,S,G,O);
 if strcmp(O.alg,'Gust')
     pf.hh_zlb = pf.hh;
-    pf.firm_zlb = pf.firm;
 end
 
 disp('Solving the model with MATLAB...'); pause(0.5)
@@ -54,7 +53,6 @@ pf_hh_up = zeros(G.griddim);
 pf_firm_up = zeros(G.griddim);
 if strcmp(O.alg,'Gust')
     pf_hh_zlb_up = zeros(G.griddim);
-    pf_firm_zlb_up = zeros(G.griddim);
 end
 it = 1;                                 % Iteration Counter
 converged = -1;                         % Convergence Flag
@@ -68,7 +66,7 @@ for inode = 1:G.nodes
     if strcmp(O.alg,'ART')
         start = [pf.hh(inode),pf.firm(inode)]'; %%%unpack all 4 if Gust
     elseif strcmp(O.alg,'Gust')
-        start = [pf.hh(inode),pf.hh_zlb(inode),pf.firm(inode),pf.firm_zlb(inode)]';
+        start = [pf.hh(inode),pf.hh_zlb(inode),pf.firm(inode)]';
     end
     state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),G.in_gr(inode)]; 
     e_weightVec = G.e_weight(G.g_gr(inode) == G.g_grid,:)';
@@ -101,7 +99,6 @@ for inode = 1:G.nodes
         pf_hh_up(inode) = argzero(1);
         pf_hh_zlb_up(inode) = argzero(2);
         pf_firm_up(inode) = argzero(3);
-        pf_firm_zlb_up(inode) = argzero(4);
     end
 end
 
@@ -111,7 +108,6 @@ dist_hh = abs(pf_hh_up - pf.hh);
 dist_firm = abs(pf_firm_up - pf.firm);
 if strcmp(O.alg,'Gust')
     dist_hh_zlb = abs(pf_hh_zlb_up - pf.hh_zlb);
-    dist_firm_zlb = abs(pf_firm_zlb_up - pf.firm_zlb);
 end
 
 %%%get max dist of all 4 if Gust
@@ -119,7 +115,7 @@ end
 if strcmp(O.alg,'ART')
     dist_max = max([dist_hh(:)',dist_firm(:)']);
 elseif strcmp(O.alg,'Gust')
-    dist_max = max([dist_hh(:)',dist_hh_zlb(:)',dist_firm(:)',dist_firm_zlb(:)']);
+    dist_max = max([dist_hh(:)',dist_hh_zlb(:)',dist_firm(:)']);
 end
 
 %%%update all 4 if Gust
@@ -128,7 +124,6 @@ pf.hh = pf_hh_up;
 pf.firm = pf_firm_up;
 if strcmp(O.alg,'Gust')
     pf.hh_zlb = pf_hh_zlb_up;
-    pf.firm_zlb = pf_firm_zlb_up;
 end
 
 % Find where ZLB binds
@@ -151,11 +146,9 @@ if strcmp(O.alg,'ART')
         reason = 2;
     end
 elseif strcmp(O.alg,'Gust')
-    c_up = 1/pf_firm_up;
-    c_zlb_up = 1/pf_firm_zlb_up;
-    pigap_zlb_up = (1+sqrt((P.varphi + 4*pf_firm_zlb_up)/P.varphi))/2;    
-    if (all(c_up(:) < 0) || all(c_zlb_up(:) < 0) || any(pigap_up(:) < 0.5)...
-        || any(pigap_zlb_up(:) < 0.5))
+    c_up = 1/pf_hh_up;
+    c_zlb_up = 1/pf_hh_zlb_up;
+    if (all(c_up(:) < 0) || all(c_zlb_up(:) < 0) || any(pigap_up(:) < 0.5))
         reason = 2;
     end
 end

@@ -11,7 +11,6 @@ in = state(4);     %Notional interest rate last period
 Vlambdap = x(1);     %Vlambda policy current period
 Vlambdap_zlb = x(2); 
 Vpip = x(3);         % Vpi policy current period
-Vpip_zlb = x(4);
 %----------------------------------------------------------------------
 % Solve for variables
 %----------------------------------------------------------------------
@@ -28,9 +27,8 @@ if inp > 1
     lam = 1/Vlambdap; %(1)
 else
     lam = 1/Vlambdap_zlb; %(1)
-    pigap = (1+sqrt((P.varphi + 4*Vpip_zlb)/P.varphi))/2; %(3)
     % Interest rate rule (5,6)
-    inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
+    inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp); %Don't need to recalculate???
     i = max(1,inp);
 end
 c = lam; %(2)
@@ -51,11 +49,11 @@ w = S.chi*y^P.eta*lam;
     G.in_grid,...
     inp,...
     pf.hh,pf.firm);
-[VlambdapArr3_zlb,VpipArr3_zlb] = Fallterp423_R(...
+[VlambdapArr3_zlb,VpipArr3] = Fallterp423_R(...
     O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
     G.in_grid,...
     inp,...
-    pf.hh_zlb,pf.firm_zlb);
+    pf.hh_zlb,pf.firm);
 %----------------------------------------------------------------------        
 % Solve for variables inside expectations
 %----------------------------------------------------------------------    
@@ -66,11 +64,9 @@ w = S.chi*y^P.eta*lam;
 pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3)/P.varphi))/2; %(3)
 inpArr3 = inp^P.rhoi.*(S.i*pigappArr3.^P.phipi).^(1-P.rhoi).*exp(mpArr3);
 VlambdapArr3_combined = VlambdapArr3.*(inpArr3>1) + VlambdapArr3_zlb.*(inpArr3<=1);
-VpipArr3_combined = VpipArr3.*(inpArr3>1) + VpipArr3_zlb.*(inpArr3<=1);
 %%% Solve for all time t variables (inc ones above) using new V.
 lampArr3 = 1/VlambdapArr3_combined; %(1)
 cppArr3 = lampArr3; %(2)
-pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3_combined)/P.varphi))/2; %(3)
 % Aggregate resource constraint (4)  
 ypArr3 = cppArr3./(1-P.varphi*(pigappArr3-1).^2/2);
 % Stochastic discount factor
@@ -86,5 +82,4 @@ EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 x_up(1) = s*i*sum(EbondArr3(:))/(P.pi*lam); %(8)
 x_up(2) = s*sum(EbondArr3(:))/(P.pi*lam);
 x_up(3) = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %(9)
-x_up(4) = x_up(3); %Don't separate for Vpip_zlb???
 end
