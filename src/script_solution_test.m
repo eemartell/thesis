@@ -35,7 +35,6 @@ O.alg = 'Gust';
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
-%%%if Gust, add pf.hh_zlb and pf.firm_zlb
 pf = guess(P,S,G,O);
 if strcmp(O.alg,'Gust')
     pf.hh_zlb = pf.hh;
@@ -48,7 +47,6 @@ spArr3 = permute(repmat(G.u_nodes,[1,O.e_pts,O.v_pts]),[2,1,3]);
 mpArr3 = permute(repmat(G.v_nodes,[1,O.e_pts,O.u_pts]),[3,1,2]); 
 
 % Preallocate arrays to store policy function updates
-%%% preallocate all 4 if Gust
 pf_hh_up = zeros(G.griddim);
 pf_firm_up = zeros(G.griddim);
 if strcmp(O.alg,'Gust')
@@ -64,7 +62,7 @@ istart = tic;                       % Iteration timer start
 for inode = 1:G.nodes
     % Find optimal policy functions on each node 
     if strcmp(O.alg,'ART')
-        start = [pf.hh(inode),pf.firm(inode)]'; %%%unpack all 4 if Gust
+        start = [pf.hh(inode),pf.firm(inode)]';
     elseif strcmp(O.alg,'Gust')
         start = [pf.hh(inode),pf.hh_zlb(inode),pf.firm(inode)]';
     end
@@ -90,7 +88,6 @@ for inode = 1:G.nodes
                             O,P,S,G,pf,gpArr3,mpArr3,weightArr3);
         end
     end
-    %%%store all 4 if Gust
     % Store updated policy functions
     if strcmp(O.alg,'ART')
         pf_hh_up(inode) = argzero(1);
@@ -102,7 +99,6 @@ for inode = 1:G.nodes
     end
 end
 
-%%%get distances of all 4 if Gust
 % Policy function distances
 dist_hh = abs(pf_hh_up - pf.hh);
 dist_firm = abs(pf_firm_up - pf.firm);
@@ -110,7 +106,6 @@ if strcmp(O.alg,'Gust')
     dist_hh_zlb = abs(pf_hh_zlb_up - pf.hh_zlb);
 end
 
-%%%get max dist of all 4 if Gust
 % Maximum distance
 if strcmp(O.alg,'ART')
     dist_max = max([dist_hh(:)',dist_firm(:)']);
@@ -118,7 +113,6 @@ elseif strcmp(O.alg,'Gust')
     dist_max = max([dist_hh(:)',dist_hh_zlb(:)',dist_firm(:)']);
 end
 
-%%%update all 4 if Gust
 % Update policy functions
 pf.hh = pf_hh_up;
 pf.firm = pf_firm_up;
