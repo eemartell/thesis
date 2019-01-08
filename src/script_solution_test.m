@@ -37,6 +37,10 @@ O.alg = 'Gust';
 % Obtain Guess
 %%%if Gust, add pf.hh_zlb and pf.firm_zlb
 pf = guess(P,S,G,O);
+if strcmp(O.alg,'Gust')
+    pf.hh_zlb = pf.hh;
+    pf.firm_zlb = pf.firm;
+end
 
 disp('Solving the model with MATLAB...'); pause(0.5)
 % Exogenous processes   
@@ -47,6 +51,10 @@ spArr3 = permute(repmat(G.u_nodes,[1,O.e_pts,O.v_pts]),[2,1,3]);
 %%% preallocate all 4 if Gust
 pf_hh_up = zeros(G.griddim);
 pf_firm_up = zeros(G.griddim);
+if strcmp(O.alg,'Gust')
+    pf_hh_zlb_up = zeros(G.griddim);
+    pf_firm_zlb_up = zeros(G.griddim);
+end
 it = 1;                                 % Iteration Counter
 converged = -1;                         % Convergence Flag
 reason = 0; 							% Stopping reason
@@ -55,8 +63,12 @@ while converged == -1
 istart = tic;                       % Iteration timer start
 %        parfor inode = 1:G.nodes
 for inode = 1:G.nodes
-    % Find optimal policy functions on each node  
-    start = [pf.hh(inode),pf.firm(inode)]'; %%%unpack all 4 if Gust
+    % Find optimal policy functions on each node 
+    if strcmp(O.alg,'ART')
+        start = [pf.hh(inode),pf.firm(inode)]'; %%%unpack all 4 if Gust
+    elseif strcmp(O.alg,'Gust')
+        start = [pf.hh(inode),pf.hh_zlb(inode),pf.firm(inode),pf.firm_zlb(inode)]';
+    end
     state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),G.in_gr(inode)]; 
     e_weightVec = G.e_weight(G.g_gr(inode) == G.g_grid,:)';
     u_weightVec = G.u_weight(G.s_gr(inode) == G.s_grid,:)';
@@ -80,24 +92,43 @@ for inode = 1:G.nodes
         end
     end
     %%%store all 4 if Gust
-    % Store updated policy functions       
-    pf_hh_up(inode) = argzero(1);
-    pf_firm_up(inode) = argzero(2);
+    % Store updated policy functions
+    if strcmp(O.alg,'ART')
+        pf_hh_up(inode) = argzero(1);
+        pf_firm_up(inode) = argzero(2);
+    elseif strcmp(O.alg,'Gust')
+        pf_hh_up(inode) = argzero(1);
+        pf_hh_zlb_up(inode) = argzero(2);
+        pf_firm_up(inode) = argzero(3);
+        pf_firm_zlb_up(inode) = argzero(4);
+    end
 end
 
 %%%get distances of all 4 if Gust
 % Policy function distances
 dist_hh = abs(pf_hh_up - pf.hh);
 dist_firm = abs(pf_firm_up - pf.firm);
+if strcmp(O.alg,'Gust')
+    dist_hh_zlb = abs(pf_hh_zlb_up - pf.hh_zlb);
+    dist_firm_zlb = abs(pf_firm_zlb_up - pf.firm_zlb);
+end
 
 %%%get max dist of all 4 if Gust
 % Maximum distance
-dist_max = max([dist_hh(:)',dist_firm(:)']);
+if strcmp(O.alg,'ART')
+    dist_max = max([dist_hh(:)',dist_firm(:)']);
+elseif strcmp(O.alg,'Gust')
+    dist_max = max([dist_hh(:)',dist_hh_zlb(:)',dist_firm(:)',dist_firm_zlb(:)']);
+end
 
 %%%update all 4 if Gust
 % Update policy functions
 pf.hh = pf_hh_up;
 pf.firm = pf_firm_up;
+if strcmp(O.alg,'Gust')
+    pf.hh_zlb = pf_hh_zlb_up;
+    pf.firm_zlb = pf_firm_zlb_up;
+end
 
 % Find where ZLB binds
 if strcmp(O.alg,'ART')
@@ -111,7 +142,7 @@ locs = find(inp <= 1);
 perbind = 100*numel(locs)/G.nodes;
 
 % Stopping reasons
-if dist_max > 1%0.5
+if dist_max > 0.75
     reason = 1;
 end
 if strcmp(O.alg,'ART')
@@ -120,7 +151,10 @@ if strcmp(O.alg,'ART')
     end
 elseif strcmp(O.alg,'Gust')
     c_up = 1/pf_firm_up;
-    if (all(c_up(:) < 0) || any(pigap_up(:) < 0.5))
+    c_zlb_up = 1/pf_firm_zlb_up;
+    pigap_zlb_up = (1+sqrt((P.varphi + 4*pf_firm_zlb_up)/P.varphi))/2;    
+    if (all(c_up(:) < 0) || all(c_zlb_up(:) < 0) || any(pigap_up(:) < 0.5)...
+        || any(pigap_zlb_up(:) < 0.5))
         reason = 2;
     end
 end
