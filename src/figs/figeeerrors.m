@@ -13,7 +13,7 @@ plottype = 'P';
 %   ti: time iteration
 %   fp: fixed point
 O.it = 'fp';
-O.alg = 'ART';
+O.alg = 'Gust';
 
 % Figure name
 figname = ['eeerrors' O.it O.alg];
@@ -23,8 +23,8 @@ sim = true;
 if sim == true
     if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
         load('../solutions/eeerrors_simfpART')
-    elseif strcmp(O.it,'ti')
-        load('../solutions/eeerrors_simti')
+    elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
+        load('../solutions/eeerrors_simfpGust')
     end
 else
     load('../solutions/eeerrors')
@@ -32,6 +32,9 @@ end
 
 EE(:,1) = R.EE1(:);
 EE(:,2) = R.EE2(:);
+if strcmp(O.alg, 'Gust')
+    EE(:,3) = R.EE3(:);
+end
 nEE = size(EE,1);
 
 EE_noZLB(:,1) = R.EE1(R.notZLBlocs);
@@ -39,10 +42,17 @@ EE_noZLB(:,2) = R.EE2(R.notZLBlocs);
 nEE_noZLB = size(EE_noZLB,1);
 EE_ZLB(:,1) = R.EE1(R.ZLBlocs);
 EE_ZLB(:,2) = R.EE2(R.ZLBlocs);
+if strcmp(O.alg, 'Gust')
+    EE_noZLB(:,3) = R.EE3(R.notZLBlocs);
+    EE_ZLB(:,3) = R.EE3(R.ZLBlocs);
+end
 nEE_ZLB = size(EE_ZLB,1);
 nbars = 10;%5;
-titles = {'Consumption Euler','Firm Pricing'};
-
+if strcmp(O.alg,'ART')
+    titles = {'Consumption Euler','Firm Pricing'};
+elseif strcmp(O.alg,'Gust')
+     titles = {'Consumption Euler non-ZLB','Consumption Euler ZLB','Firm Pricing'};
+end
 % Plot options
 if strcmp(plottype,'M')
     savename = ['Figs/' figname];
@@ -64,11 +74,16 @@ elseif strcmp(plottype,'P')
     subpad.legend = 0; % Increase if legend overlaps subplot titles
     fontsize = 8;
 end
-plotdim = [1,2];
+if strcmp(O.alg,'ART')
+    num = 2;
+elseif strcmp(O.alg,'Gust')
+    num = 3;
+end
+plotdim = [1,num];
 
 figure;
 set(gcf,'position',figbox);
-for iEE = 1:2
+for iEE = 1:num
     [col,row] = ind2sub(plotdim([2 1]),iEE);
     left = (col-1+subpad.left)/plotdim(2);
     bottom = (1-(row-subpad.bot)/plotdim(1))/(1+subpad.legend);
@@ -80,7 +95,11 @@ for iEE = 1:2
     [N1,X1] = hist(EE_noZLB(:,iEE),nbars); %no ZLB
     bar(X1,100*N1/nEE_noZLB) 
     [N2,X2] = hist(EE_ZLB(:,iEE),nbars); %ZLB
-    bar(X2,100*N2/nEE_ZLB) 
+    bar(X2,100*N2/nEE_ZLB)
+    if strcmp(O.alg,'Gust')
+        [N3,X3] = hist(EE_ZLB(:,iEE),nbars); %ZLB
+        bar(X3,100*N3/nEE_ZLB)
+    end
     title('Euler Equation','interpreter','latex','fontsize',fontsize)
     ylabel('Frequency (\%)','interpreter','latex','fontsize',fontsize)
     xlabel('Errors ($\log_{10}$)','interpreter','latex','fontsize',fontsize)

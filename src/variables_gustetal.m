@@ -13,7 +13,7 @@ V.names = { 'c'          %1  Consumption
             'lam'        %4  Inverse MUC
             'w'          %5  Real wage rate
             'pi'         %6  Gross inflation
-            'Vlam'       %7  GustEtAl equation for lambda
+            'Vlam'       %7  GustEtAl equation for lambda, non-ZLB
             'y'          %8  Output
             'Vpi'        %9  GustEtAl equation for pigap
             'n'          %10  Labor hours
@@ -29,7 +29,7 @@ V.desc = {  'Consumption'
             'Inverse MUC'
             'Real Wage Rate'
             'Inflation Rate'
-            'V eq. for lambda'
+            'V eq. for lambda, non-ZLB'
             'Output'
             'V eq. for pigap'
             'Labor Hours'

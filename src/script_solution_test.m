@@ -19,19 +19,26 @@ tstart = tic;                           % Job timer start
 % Save rule {'on','off'}
 saving = 'on';
 
+
+
+
+
+% Solution algorithm
+%   ART:  pf.hh = pf.hh;    pf.firm = pf.firm
+%   Gust: pf.hh = pf.Vlam; pf.firm = pf.Vpi 
+O.alg = 'ART';
+
 % Load options, parameters, and steady state
-load('solutions/options.mat');
+if strcmp(O.alg,'ART')
+    load('solutions/optionsART.mat');
+elseif strcmp(O.alg,'Gust')
+    load('solutions/optionsGust.mat');
+end
 
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
 O.it = 'fp';
-
-% Solution algorithm
-%   ART:  pf.hh = pf.hh;    pf.firm = pf.firm
-%   Gust: pf.hh = pf.Vlam; pf.firm = pf.Vpi 
-O.alg = 'Gust';
-
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess

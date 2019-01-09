@@ -11,7 +11,7 @@ saving = 'on';
 %   ti: time iteration
 %   fp: fixed point
 O.it = 'fp';
-O.alg = 'ART';
+O.alg = 'Gust';
 
 if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
     disp('Using ART fixed point solution')
@@ -24,7 +24,7 @@ end
 %   Simulation parameters
 npers = 2000;
 nobs = npers;
-V = variables;
+%V = variables_gustetal;
 mtstream = RandStream('mt19937ar','seed',2);
 RandStream.setGlobalStream(mtstream);
 shockse = randn(npers,1);
@@ -37,7 +37,12 @@ u = shocksu;
 %   Interest rate shocks
 v = shocksv;
 %   Simulate for densities
-sims = simulation_test(pf,P,S,G,V,e,u,v);
+if strcmp(O.alg, 'ART')
+    sims = simulation_test(pf,P,S,G,V,e,u,v);
+elseif strcmp(O.alg, 'Gust')
+    V.Vlam_zlb = V.nplotvar+1;    
+    sims = simulation_test_gustetal(pf,P,S,G,V,e,u,v);
+end
 
 % Shocks
 GH.shockpts = 11;
@@ -59,21 +64,39 @@ weightArr3 = e_weightArr3.*u_weightArr3.*v_weightArr3;
 
 % Exogenous processes
 gpArr3 = e_nodes(:,ones(GH.shockpts,1),ones(GH.shockpts,1));
-apArr3 = permute(u_nodes(:,ones(GH.shockpts,1),ones(GH.shockpts,1)),[2,1,3]);
+spArr3 = permute(u_nodes(:,ones(GH.shockpts,1),ones(GH.shockpts,1)),[2,1,3]);
+mpArr3 = permute(v_nodes(:,ones(GH.shockpts,1),ones(GH.shockpts,1)),[2,3,1]); %???
 
 EE1 = zeros(npers,1);
 EE2 = zeros(npers,1);
+if strcmp(O.alg,'Gust')
+    EE3 = zeros(npers,1);
+end
 for time = 2:npers
-        start = [sims(time,V.c),sims(time,V.pi)/P.pi]';
-        state = [sims(time,V.g),sims(time,V.s),sims(time,V.mp),sims(time-1,V.in)];
-        % Approximate solution
-        EE_temp = eqm(start,state,O,P,S,G,pf,gpArr3,apArr3,weightArr3,GH);      
+    state = [sims(time,V.g),sims(time,V.s),sims(time,V.mp),sims(time-1,V.in)];
+        if strcmp(O.alg, 'ART')
+            start = [sims(time,V.c),sims(time,V.pi)/P.pi]';
+            % Approximate solution
+            EE_temp = eqm(start,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3,GH);      
+        elseif strcmp(O.alg, 'Gust')
+            start = [sims(time,V.Vlam),sims(time,V.Vlam_zlb),sims(time,V.Vpi)]; %???
+             % Approximate solution           
+             EE_temp = eqm_gustetal(start,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,GH);    
+        end
          % Store Euler Equation errors
         EE1(time) = abs(EE_temp(1));
         EE2(time) = abs(EE_temp(2));
+        if strcmp(O.alg,'Gust')
+            EE3(time) = abs(EE_temp(3));
+        end
 end
 % Find where ZLB binds
-inp = sims(1:end-1,V.in).^P.rhoi.*(S.i*sims(2:end,V.pi).^P.phipi).^(1-P.rhoi).*exp(sims(2:end,V.mp));
+if strcmp(O.alg,'ART')
+    inp = sims(1:end-1,V.in).^P.rhoi.*(S.i*sims(2:end,V.pi).^P.phipi).^(1-P.rhoi).*exp(sims(2:end,V.mp));
+elseif strcmp(O.alg,'Gust')
+    pigap_up = (1+sqrt((P.varphi + 4*sims(:,V.Vpi))/P.varphi))/2;
+    inp = sims(1:end-1,V.in).^P.rhoi.*(S.i*pigap_up(2:end).^P.phipi).^(1-P.rhoi).*exp(sims(2:end,V.mp));    
+end
 R.ZLBlocs = find(inp <= 1);
 R.notZLBlocs = find(inp > 1);
 %   Percent nodes binding
@@ -81,9 +104,14 @@ R.perbind = 100*numel(R.ZLBlocs)/npers;
 
 R.EE1 = log10(EE1(2:end));
 R.EE2 = log10(EE2(2:end));
-R.meanEE = [mean(R.EE1),mean(R.EE2)];
-R.maxEE = [max(R.EE1),max(R.EE2)];
-
+if strcmp(O.alg,'Gust')
+    R.EE3 = log10(EE3(2:end));
+    R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3)];
+    R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3)];
+elseif strcmp(O.alg,'ART')
+    R.meanEE = [mean(R.EE1),mean(R.EE2)];
+    R.maxEE = [max(R.EE1),max(R.EE2)];
+end
 %% Save results
 if strcmp(saving,'on')
     fname = ['eeerrors_sim' O.it O.alg];

@@ -2,8 +2,14 @@
 clear
 clc
 
+O.alg = 'ART';
+
 % Model solution variables and options
-V = variables;
+if strcmp(O.alg,'Gust')
+    V = variables_gustetal;
+elseif strcmp(O.alg,'ART')
+    V = variables;
+end
 
 % Solution space
 %   Problem size
@@ -29,4 +35,5 @@ G = grids(O,P,S);
 
 
 % Save
-save('solutions/options.mat','V','O','P','S','G')
+fname = ['solutions/options' O.alg];
+save([fname '.mat'],'V','O','P','S','G')
