@@ -16,7 +16,7 @@ O.it = 'fp';
 O.alg = 'ART';
 
 % Figure name
-figname = ['eeerrors' O.it O.alg];
+figname = mfilename;
 
 % Load solution at posterior mean
 sim = true;
@@ -45,7 +45,7 @@ titles = {'Consumption Euler','Firm Pricing'};
 
 % Plot options
 if strcmp(plottype,'M')
-    savename = ['Figs/' figname];
+    savename = figname;
     figbox = [1,1,6.5,2.5];
     subpad.bot = .175; % Increase if xaxis lables are cut off
     subpad.top = .125; % Increase if subplot title is cut off
@@ -54,7 +54,7 @@ if strcmp(plottype,'M')
     subpad.legend = 0; % Increase if legend overlaps subplot titles
     fontsize = 10; 
 elseif strcmp(plottype,'P')
-    savename = ['Figs/' figname '_pres'];
+    savename = [figname '_pres'];
     set(0,'DefaultAxesFontSize',8)
     figbox = [1,1,4.5,2.5];
     subpad.bot = .175; % Increase if xaxis lables are cut off
