@@ -5,8 +5,8 @@ pf_ALG.c = pf.hh;
 pf_ALG.pigap = pf.firm;
 load('solutionfpGust.mat')
 perbind_Gust = perbind;
-pf_Gust.c = 1/pf.hh;
-pf_Gust.pigap = (1+sqrt((P.varphi+4*pf.firm)/P.varphi))/2;
+pf_Gust.c = pf.hh;
+pf_Gust.pigap = pf.firm;
 if all(pf_Gust.c(:) - pf_ALG.c(:) < P.tol) && all(pf_Gust.pigap(:) - pf_ALG.pigap(:) < P.tol)
     disp(['The solutions are equivalent up to a tolerance of: ' num2str(P.tol)]);
 end

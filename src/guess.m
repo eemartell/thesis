@@ -29,18 +29,9 @@ in_gr_per = G.in_gr./S.i - 1;
 linpf_hh = zeros(G.griddim);
 linpf_firm = zeros(G.griddim);
 state = [g_gr_per(:),s_gr_per(:),mp_gr_per(:),in_gr_per(:)]';
-if strcmp(O.alg,'ART')
-    linpf_hh(:) = T(V.c,[V.g,V.s,V.mp,V.in])*state;
-    linpf_firm(:) = T(V.pi,[V.g,V.s,V.mp,V.in])*state;
-elseif strcmp(O.alg,'Gust')
-    linpf_hh(:) = T(V.Vlam,[V.g,V.s,V.mp,V.in])*state; %%%don't need extra conditional here
-    linpf_firm(:) = T(V.Vpi,[V.g,V.s,V.mp,V.in])*state;    
-end
+linpf_hh(:) = T(V.c,[V.g,V.s,V.mp,V.in])*state;
+linpf_firm(:) = T(V.pi,[V.g,V.s,V.mp,V.in])*state;
+  
 % Convert back to levels
-if strcmp(O.alg,'ART')
-    pf.hh = S.c*(1 + linpf_hh); 
-    pf.firm = 1 + linpf_firm;
-elseif strcmp(O.alg,'Gust') %%%don't need extra conditional here
-    pf.hh = (1/S.c)*(1 + linpf_hh); % S.Vlam = 1/S.c 
-    pf.firm = linpf_firm; % S.Vpi = 0
-end
+pf.hh = S.c*(1 + linpf_hh); 
+pf.firm = 1 + linpf_firm;

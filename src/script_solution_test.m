@@ -26,7 +26,7 @@ saving = 'on';
 % Solution algorithm
 %   ART:  pf.hh = pf.hh;    pf.firm = pf.firm
 %   Gust: pf.hh = pf.Vlam; pf.firm = pf.Vpi 
-O.alg = 'ART';
+O.alg = 'Gust';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')
@@ -128,12 +128,7 @@ if strcmp(O.alg,'Gust')
 end
 
 % Find where ZLB binds
-if strcmp(O.alg,'ART')
-    inp = G.in_gr.^P.rhoi.*(S.i*pf_firm_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
-elseif strcmp(O.alg,'Gust') %%%won't need conditional for interest rate calculation
-    pigap_up = (1+sqrt((P.varphi + 4*pf_firm_up)/P.varphi))/2;
-    inp = G.in_gr.^P.rhoi.*(S.i*pigap_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
-end
+inp = G.in_gr.^P.rhoi.*(S.i*pf_firm_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
 locs = find(inp <= 1);
 %   Percent nodes binding
 perbind = 100*numel(locs)/G.nodes;
@@ -147,9 +142,7 @@ if strcmp(O.alg,'ART')
         reason = 2;
     end
 elseif strcmp(O.alg,'Gust')
-    c_up = 1/pf_hh_up; %%%won't need to solve for stuff here
-    c_zlb_up = 1/pf_hh_zlb_up;
-    if (all(c_up(:) < 0) || all(c_zlb_up(:) < 0) || any(pigap_up(:) < 0.5))
+    if (all(pf_hh_up(:) < 0) || all(pf_hh_zlb_up(:) < 0) || any(pf_firm_up(:) < 0.5))
         reason = 2;
     end
 end
