@@ -41,7 +41,7 @@ if strcmp(O.alg, 'ART')
     sims = simulation_test(pf,P,S,G,V,e,u,v);
 elseif strcmp(O.alg, 'Gust')
     V.Vlam_zlb = V.nplotvar+1;    
-    sims = simulation_test_gustetal(pf,P,S,G,V,e,u,v);
+    sims = simulation_test_gustetal(pf,P,S,G,V,e,u,v); %%%fix
 end
 
 % Shocks
@@ -79,6 +79,7 @@ for time = 2:npers
             % Approximate solution
             EE_temp = eqm(start,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3,GH);      
         elseif strcmp(O.alg, 'Gust')
+            %%%cs and pigap here
             start = [sims(time,V.Vlam),sims(time,V.Vlam_zlb),sims(time,V.Vpi)]; %???
              % Approximate solution           
              EE_temp = eqm_gustetal(start,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,GH);    
@@ -91,7 +92,7 @@ for time = 2:npers
         end
 end
 % Find where ZLB binds
-if strcmp(O.alg,'ART')
+if strcmp(O.alg,'ART') %%%no conditional here
     inp = sims(1:end-1,V.in).^P.rhoi.*(S.i*sims(2:end,V.pi).^P.phipi).^(1-P.rhoi).*exp(sims(2:end,V.mp));
 elseif strcmp(O.alg,'Gust')
     pigap_up = (1+sqrt((P.varphi + 4*sims(:,V.Vpi))/P.varphi))/2;

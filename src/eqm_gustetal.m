@@ -19,38 +19,36 @@ mp = state(3);      %Monetary policy state current period
 in = state(4);  	%Notional interest rate last period
 
 % Policy Function Guesses
-% Put V functions here instead
-Vlambdap = x(1);      %Vlambda policy current period, non-ZLB
-Vlambdap_zlb = x(2);  %Vlambda policy current period, ZLB
-Vpip = x(3);          % Vpi policy current period    
+cp = x(1);      %Vlambda policy current period, non-ZLB
+cp_zlb = x(2);  %Vlambda policy current period, ZLB
+pigap = x(3);          % Vpi policy current period    
 %----------------------------------------------------------------------
 % Solve for variables
 %----------------------------------------------------------------------
-% Back out pigap
-pigap = (1+sqrt((P.varphi + 4*Vpip)/P.varphi))/2; %(1)
 % Interest rate rule (2,3)
 inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
 i = max(1,inp);
 if inp > 1
-    lam = 1/Vlambdap; %(4)
+    lam = cp;
+    % Aggregate resource constraint (6)    
+    y = cp/(1-P.varphi*(pigap-1)^2/2);
 else
-    lam = 1/Vlambdap_zlb; %(4)
+    lam = cp_zlb;
+    % Aggregate resource constraint (6)    
+    y = cp_zlb/(1-P.varphi*(pigap-1)^2/2); 
 end
-c = lam; %(5)
-% Aggregate resource constraint (6)    
-y = c/(1-P.varphi*(pigap-1)^2/2);
 % FOC Labor (7)
 w = S.chi*y^P.eta*lam;
 %----------------------------------------------------------------------
 % Linear interpolation of the policy variables
 %----------------------------------------------------------------------
 if ~EEflag         
-    [VlambdapArr3,VpipArr3] = Fallterp423_R(...
+    [cppArr3,pigappArr3] = Fallterp423_R(...
         O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
         G.in_grid,...
         inp,...
         pf.hh,pf.firm);
-    [VlambdapArr3_zlb,VpipArr3] = Fallterp423_R(...
+    [cppArr3_zlb,pigappArr3] = Fallterp423_R(...
         O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
         G.in_grid,...
         inp,...
@@ -62,11 +60,11 @@ else
     spVec = (1-P.rhos)*P.s + P.rhos*s + GH.u_nodes;
     % Monetary policy
     mpVec = GH.v_nodes;    
-    [VlambdapArr3,VpipArr3] = allterp423(...
+    [cppArr3,pigappArr3] = allterp423(...
                             G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
                             gpVec,spVec,GH.v_nodes,inp,...
                             pf.hh,pf.firm);
-    [VlambdapArr3_zlb,VpipArr3] = allterp423(...
+    [cppArr3_zlb,pigappArr3] = allterp423(...
                             G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
                             gpVec,spVec,GH.v_nodes,inp,...
                             pf.hh_zlb,pf.firm);                      
@@ -78,15 +76,13 @@ end
 % Solve for variables inside expectations
 %---------------------------------------------------------------------- 
 % Back out pigap 
-pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3)/P.varphi))/2; %(1)
 inpArr3 = inp^P.rhoi.*(S.i*pigappArr3.^P.phipi).^(1-P.rhoi).*exp(mpArr3); %(2)
-VlambdapArr3_combined = VlambdapArr3.*(inpArr3>1) + VlambdapArr3_zlb.*(inpArr3<=1);
+cppArr3_combined = cppArr3.*(inpArr3>1) + cppArr3_zlb.*(inpArr3<=1);
 % Solve for variables using combined Vlambda
-lampArr3 = 1/VlambdapArr3_combined; %(4)
-cppArr3 = lampArr3; %(5)
 % Aggregate resource constraint (6)  
-ypArr3 = cppArr3./(1-P.varphi*(pigappArr3-1).^2/2);
+ypArr3 = cppArr3_combined./(1-P.varphi*(pigappArr3-1).^2/2);
 % Stochastic discount factor
+lampArr3 = cppArr3_combined;
 sdfArr3 = P.beta*lam./lampArr3;
 %----------------------------------------------------------------------
 % Numerical integration
@@ -100,7 +96,7 @@ Efp = sum(EfpArr3(:));
 %----------------------------------------------------------------------
 % First-order conditions
 %----------------------------------------------------------------------
-% probably doesn't change unless they are writtin in terms of V somehow
+%%%I think these were already written in terms of c, pigap
 % Consumption Euler equation (3)
 R(1) = 1 - s*i*Ebond/P.pi;
 R(2) = 1 - s*Ebond/P.pi;

@@ -52,8 +52,8 @@ for t = 2:npers
     % Monetary policy state
     sims(t,V.mp,:) = P.rhomp*sims(t-1,V.mp,:) + P.sigv.*vTemp(t,1,:);
     % Evaluate policy functions
-    %%%Interpolate both set of policy functions
-    [sims(t,V.Vlam,:),sims(t,V.Vpi,:)] = Fallterp42c_F(...
+    %%%Interpolate both set of policy functions cs and pigap here
+    [sims(t,V.Vlam,:),sims(t,V.Vpi,:)] = Fallterp42c_F(... 
         G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
         squeeze(sims(t,V.g,:)),squeeze(sims(t,V.s,:)),squeeze(sims(t,V.mp,:)),...
         squeeze(sims(t-1,V.in,:)),...
@@ -63,14 +63,16 @@ for t = 2:npers
         squeeze(sims(t,V.g,:)),squeeze(sims(t,V.s,:)),squeeze(sims(t,V.mp,:)),...
         squeeze(sims(t-1,V.in,:)),...
         pf.hh_zlb,pf.firm);
-    pigap = (1+sqrt((P.varphi + 4*sims(t,V.Vpi,:))/P.varphi))/2; %(1)
+    pigap = (1+sqrt((P.varphi + 4*sims(t,V.Vpi,:))/P.varphi))/2; %(1) %%%don't need to calculate pigap first
     sims(t,V.pi,:) = P.pi*pigap;
     % Interest rate rule    
     sims(t,V.in,:) = sims(t-1,V.in,:).^P.rhoi.*(S.i*pigap.^P.phipi)...
         .^(1-P.rhoi).*exp(sims(t,V.mp,:));
-    Vlam_combined = sims(t,V.Vlam,:).*(sims(t,V.in,:)>1) + sims(t,V.Vlam_zlb,:).*(sims(t,V.in,:)<=1);
+    Vlam_combined = sims(t,V.Vlam,:).*(sims(t,V.in,:)>1) + sims(t,V.Vlam_zlb,:).*(sims(t,V.in,:)<=1); %%%combined with c's instead
     sims(t,V.i,:) = max(1,sims(t,V.in,:));
 
+    %%%redo calculations here to back out rest of variables (you need all
+    %%%of the ones below)
     % Lambda
     sims(t,V.lam,:) = 1/Vlam_combined;     
     % ARC
