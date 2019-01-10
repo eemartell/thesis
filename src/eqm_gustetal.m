@@ -1,5 +1,6 @@
 function R = eqm_gustetal(x,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,varargin)
-
+%%%change in the stye of eqm_fp_gustetal, noting that you need residuals
+%%%rather than solving for c and pi
 % Get original grids and GH nodes
 if ~isempty(varargin)
     EEflag = 1;

@@ -93,13 +93,9 @@ for iEE = 1:num
     %[N,X] = hist(EE(:,iEE),nbars);
     %bar(X,100*N/nEE)
     [N1,X1] = hist(EE_noZLB(:,iEE),nbars); %no ZLB
-    bar(X1,100*N1/nEE_noZLB) 
+    bar(X1,100*N1/nEE_noZLB,'grouped') 
     [N2,X2] = hist(EE_ZLB(:,iEE),nbars); %ZLB
-    bar(X2,100*N2/nEE_ZLB)
-    if strcmp(O.alg,'Gust')
-        [N3,X3] = hist(EE_ZLB(:,iEE),nbars); %ZLB
-        bar(X3,100*N3/nEE_ZLB)
-    end
+    bar(X2,100*N2/nEE_ZLB,'grouped')
     title('Euler Equation','interpreter','latex','fontsize',fontsize)
     ylabel('Frequency (\%)','interpreter','latex','fontsize',fontsize)
     xlabel('Errors ($\log_{10}$)','interpreter','latex','fontsize',fontsize)

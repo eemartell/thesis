@@ -7,12 +7,16 @@ mp = state(3);     %Monetary policy state current period
 in = state(4);     %Notional interest rate last period
  
 % Policy Function Guesses
+%%%these will be c, c_zlb, and pigap
 Vlambdap = x(1);     %non-ZLB Vlambda policy current period
 Vlambdap_zlb = x(2); %ZLB Vlambda policy current period
 Vpip = x(3);         % Vpi policy current period
 %----------------------------------------------------------------------
 % Solve for variables
 %----------------------------------------------------------------------
+%%%unpacking and solving for variables will be different here
+%%%solve immediately for interest rate
+%%%only solve for what's needed in last steps
 % Back out pigap
 pigap = (1+sqrt((P.varphi + 4*Vpip)/P.varphi))/2; %(1)
 % Interest rate rule (2,3)
@@ -45,10 +49,12 @@ w = S.chi*y^P.eta*lam;
 % Solve for variables inside expectations
 %----------------------------------------------------------------------    
 % Back out pigap 
+%%%can solve immediately for interest rate and then split up c into regimes
 pigappArr3 = (1+sqrt((P.varphi + 4*VpipArr3)/P.varphi))/2; %(1)
 inpArr3 = inp^P.rhoi.*(S.i*pigappArr3.^P.phipi).^(1-P.rhoi).*exp(mpArr3); %(2)
 VlambdapArr3_combined = VlambdapArr3.*(inpArr3>1) + VlambdapArr3_zlb.*(inpArr3<=1);
 % Solve for variables using combined Vlambda
+%%%solve for variables using combined c_combined
 lampArr3 = 1/VlambdapArr3_combined; %(4)
 cppArr3 = lampArr3; %(5)
 % Aggregate resource constraint (6)  
@@ -62,6 +68,8 @@ sdfArr3 = P.beta*lam./lampArr3;
 EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*pigappArr3);
 EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
+%%%solve for c and pigap here
+%%%start fixing from bottom and work up so you know what you'll need
 x_up(1) = s*i*sum(EbondArr3(:))/(P.pi*lam); %(8)
 x_up(2) = s*sum(EbondArr3(:))/(P.pi*lam);
 x_up(3) = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %(9)

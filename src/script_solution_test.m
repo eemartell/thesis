@@ -130,7 +130,7 @@ end
 % Find where ZLB binds
 if strcmp(O.alg,'ART')
     inp = G.in_gr.^P.rhoi.*(S.i*pf_firm_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
-elseif strcmp(O.alg,'Gust')
+elseif strcmp(O.alg,'Gust') %%%won't need conditional for interest rate calculation
     pigap_up = (1+sqrt((P.varphi + 4*pf_firm_up)/P.varphi))/2;
     inp = G.in_gr.^P.rhoi.*(S.i*pigap_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
 end
@@ -147,7 +147,7 @@ if strcmp(O.alg,'ART')
         reason = 2;
     end
 elseif strcmp(O.alg,'Gust')
-    c_up = 1/pf_hh_up;
+    c_up = 1/pf_hh_up; %%%won't need to solve for stuff here
     c_zlb_up = 1/pf_hh_zlb_up;
     if (all(c_up(:) < 0) || all(c_zlb_up(:) < 0) || any(pigap_up(:) < 0.5))
         reason = 2;
