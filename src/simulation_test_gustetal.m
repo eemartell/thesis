@@ -53,35 +53,31 @@ for t = 2:npers
     sims(t,V.mp,:) = P.rhomp*sims(t-1,V.mp,:) + P.sigv.*vTemp(t,1,:);
     % Evaluate policy functions
     %%%Interpolate both set of policy functions cs and pigap here
-    [sims(t,V.Vlam,:),sims(t,V.Vpi,:)] = Fallterp42c_F(... 
+    [sims(t,V.c,:),pigap(1,1,:)] = Fallterp42c_F(... 
         G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
         squeeze(sims(t,V.g,:)),squeeze(sims(t,V.s,:)),squeeze(sims(t,V.mp,:)),...
         squeeze(sims(t-1,V.in,:)),...
         pf.hh,pf.firm);
-    [sims(t,V.Vlam_zlb,:),sims(t,V.Vpi,:)] = Fallterp42c_F(...
+    [sims(t,V.c_zlb,:),pigap(1,1,:)] = Fallterp42c_F(...
         G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
         squeeze(sims(t,V.g,:)),squeeze(sims(t,V.s,:)),squeeze(sims(t,V.mp,:)),...
         squeeze(sims(t-1,V.in,:)),...
         pf.hh_zlb,pf.firm);
-    pigap = (1+sqrt((P.varphi + 4*sims(t,V.Vpi,:))/P.varphi))/2; %(1) %%%don't need to calculate pigap first
     sims(t,V.pi,:) = P.pi*pigap;
     % Interest rate rule    
     sims(t,V.in,:) = sims(t-1,V.in,:).^P.rhoi.*(S.i*pigap.^P.phipi)...
         .^(1-P.rhoi).*exp(sims(t,V.mp,:));
-    Vlam_combined = sims(t,V.Vlam,:).*(sims(t,V.in,:)>1) + sims(t,V.Vlam_zlb,:).*(sims(t,V.in,:)<=1); %%%combined with c's instead
+    c_combined = sims(t,V.c,:).*(sims(t,V.in,:)>1) + sims(t,V.c_zlb,:).*(sims(t,V.in,:)<=1); %%%combined with c's instead
     sims(t,V.i,:) = max(1,sims(t,V.in,:));
+    
+    sims(t,V.y,:) = c_combined./(1-P.varphi*(pigap-1).^2/2);
+    sims(t,V.lam,:) = c_combined;  
+    sims(t,V.n,:) = sims(t,V.y,:);
+    sims(t,V.w,:) = S.chi*sims(t,V.n,:).^P.eta.*(sims(t,V.c,:));
 
     %%%redo calculations here to back out rest of variables (you need all
     %%%of the ones below)
-    % Lambda
-    sims(t,V.lam,:) = 1/Vlam_combined;     
-    % ARC
-    sims(t,V.c,:) = sims(t,V.lam,:);
-    sims(t,V.y,:) = sims(t,V.c,:)./(1-P.varphi*(pigap-1).^2/2);
-    % Production function
-    sims(t,V.n,:) = sims(t,V.y,:);
-    % FOC Labor
-    sims(t,V.w,:) = S.chi*sims(t,V.n,:).^P.eta.*(sims(t,V.c,:));
+
     % Check for complex
     if ~isreal(sims(t,:,:))
         disp('Warning: complex values in simulation');
