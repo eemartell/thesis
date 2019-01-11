@@ -18,12 +18,12 @@ r = max(1, inp);
 aCS = find(r(ceil(O.g_pts/2),:,ceil(O.mp_pts/2))==1,1,'first');
 
 %%%shade the ZLB region
-aper = G.a_grid;%100*(G.a_grid-1);
+aper = G.s_grid;%100*(G.a_grid-1);
 firstZLB = find(r(:,aCS,:) == 1,1,'first');
 shadeint = [aper(firstZLB) aper(end)];
 
-x = G.a_grid;
-y = pf.c(ceil(O.g_pts/2),:,ceil(O.mp_pts/2)); %%only thing
+x = G.s_grid;
+y = pf.hh(ceil(O.g_pts/2),:,ceil(O.mp_pts/2)); %%only thing
 figure('Color', 'white',...
        'pos', [8 8 800 350])
 area(shadeint,'FaceColor',[0.8 0.8 0.8],'EdgeColor','none',...
@@ -36,14 +36,14 @@ xlabel('Risk Premium',...
         'FontName','Times New Roman')
 ylabel('Consumption',...
         'FontName', 'Times New Roman')
-plot([G.a_grid(1) G.a_grid(11)] ,[S.c S.c], 'Color','k', 'Linewidth', 1)
+%plot([G.s_grid(1) G.s_grid(11)] ,[S.c S.c], 'Color','k', 'Linewidth', 1)
 xtks = 0.97:0.01:1.03;
 xticks(xtks)
 xlm = [x(1) x(end)];
 xlim(xlm)
 ytks = 0.328:0.001:0.336;
 yticks(ytks)
-ylm = [y(1) y(end)];
+ylm = [y(end) y(1)];
 ylim(ylm)
 for x = xtks
     plot([x x], ylm,...

@@ -3,8 +3,8 @@ close all
 clc
 
 %%%calculate the nominal interest rate policy (41)
-load('solutions/solution_test.mat')
-inp = S.i*pf.pigap.^P.phipi;
+load('../solutions/solutionfpART.mat')
+inp = S.i*pf.firm.^P.phipi;
 r = max(1, inp);
 
 %%%pick a cross section of the state space. look at the preferences and
@@ -14,13 +14,13 @@ mpslice = ceil(O.mp_pts/2);
 findlastZLB = find(r(gslice,:,mpslice)==1,1,'last');
 
 %%%find the ZLB region (143-144)
-aper = 100*(G.a_grid-1);
-shadeint = [aper(1) aper(findlastZLB)];
+sper = 100*(G.s_grid-1);
+shadeint = [sper(1) sper(findlastZLB)];
 
 set(0, 'DefaultAxesFontSize', 12)
-x = 100*(G.a_grid-1);
-y{1} = 100*(pf.c(gslice,:,mpslice)-S.c)/S.c;
-y{2} = 100*(pf.pigap(gslice,:,mpslice)-1);
+x = 100*(G.s_grid-1);
+y{1} = 100*(pf.hh(gslice,:,mpslice)-S.c)/S.c;
+y{2} = 100*(pf.firm(gslice,:,mpslice)-1);
 y{3} = 100*(r(gslice,:,mpslice)-S.i)/S.i;
 ytks{1} = -4:1:1;
 ytks{2} = -1.5:.5:.5;
@@ -58,7 +58,7 @@ height = (1-subpadbot-subpadtop)/plotdim(1);
 subplot(3,1,i, 'Position', [left bottom width height]); hold on; box on
 xlm = [x(1) x(end)];
 xlim(xlm)
-ylm = [y{i}(1) y{i}(end)];
+ylm = [y{i}(end) y{i}(1)];
 ylim(ylm)
 %%% shade the zlb area (179)
 area(shadeint, ones(2,1)*max(ylm), min(ylm),...
@@ -88,7 +88,7 @@ end
 %text(txtbounds_a{i}(1), txtbounds_a{i}(2), txt{i}, 'Interpreter', 'Latex', 'Fontsize', 10)
 %text(txtbounds_b{i}(1), txtbounds_b{i}(2), '\downarrow', 'Fontsize', 10)
 
-legtext = ['(\rho_a, \sigma_e, \sigma_u, \sigma_v) = (' ,num2str(P.rhoa),', ', num2str(P.sige),', ', num2str(P.sigu), ', ' num2str(P.sigv), ')'];
+legtext = ['(\rho_s, \sigma_e, \sigma_u, \sigma_v) = (' ,num2str(P.rhos),', ', num2str(P.sige),', ', num2str(P.sigu), ', ' num2str(P.sigv), ')'];
 set(legend(legtext),'Interpreter','tex',...
     'Location', 'southeast'); 
 end

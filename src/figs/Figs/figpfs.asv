@@ -1,0 +1,22 @@
+load('../solutions/solutionfpART.mat')
+c_ART = pf.hh;
+pigap_ART = pf.firm;
+load('../solutions/solutionfpGust.mat')
+c_Gust = pf.hh;
+c_zlb_Gust = pf.hh_zlb;
+pigap_Gust = pf.firm;
+
+gslice = ceil(O.g_pts/2);
+mpslice = ceil(O.mp_pts/2);
+inslice = 3; %in = 1.0001
+
+set(0, 'DefaultAxesFontSize', 12)
+x = 100*(G.s_grid-1);
+
+
+
+
+
+
+plot(x,c_ART(4,:,4,3))
+plot(x,c_Gust(4,:,4,3))
