@@ -9,13 +9,33 @@ pigap_Gust = pf.firm;
 gslice = ceil(O.g_pts/2);
 mpslice = ceil(O.mp_pts/2);
 inslice = 3; %in = 1.0001
+x = 100*(G.s_grid-1);
 
 set(0, 'DefaultAxesFontSize', 12)
-x = 100*(G.s_grid-1);
 y{1} = 100*(c_ART(gslice,:,mpslice,inslice)-S.c)/S.c;
 z{1} = 100*(c_Gust(gslice,:,mpslice,inslice)-S.c)/S.c;
 y{2} = 100*(pigap_ART(gslice,:,mpslice,inslice)-1);
 z{2} = 100*(pigap_Gust(gslice,:,mpslice,inslice)-1);
+
+%xs = 100*(G.s_grid-1);
+%xmp = 100*(G.mp_grid);
+%linspace(xs,xmp);
+
+
+%sf = fit(squeeze(c_Gust(4,:,4,3))',x','poly23');
+disp('Pearson''s linear correlation coefficient: closer to 1,-1 indicates more linear')
+disp('Linear correlation between s and c')
+disp(['ART: ',num2str(corr(x',y{1}')), '; GustEtAl: ', num2str(corr(x',z{1}'))])
+disp('Linear correlation between s and pigap')
+disp(['ART: ',num2str(corr(x',y{2}')), '; GustEtAl: ', num2str(corr(x',z{2}'))])
+%x = 100*(G.s_grid-1);
+%disp(['s vs c: Gust: ',num2str(corr(x',c_Gust(4,:,4,3)')), '; ART: ', num2str(corr(x',c_Gust(4,:,4,3)'))])
+%x = 100*(G.g_grid-P.g);
+%disp(['g vs c: Gust: ', corr(x',c_Gust(:,4,4,3)'), '; ART: ', corr(x',c_Gust(:,4,4,3)')])
+%x = 100*G.mp_grid;
+%disp(['mp vs c: Gust: ', num2str(corr(x',squeeze(c_Gust(4,4,:,3)))), '; ART: ', num2str(corr(x',squeeze(c_Gust(4,4,:,3))))])
+
+
 
 ylabtxt{1} = '\textbf{Consumption ($c$)}';
 ylabtxt{2} = '\textbf{Inflation gap ($\pi_{gap}$)}';
@@ -27,7 +47,7 @@ subpadleft = .1; % Increase if ylabel is cut off
 subpadright = .05; % Decrease if white-space on RHS 
 
 figure('Color', 'white'); hold on
-set(gcf,'position',figbox);
+%set(gcf,'position',figbox);
 plotdim = [2 1];
 
 for i = 1:2
@@ -57,4 +77,4 @@ legend('ART','GustEtAl')
 %    'Location', 'southeast');
 end
 print(gcf,'-depsc2','-painters','figpfs.eps')
-saveas(gcf,[savename 'figpfs.fig'])
+saveas(gcf,'figpfs.fig')

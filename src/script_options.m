@@ -2,7 +2,7 @@
 clear
 clc
 
-O.alg = 'ART';
+O.alg = 'Gust';
 
 % Model solution variables and options
 if strcmp(O.alg,'Gust')
