@@ -22,7 +22,7 @@ elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
 end     
 % Numerical pdf of state variables
 %   Simulation parameters
-npers = 2000;
+npers = 10000;
 nobs = npers;
 %V = variables_gustetal;
 mtstream = RandStream('mt19937ar','seed',2);

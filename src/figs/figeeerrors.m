@@ -13,7 +13,7 @@ plottype = 'P';
 %   ti: time iteration
 %   fp: fixed point
 O.it = 'fp';
-O.alg = 'Gust';
+O.alg = 'ART';
 
 % Figure name
 figname = ['eeerrors' O.it O.alg];
