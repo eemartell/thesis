@@ -1,0 +1,84 @@
+\documentclass[12pt, final]{article}
+\usepackage{color}
+\usepackage{times}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage[paperwidth=8.5in,left=1.0in,right=1.0in,top=1.0in,bottom=1.0in,paperheight=11.0in]{geometry}
+\usepackage[labelsep=colon,singlelinecheck=false,footnotesize]{caption}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage[sort&compress]{natbib}
+\usepackage{subfig}
+\usepackage{titlesec}
+\usepackage[breaklinks]{hyperref}
+\hypersetup{pdfdisplaydoctitle=true,bookmarksnumbered=true,colorlinks=true,citecolor=black,linkcolor=darkblue,urlcolor=darkred,pdfstartview=FitH,pdfpagemode=UseNone}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage{accents}
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+
+
+%Define Color Names
+\definecolor{Gray}{rgb}{0.65,0.65,0.65}
+\definecolor{darkblue}{rgb}{0,0,0.55}
+\definecolor{darkred}{rgb}{0.5,0,0}
+
+%Section Headings
+\newcommand\Bheadfont{\fontsize{14pt}{\baselineskip}\selectfont}
+\titleformat{\section}[hang]{\normalfont\sc\color{darkblue}\Bheadfont}{\thesection\hskip0.618em}{0em}{}
+\titlespacing*{\section}{0pt}{15pt plus 2pt minus 2pt}{9pt plus 2pt minus 2pt}
+\titleformat{\subsection}[runin]{\normalfont\sc\color{darkblue}} {\thesubsection\hskip0.618em}{0em}{}
+\titlespacing*{\subsection}{0pt}{13pt plus 2pt minus 2pt}{13pt plus 2pt minus 2pt}
+\titleformat{\subsubsection}[runin]{\normalfont\sc\color{darkblue}} {\thesubsubsection\hskip0.618em}{0em}{}
+\titlespacing*{\subsubsection}{0pt}{13pt plus 2pt minus 2pt}{13pt plus 2pt minus 2pt}
+\titleformat{\paragraph}[runin]{\bfseries}{\theparagraph\hskip0.618em}{0em}{}
+\titlespacing*{\paragraph}{0pt}{13pt plus 2pt minus 2pt}{13pt plus 2pt minus 2pt}
+
+\begin{document}
+
+\section{Model} A representative household chooses $\{c_t, n_t, b_t\}_{t=0}^\infty$ to maximize expected lifetime utility, $E_0\textstyle\sum_{t=0}^\infty\beta^t [\log(c_t)-\chi n_t^{1+\eta}/(1+\eta)]$, where $\beta$ is the subjective discount factor, $\chi$ determines the steady state labor supply, $1/\eta$ is the Frisch elasticity of labor supply, $c$ is consumption, $h$ is the degree of external habit persistence, $n$ is labor hours, $b$ is the real value of a privately-issued 1-period nominal bond, and $E_0$ is the mathematical expectation operator conditional on information available in period 0. The household's choices are constrained by $c_t+b_t/(i_ts_t)=w_tn_t+b_{t-1}/\pi_t+d_t$, where $\pi$ is the gross inflation rate, $w$ is the real wage rate, $i$ is the gross nominal interest rate, $d$ is a real dividend from ownership of intermediate firms, and $s$ is a risk premium shock that follows
+\begin{gather}
+  s_t=(1-\rho_s)\bar{s}+\rho_s s_{t-1} + \sigma_\upsilon\upsilon_t, 0\leq \rho_s < 1, \upsilon \sim \mathbb{N}(0,1).
+\end{gather}
+An increase in $s_t$ lowers the marginal cost of saving in the risk-free bond (JDM Fisher).  \\
+The first order conditions to the household's constrained optimization problems are given by
+\begin{gather*}
+  \lambda_t = c_t\\
+  w_t = \chi n_t^\eta \lambda_t\\
+  1 =  \beta E_t[(\lambda_t/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]
+  \end{gather*}
+where $1/\lambda$ is the marginal utility of wealth (i.e., the Lagrange multiplier on the budget constraint).\\
+The production sector consists of a continuum of monopolistically competitive intermediate goods firms and a final goods firm. Intermediate firm $i \in [0,1]$ produces a differentiated good, $y_t^f(i)$, according to $y_t^f = z_tn_t(i)$, where $n(i)$ is the labor hired by firm $i$ and $z_t = g_tz_{t-1}$ is technology, which is common across firms. Deviations from the balanced growth rate, $\bar{g}$, follow
+\begin{gather}
+  g_t= (1-\rho_g)\bar{g}+\rho_gg_{t-1} + \sigma_\varepsilon\varepsilon_t, \varepsilon \sim \mathbb{N}(0,1).
+\end{gather}
+An increase in $g_t$ acts just like a typical supply shock, lowering inflation and raising output growth.\\
+The final goods firm purchases $y_t^f(i)$ units from each intermediate firm to produce the final good, $y_t^f \equiv [\int_0^1 y_t^f(i)^{\epsilon - 1}di]^{\epsilon/(\epsilon - 1)}$, where $\epsilon > 1$ is the elasticity of substitution. It then maximizes dividends to determine its demand function for intermediate good $i$, $y_t^f(i) = (p_t(i)/p_t)^{-\epsilon}y_t^f$, where $p_t = [\int_0^1p_t(i)^{1-\epsilon}di]^{1/(1-\epsilon)}$ is the price level. Following Rotemberg (1982), each intermediate firm pays a price adjustment cost $adj_t(i) \equiv \varphi(p_t(i)/(\bar{\pi}p_{t-1}(i))-1)^2y_t^f/2$, where $\varphi>0$ scales the cost and $\bar{pi}$ is the gross inflation rate along the balanced growth path. Given the adjustment cost, firm $i$ chooses $n_t(i)$ and $p_t(i)$ to maximize the expected discounted present value of future dividends, $E_t\sum_{k=t}^\infty q_{t,k}d_k(i)$, subject to its production function and the demand for its product, where $q_{t,t} \equiv 1$, $q_{t,t+1} \equiv \beta(\lambda_t/\lambda_{t+1})$ is the pricing kernel between periods $t$ and $t+1$, $q_{t,k} \equiv \Pi_{j=t+1}^{k>t} q_{j-1,j}$, and $d_t(i) = p_t(i)y_t^f(i)/p_t - w_tn_t(i) - adj_t(i)$. In symmetric equilibrium, all firms make identical decisions (i.e., $p_t(i) = p_t$, $n_t(i) = n_t$, and $y_t^f(i) = y_t^f$). Therefore, the optimality conditions imply
+    \begin{gather}
+      y_t^f = z_tn_t\\
+      \varphi(\pi_t/\bar{\pi}-1)(\pi_t/\bar{\pi}) = 1 - \epsilon + \epsilon w_t/z_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}/\bar{\pi} - 1)(\pi_{t+1}/\bar{\pi}-1)(\pi_{t+1}/\bar{\pi})(y^f_{t+1}/y_t^f)].
+      \end{gather}
+    Without price adjustment costs (i.e., $\varphi = 0$), the real marginal cost of producing a unit of output ($w_t/z_t$) equals $(\epsilon-1)/\epsilon$, which is the inverse of a firm's markup of price over marginal cost ($\mu$). \\
+    The central bank sets the gross nominal interest rate, $i$, according to
+    \begin{gather}
+      i_t = \max\{1, i_t^n\},\\
+      i_t^n=(i^n_{t-1})^{\rho_i}(\bar{\imath}(\pi_t^{gap})^{\phi_\pi})^{1-\rho_i}\exp(\sigma_\nu\nu_t), 0 \leq \rho_i < 1, \varepsilon_i \sim \mathbb{N}(0,1),
+    \end{gather}
+    where $y$ is output (i.e., final goods, $y^f$, minus the resources lost due to price adjustment costs, $adj$), $i^n$ is the gross notional interest rate, $\bar{i}$ and $\bar{\pi}$ are the steady-state or target values of the inflation and nominal interest rates, and $\phi_\pi$ and $\phi_y$ determine the central bank's responses to deviations of inflation from the target rate and deviations of output growth from the balanced growth rate. When the net notional rate is positive, $i_t = i^n_t$. When it is negative, the ZLB binds and $i_t = 1$. A more negative net notional rate means the central bank is more constrained and hte model is more nonlinear. \\
+    The model does not possess a steady-state due to the unit root in technology, $z_t$. Therefore, we redefine the subset of variables with a trend in terms of technology (i.e., $\tilde{x}_t \equiv x_t/z_t$). The detrended equilibrium system includes the two stochastic processes, (1) and (2), the ZLB constraint, (5), and
+      \begin{gather}
+c_t = [1-\varphi(\pi_t^{gap}-1)^2/2]y_t\\
+i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi})^{1-\rho_i}\exp(\sigma_\nu\nu_t)\\
+\lambda_t = c_t \\
+w_t = \chi n_t^\eta \lambda_t\\
+1 =  \beta E_t[(\lambda_t/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\
+\varphi(\pi_t^{gap}-1)\pi_t^{gap} = 1-\theta + \theta w_t/z_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)]
+      \end{gather}
+
+A competitive equilibrium consists of infinite sequences of quantities, $\{\tilde{c}_t, \tilde{y}_t, \tilde{y}_t^f, y_t^g\}_{t=0}^\infty$, prices $\{\tilde{w}_t, i_t, i^n_t, \pi_t, \tilde{\lambda}_t\}_{t=0}^\infty$, and exogenous variables $\{s_t, g_t\}_{t=0}^\infty$, that satisfy the detrended equilibrium system, given the initial conditions, $\{\tilde{c}_{-1}, i^n_{-1}, s_0, g_0, \varepsilon_{i,0}\}$, and shock sequences, $\{\varepsilon_{g,t}, \varepsilon_{s,t}, \varepsilon_{i,t}\}_{t=1,\infty}$. 
+
+\end{document}
+
