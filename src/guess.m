@@ -26,12 +26,12 @@ mp_gr_per = G.mp_gr;
 in_gr_per = G.in_gr./S.i - 1;
 
 % Calculate linear policy functions on discretized state space    
-linpf_hh = zeros(G.griddim); %%%rename linpf_c
-linpf_firm = zeros(G.griddim); %%%rename linpf_pi
+linpf_c = zeros(G.griddim); %%%rename linpf_c
+linpf_pigap = zeros(G.griddim); %%%rename linpf_pi
 state = [g_gr_per(:),s_gr_per(:),mp_gr_per(:),in_gr_per(:)]';
-linpf_hh(:) = T(V.c,[V.g,V.s,V.mp,V.in])*state; %%%rename linpf_c
-linpf_firm(:) = T(V.pi,[V.g,V.s,V.mp,V.in])*state; %%%rename linpf_pi
+linpf_c(:) = T(V.c,[V.g,V.s,V.mp,V.in])*state; %%%rename linpf_c
+linpf_pigap(:) = T(V.pi,[V.g,V.s,V.mp,V.in])*state; %%%rename linpf_pi
   
 % Convert back to levels
-pf.hh = S.c*(1 + linpf_hh); %%%rename pf.c
-pf.firm = 1 + linpf_firm; %%%rename pf.pigap
+pf.c = S.c*(1 + linpf_c); %%%rename pf.c
+pf.pigap = 1 + linpf_pigap; %%%rename pf.pigap
