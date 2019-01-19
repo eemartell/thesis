@@ -12,13 +12,13 @@ function [pf,eu] = guess(P,S,G,O)
 %----------------------------------------------------------------------
 % log-linear solution - ZLB not imposed
 %----------------------------------------------------------------------
-if strcmp(O.alg,'ART')
-    V = variables;
-    [T,M,eu] = linmodel(P,S,V);
-elseif strcmp(O.alg,'Gust')
-    V = variables_gustetal;
-    [T,M,eu] = linmodel_gustetal(P,S,V); %%%just call linmodel here
-end    
+%if strcmp(O.alg,'ART')
+V = variables;
+%elseif strcmp(O.alg,'Gust')
+%    V = variables_gustetal;
+%end
+[T,~,eu] = linmodel(P,S,V);
+    
 % Transform discretized state space to percent deviation from steady state
 g_gr_per = G.g_gr./P.g - 1;
 s_gr_per = G.s_gr/P.s - 1;

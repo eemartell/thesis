@@ -5,11 +5,11 @@ clc
 O.alg = 'Gust';
 
 % Model solution variables and options
-if strcmp(O.alg,'Gust')
-    V = variables_gustetal; %%%
-elseif strcmp(O.alg,'ART')
-    V = variables;
-end
+%if strcmp(O.alg,'Gust')
+%    V = variables_gustetal;
+%elseif strcmp(O.alg,'ART')
+V = variables;
+%end
 
 % Solution space
 %   Problem size

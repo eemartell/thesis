@@ -7,31 +7,29 @@ function V = variables_gustetal
 %     V     :   Structure of variable locations and names
 
 % Variables names
-V.names = { 'c'          %1  Consumption            
-            'i'          %2  Nominal interest rate
-            'in'         %3  Notional interest rate
-            'lam'        %4  Inverse MUC
-            'w'          %5  Real wage rate
-            'pi'         %6  Gross inflation
-            'Vlam'       %7  GustEtAl equation for lambda, non-ZLB %%%remove
+V.names = { 'c'          %1  Consumption, non-ZLB      
+            'c_zlb'      %2  Consumption, ZLB
+            'i'          %3  Nominal interest rate
+            'in'         %4  Notional interest rate
+            'lam'        %5  Inverse MUC
+            'w'          %6  Real wage rate
+            'pi'         %7  Gross inflation
             'y'          %8  Output
-            'Vpi'        %9  GustEtAl equation for pigap %%%remove
-            'n'          %10  Labor hours
-            'g'          %11  Growth rate
-            's'          %12  Risk premium shock
-            'mp'         %13 Monetary policy shock            
+            'n'          %9  Labor hours
+            'g'          %10  Growth rate
+            's'          %11  Risk premium shock
+            'mp'         %12 Monetary policy shock            
           };
 
 % Variables titles        
-V.desc = {  'Consumption'
+V.desc = {  'Consumption, non-ZLB'
+            'Consumption, ZLB'
             'Nominal Interest Rate'  
             'Notional Interest Rate'
             'Inverse MUC'
             'Real Wage Rate'
             'Inflation Rate'
-            'V eq. for lambda, non-ZLB' %%%remove
             'Output'
-            'V eq. for pigap' %%%remove
             'Labor Hours'
             'Growth'
             'Risk premium shock'

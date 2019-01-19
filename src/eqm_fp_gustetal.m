@@ -65,17 +65,30 @@ sdfArr3 = P.beta*lam./lampArr3;
 EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*pigappArr3);
 EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
-%%%solve for c and pigap here
-%%%start fixing from bottom and work up so you know what you'll need
-Vlam = s*i*sum(EbondArr3(:))/(P.pi*lam); %(8) %%%just do x_up(1)
-Vlam_zlb = s*sum(EbondArr3(:))/(P.pi*lam); %%%just do x_up(2)
-Vpi = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %(9) %%%just do x_up(3)
+Ebond = sum(EbondArr3(:));
+Efp = sum(EfpArr3(:));
 %----------------------------------------------------------------------
 % First-order conditions
 %----------------------------------------------------------------------
 % Consumption Euler Equation (6)
-x_up(1) = 1/Vlam; %%%remove
-x_up(2) = 1/Vlam_zlb;
+x_up(1) = 1/(s*i*Ebond/(P.pi*lam));
+x_up(2) = 1/(s*Ebond/(P.pi*lam));
 % Firm Pricing (7)
-x_up(3) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2;
+RHS_firm = 1 - P.theta + P.theta*w + P.varphi*Efp/y;
+x_up(3) = (1+sqrt((P.varphi+4*RHS_firm)/P.varphi))/2;
+
+
+% %%%solve for c and pigap here
+% %%%start fixing from bottom and work up so you know what you'll need
+% Vlam = s*i*sum(EbondArr3(:))/(P.pi*lam); %(8) %%%just do x_up(1)
+% Vlam_zlb = s*sum(EbondArr3(:))/(P.pi*lam); %%%just do x_up(2)
+% Vpi = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %(9) %%%just do x_up(3)
+% %----------------------------------------------------------------------
+% % First-order conditions
+% %----------------------------------------------------------------------
+% % Consumption Euler Equation (6)
+% x_up(1) = 1/Vlam; %%%remove
+% x_up(2) = 1/Vlam_zlb;
+% % Firm Pricing (7)
+% x_up(3) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2;
 end

@@ -48,13 +48,25 @@ sdfArr3 = P.beta*lam./lampArr3;
 EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*pigappArr3);
 EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
-Vlambda = s*i*sum(EbondArr3(:))/(P.pi*lam);  %%%just have as x_up(1)
-Vpi = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %%%just have as x_up(2)
+Ebond = sum(EbondArr3(:));
+Efp = sum(EfpArr3(:));
 %----------------------------------------------------------------------
 % First-order conditions
 %----------------------------------------------------------------------
 % Consumption Euler Equation (6)
-x_up(1) = 1/Vlambda; %%%no Vlambda
+x_up(1) = 1/(s*i*Ebond/(P.pi*lam));
 % Firm Pricing (7)
-x_up(2) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2; %%%no Vpi
+RHS_firm = 1 - P.theta + P.theta*w + P.varphi*Efp/y;
+x_up(2) = (1+sqrt((P.varphi+4*RHS_firm)/P.varphi))/2;
+
 end
+% Vlambda = s*i*sum(EbondArr3(:))/(P.pi*lam);  %%%just have as x_up(1)
+% Vpi = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %%%just have as x_up(2)
+% %----------------------------------------------------------------------
+% % First-order conditions
+% %----------------------------------------------------------------------
+% % Consumption Euler Equation (6)
+% x_up(1) = 1/Vlambda; %%%no Vlambda
+% % Firm Pricing (7)
+% x_up(2) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2; %%%no Vpi
+% end
