@@ -17,7 +17,7 @@ if strcmp(O.alg,'ART')
     [T,M,eu] = linmodel(P,S,V);
 elseif strcmp(O.alg,'Gust')
     V = variables_gustetal;
-    [T,M,eu] = linmodel_gustetal(P,S,V);
+    [T,M,eu] = linmodel_gustetal(P,S,V); %%%just call linmodel here
 end    
 % Transform discretized state space to percent deviation from steady state
 g_gr_per = G.g_gr./P.g - 1;
@@ -26,12 +26,12 @@ mp_gr_per = G.mp_gr;
 in_gr_per = G.in_gr./S.i - 1;
 
 % Calculate linear policy functions on discretized state space    
-linpf_hh = zeros(G.griddim);
-linpf_firm = zeros(G.griddim);
+linpf_hh = zeros(G.griddim); %%%rename linpf_c
+linpf_firm = zeros(G.griddim); %%%rename linpf_pi
 state = [g_gr_per(:),s_gr_per(:),mp_gr_per(:),in_gr_per(:)]';
-linpf_hh(:) = T(V.c,[V.g,V.s,V.mp,V.in])*state;
-linpf_firm(:) = T(V.pi,[V.g,V.s,V.mp,V.in])*state;
+linpf_hh(:) = T(V.c,[V.g,V.s,V.mp,V.in])*state; %%%rename linpf_c
+linpf_firm(:) = T(V.pi,[V.g,V.s,V.mp,V.in])*state; %%%rename linpf_pi
   
 % Convert back to levels
-pf.hh = S.c*(1 + linpf_hh); 
-pf.firm = 1 + linpf_firm;
+pf.hh = S.c*(1 + linpf_hh); %%%rename pf.c
+pf.firm = 1 + linpf_firm; %%%rename pf.pigap

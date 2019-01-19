@@ -31,7 +31,7 @@ w = S.chi*y^P.eta*lam;
     O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
     G.in_grid,...
     inp,...
-    pf.hh,pf.firm);
+    pf.hh,pf.firm); %pf.c, pf.pigap
     %pf.c,pf.pigap);
 %----------------------------------------------------------------------        
 % Solve for variables inside expectations
@@ -48,13 +48,13 @@ sdfArr3 = P.beta*lam./lampArr3;
 EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*pigappArr3);
 EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
-Vlambda = s*i*sum(EbondArr3(:))/(P.pi*lam);
-Vpi = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y;
+Vlambda = s*i*sum(EbondArr3(:))/(P.pi*lam);  %%%just have as x_up(1)
+Vpi = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %%%just have as x_up(2)
 %----------------------------------------------------------------------
 % First-order conditions
 %----------------------------------------------------------------------
 % Consumption Euler Equation (6)
-x_up(1) = 1/Vlambda;
+x_up(1) = 1/Vlambda; %%%no Vlambda
 % Firm Pricing (7)
-x_up(2) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2;
+x_up(2) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2; %%%no Vpi
 end

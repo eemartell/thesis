@@ -102,15 +102,13 @@ Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{y},n,g,
 \subsection{Gust Et Al Model}
 \noindent Equilibrium system (13 equations):
 \small\begin{gather}
-\varphi(\pi_t^{gap}-1)\pi_t^{gap} = V_{\pi,t}\\
+\varphi(\pi_t^{gap}-1)\pi_t^{gap} = 1-\theta + \theta w_t/z_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)]\\
 i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi})^{1-\rho_i}\exp(\sigma_\nu\nu_t)\\
 i_t=\max\{1,i_t^*\}\\
-1/\lambda_t = V_{\lambda,t}\\
+1/\lambda_t =  \beta E_t[(1/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\
 \lambda_t = c_t \\
 c_t = [1-\varphi(\pi_t^{gap}-1)^2/2]y_t\\
 w_t = \chi n_t^\eta \lambda_t\\
-V_{\lambda,t} =  \beta E_t[(1/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\
-V_{\pi,t} = 1-\theta + \theta w_t/z_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)]\\
   y_t=z_t n_t\\  
   g_t= (1-\rho_g)\bar{g}+\rho_gg_{t-1} + \sigma_\varepsilon\varepsilon_t \\
   s_t=(1-\rho_s)\bar{s}+\rho_ss_{t-1} + \sigma_\upsilon\upsilon_t\\
@@ -121,15 +119,13 @@ Variables: $\{c,i^*,i,\lambda,w,\pi^{gap},V_{\lambda},y,V_{\pi},n,g,s,z\}$\\
 \setcounter{equation}{0}
 \noindent De-trended Equilibrium System (12 equations):
 \small\begin{gather}
-\varphi(\pi_t^{gap}-1){\pi}_t^{gap} = \tilde{V}_{\pi,t}\\
+\varphi(\pi_t^{gap}-1){\pi}_t^{gap} = 1 - \theta + \theta\tilde{w}_t + \beta\varphi E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(\pi^{gap}_{t+1}-1)\pi^{gap}_{t+1}(\tilde{y}_{t+1}/\tilde{y}_t)]\\
 i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi_t^{gap})^{\phi_\pi})^{1-\rho_i}\exp(\sigma_\nu\nu_t)\\
 i_t=\max\{1,i_t^*\}\\
-1/\tilde{\lambda}_t = \tilde{V}_{\lambda,t}\\%
+1/\tilde{\lambda}_t = \beta E_t[(1/\tilde{\lambda}_{t+1})(s_ti_t/(\bar{\pi}\pi^{gap}_{t+1}g_{t+1}))]\\%
 \tilde{\lambda}_t = \tilde{c}_t\\
 \tilde{c}_t = [1-\varphi(\pi_t^{gap} - 1)^2/2]\tilde{y}_t\\
 \tilde{w}_t = \chi n_t^\eta \tilde{\lambda}_t  \\
-\tilde{V}_{\lambda,t} = \beta E_t[(1/\tilde{\lambda}_{t+1})(s_ti_t/(\bar{\pi}\pi^{gap}_{t+1}g_{t+1}))]\\%
-\tilde{V}_{\pi_t} = 1 - \theta + \theta\tilde{w}_t + \beta\varphi E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(\pi^{gap}_{t+1}-1)\pi^{gap}_{t+1}(\tilde{y}_{t+1}/\tilde{y}_t)]\\
   \tilde{y}_t= n_t\\  
   g_t= (1-\rho_g)\bar{g}+\rho_gg_{t-1} + \sigma_\varepsilon\varepsilon_t \\
   s_t=(1-\rho_s)s_t+\rho_ss_{t-1} + \sigma_\upsilon\upsilon_t
@@ -139,29 +135,27 @@ Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{V}_{\la
 \setcounter{equation}{0}
 \noindent Log-linear Equilibrium System:
 \begin{gather}
-  \varphi\hat{\pi}_t = \hat{V}_{\pi,t}\\
+  \varphi\hat{\pi}_t = (\theta-1)\hat{w}_t+\beta\varphi E_t\hat{\pi}_{t+1}\\
   \hat{\imath}_t^n = \rho_i\hat{\imath}^n_{t-1} + (1-\rho_i)\phi_\pi\hat{\pi}_t+\sigma_\nu\nu_t \\
   \hat{\imath}_t = \hat{\imath}_t^n\\
-    -\hat{\lambda}_t = \hat{V}_{\lambda,t} \\
+    -\hat{\lambda}_t = \hat{\imath}_t + s_t - E_t\hat{\lambda}_{t+1} - E_t\hat{\pi}_{t+1} \\
   \hat{\lambda}_t = \hat{c}_t \\
   \hat{c}_t = \hat{y}_t\\
   \hat{w}_t =  \eta\hat{n}_t + \hat{\lambda}_t\\
-  \hat{V}_{\lambda,t} =  \hat{\imath}_t + s_t - E_t\hat{\lambda}_{t+1} - E_t\hat{\pi}_{t+1} \\
-  \hat{V}_{\pi,t} = (\theta-1)\hat{w}_t+\beta\varphi E_t\hat{\pi}_{t+1}\\
   \hat{y}_t = \hat{n}_t
 \end{gather}
 
 \setcounter{equation}{0}
 \noindent Gust et al Indicator Functions\\
 \begin{gather}
-  \tilde{V}_{\lambda,t,1} = \beta E_t[(1/\tilde{\lambda}_{t+1})(s_ti_t/(\bar{\pi}\pi^{gap}_{t+1}g_{t+1}))]\\%
-  \tilde{V}_{\lambda,t,2} = \beta E_t[(1/\tilde{\lambda}_{t+1})(s_t/(\bar{\pi}\pi^{gap}_{t+1}g_{t+1}))]  
+  c_{t+1,1} = \beta E_t[\lambda_t(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\
+  c_{t+1,2} = \beta E_t[\lambda_t(s_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\  
 \end{gather}
 for $k=1,2$ where $k=1$ corresponds to the non-ZLB regime and $k=2$ corresponds to the ZLB regime.
 \begin{gather}
-V_{l,t} = V_{l,t,1}I + V_{l,t,2}(1-I) 
+c_{t} = c_{t,1}I + c_{t,2}(1-I) 
 \end{gather}
-for $l \in \{\lambda\}$ and $j=1,2$ and where $I$ is defined by:
+for $j=1,2$ and where $I$ is defined by:
 $$
 \begin{cases}
   I = 1 & \text{ if } i > 1\\

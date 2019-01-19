@@ -6,7 +6,7 @@ O.alg = 'Gust';
 
 % Model solution variables and options
 if strcmp(O.alg,'Gust')
-    V = variables_gustetal;
+    V = variables_gustetal; %%%
 elseif strcmp(O.alg,'ART')
     V = variables;
 end

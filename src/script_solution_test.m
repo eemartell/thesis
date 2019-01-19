@@ -19,10 +19,6 @@ tstart = tic;                           % Job timer start
 % Save rule {'on','off'}
 saving = 'on';
 
-
-
-
-
 % Solution algorithm
 %   ART:  pf.hh = pf.hh;    pf.firm = pf.firm
 %   Gust: pf.hh = pf.Vlam; pf.firm = pf.Vpi 
@@ -42,9 +38,9 @@ O.it = 'fp';
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
-pf = guess(P,S,G,O);
+pf = guess(P,S,G,O); %%%
 if strcmp(O.alg,'Gust')
-    pf.hh_zlb = pf.hh;
+    pf.hh_zlb = pf.hh; %%%rename pf.c_zlb
 end
 
 disp('Solving the model with MATLAB...'); pause(0.5)
@@ -54,10 +50,10 @@ spArr3 = permute(repmat(G.u_nodes,[1,O.e_pts,O.v_pts]),[2,1,3]);
 mpArr3 = permute(repmat(G.v_nodes,[1,O.e_pts,O.u_pts]),[3,1,2]); 
 
 % Preallocate arrays to store policy function updates
-pf_hh_up = zeros(G.griddim);
+pf_hh_up = zeros(G.griddim); %%%rename
 pf_firm_up = zeros(G.griddim);
 if strcmp(O.alg,'Gust')
-    pf_hh_zlb_up = zeros(G.griddim);
+    pf_hh_zlb_up = zeros(G.griddim); %%%rename
 end
 it = 1;                                 % Iteration Counter
 converged = -1;                         % Convergence Flag
@@ -69,9 +65,9 @@ istart = tic;                       % Iteration timer start
 for inode = 1:G.nodes
     % Find optimal policy functions on each node 
     if strcmp(O.alg,'ART')
-        start = [pf.hh(inode),pf.firm(inode)]';
+        start = [pf.hh(inode),pf.firm(inode)]'; %%%rename
     elseif strcmp(O.alg,'Gust')
-        start = [pf.hh(inode),pf.hh_zlb(inode),pf.firm(inode)]';
+        start = [pf.hh(inode),pf.hh_zlb(inode),pf.firm(inode)]'; %%%rename
     end
     state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),G.in_gr(inode)]; 
     e_weightVec = G.e_weight(G.g_gr(inode) == G.g_grid,:)';
@@ -85,19 +81,19 @@ for inode = 1:G.nodes
     % Approximate solution
     if strcmp(O.it,'ti')
         argzero = csolve('eqm',start,[],1e-4,10,state,...
-                      O,P,S,G,pf,gpArr3,spArr3,weightArr3);
+                      O,P,S,G,pf,gpArr3,spArr3,weightArr3); %%%
     elseif strcmp(O.it,'fp')
         if strcmp(O.alg,'ART')
             argzero = eqm_fp(start,state,...
-                            O,P,S,G,pf,gpArr3,spArr3,weightArr3);
+                            O,P,S,G,pf,gpArr3,spArr3,weightArr3); %%%
         elseif strcmp(O.alg,'Gust')
             argzero = eqm_fp_gustetal(start,state,...
-                            O,P,S,G,pf,gpArr3,mpArr3,weightArr3);
+                            O,P,S,G,pf,gpArr3,mpArr3,weightArr3); %%%
         end
     end
     % Store updated policy functions
     if strcmp(O.alg,'ART')
-        pf_hh_up(inode) = argzero(1);
+        pf_hh_up(inode) = argzero(1); %%%rename
         pf_firm_up(inode) = argzero(2);
     elseif strcmp(O.alg,'Gust')
         pf_hh_up(inode) = argzero(1);
@@ -107,7 +103,7 @@ for inode = 1:G.nodes
 end
 
 % Policy function distances
-dist_hh = abs(pf_hh_up - pf.hh);
+dist_hh = abs(pf_hh_up - pf.hh); %%%rename
 dist_firm = abs(pf_firm_up - pf.firm);
 if strcmp(O.alg,'Gust')
     dist_hh_zlb = abs(pf_hh_zlb_up - pf.hh_zlb);
@@ -115,20 +111,20 @@ end
 
 % Maximum distance
 if strcmp(O.alg,'ART')
-    dist_max = max([dist_hh(:)',dist_firm(:)']);
+    dist_max = max([dist_hh(:)',dist_firm(:)']); %%%rename
 elseif strcmp(O.alg,'Gust')
     dist_max = max([dist_hh(:)',dist_hh_zlb(:)',dist_firm(:)']);
 end
 
 % Update policy functions
-pf.hh = pf_hh_up;
+pf.hh = pf_hh_up; %%%rename
 pf.firm = pf_firm_up;
 if strcmp(O.alg,'Gust')
     pf.hh_zlb = pf_hh_zlb_up;
 end
 
 % Find where ZLB binds
-inp = G.in_gr.^P.rhoi.*(S.i*pf_firm_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
+inp = G.in_gr.^P.rhoi.*(S.i*pf_firm_up.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr); %%%rename
 locs = find(inp <= 1);
 %   Percent nodes binding
 perbind = 100*numel(locs)/G.nodes;
@@ -138,7 +134,7 @@ if dist_max > 0.75
     reason = 1;
 end
 if strcmp(O.alg,'ART')
-    if (all(pf_hh_up(:) < 0) || any(pf_firm_up(:) < 0.5))
+    if (all(pf_hh_up(:) < 0) || any(pf_firm_up(:) < 0.5)) %%%rename
         reason = 2;
     end
 elseif strcmp(O.alg,'Gust')

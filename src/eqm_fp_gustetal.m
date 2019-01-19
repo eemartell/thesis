@@ -38,12 +38,12 @@ w = S.chi*y^P.eta*lam;
     O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
     G.in_grid,...
     inp,...
-    pf.hh,pf.firm);
+    pf.hh,pf.firm); %pf.c, pf.pigap
 [cppArr3_zlb,pigappArr3] = Fallterp423_R(...
     O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
     G.in_grid,...
     inp,...
-    pf.hh_zlb,pf.firm);
+    pf.hh_zlb,pf.firm); %pf.c, pf.pigap
 %----------------------------------------------------------------------        
 % Solve for variables inside expectations
 %----------------------------------------------------------------------    
@@ -67,14 +67,14 @@ EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
 %%%solve for c and pigap here
 %%%start fixing from bottom and work up so you know what you'll need
-Vlam = s*i*sum(EbondArr3(:))/(P.pi*lam); %(8)
-Vlam_zlb = s*sum(EbondArr3(:))/(P.pi*lam);
-Vpi = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %(9)
+Vlam = s*i*sum(EbondArr3(:))/(P.pi*lam); %(8) %%%just do x_up(1)
+Vlam_zlb = s*sum(EbondArr3(:))/(P.pi*lam); %%%just do x_up(2)
+Vpi = 1 - P.theta + P.theta*w + P.varphi*sum(EfpArr3(:))/y; %(9) %%%just do x_up(3)
 %----------------------------------------------------------------------
 % First-order conditions
 %----------------------------------------------------------------------
 % Consumption Euler Equation (6)
-x_up(1) = 1/Vlam;
+x_up(1) = 1/Vlam; %%%remove
 x_up(2) = 1/Vlam_zlb;
 % Firm Pricing (7)
 x_up(3) = (1+sqrt((P.varphi+4*Vpi)/P.varphi))/2;

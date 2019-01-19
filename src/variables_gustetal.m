@@ -13,9 +13,9 @@ V.names = { 'c'          %1  Consumption
             'lam'        %4  Inverse MUC
             'w'          %5  Real wage rate
             'pi'         %6  Gross inflation
-            'Vlam'       %7  GustEtAl equation for lambda, non-ZLB
+            'Vlam'       %7  GustEtAl equation for lambda, non-ZLB %%%remove
             'y'          %8  Output
-            'Vpi'        %9  GustEtAl equation for pigap
+            'Vpi'        %9  GustEtAl equation for pigap %%%remove
             'n'          %10  Labor hours
             'g'          %11  Growth rate
             's'          %12  Risk premium shock
@@ -29,9 +29,9 @@ V.desc = {  'Consumption'
             'Inverse MUC'
             'Real Wage Rate'
             'Inflation Rate'
-            'V eq. for lambda, non-ZLB'
+            'V eq. for lambda, non-ZLB' %%%remove
             'Output'
-            'V eq. for pigap'
+            'V eq. for pigap' %%%remove
             'Labor Hours'
             'Growth'
             'Risk premium shock'
