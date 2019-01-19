@@ -1,6 +1,4 @@
 function R = eqm_gustetal(x,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,varargin)
-%%%change in the stye of eqm_fp_gustetal, noting that you need residuals
-%%%rather than solving for c and pi
 % Get original grids and GH nodes
 if ~isempty(varargin)
     EEflag = 1;
@@ -19,9 +17,9 @@ mp = state(3);      %Monetary policy state current period
 in = state(4);  	%Notional interest rate last period
 
 % Policy Function Guesses
-cp = x(1);      %Vlambda policy current period, non-ZLB
-cp_zlb = x(2);  %Vlambda policy current period, ZLB
-pigap = x(3);          % Vpi policy current period    
+cp = x(1);      %Consumption policy current period, non-ZLB
+cp_zlb = x(2);  %Consumption policy current period, ZLB
+pigap = x(3);   %Inflation gap policy current period    
 %----------------------------------------------------------------------
 % Solve for variables
 %----------------------------------------------------------------------
@@ -63,11 +61,11 @@ else
     [cppArr3,pigappArr3] = allterp423(...
                             G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
                             gpVec,spVec,GH.v_nodes,inp,...
-                            pf.c,pf.pigap); %%%rename pf.c, pf.pigap
+                            pf.c,pf.pigap);
     [cppArr3_zlb,pigappArr3] = allterp423(...
                             G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
                             gpVec,spVec,GH.v_nodes,inp,...
-                            pf.c_zlb,pf.pigap); %%%rename pf.c, pf.pigap                  
+                            pf.c_zlb,pf.pigap);                  
     gpArr3 = gpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));
     mpArr3 = mpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));
 end
@@ -78,7 +76,6 @@ end
 % Back out pigap 
 inpArr3 = inp^P.rhoi.*(S.i*pigappArr3.^P.phipi).^(1-P.rhoi).*exp(mpArr3); %(2)
 cppArr3_combined = cppArr3.*(inpArr3>1) + cppArr3_zlb.*(inpArr3<=1);
-% Solve for variables using combined Vlambda
 % Aggregate resource constraint (6)  
 ypArr3 = cppArr3_combined./(1-P.varphi*(pigappArr3-1).^2/2);
 % Stochastic discount factor
@@ -96,7 +93,6 @@ Efp = sum(EfpArr3(:));
 %----------------------------------------------------------------------
 % First-order conditions
 %----------------------------------------------------------------------
-%%%I think these were already written in terms of c, pigap
 % Consumption Euler equation (3)
 R(1) = 1 - s*i*Ebond/P.pi;
 R(2) = 1 - s*Ebond/P.pi;
