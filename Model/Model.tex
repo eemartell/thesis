@@ -56,7 +56,7 @@
 \noindent Equilibrium system (11 equations):
 \small\begin{gather}
 c_t = [1-\varphi(\pi_t^{gap}-1)^2/2]y_t\\
-i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi})^{1-\rho_i}\exp(\sigma_\nu\nu_t)\\
+i_t^*=\bar{\imath}(\pi^{gap}_t)^{\phi_\pi}\exp(\sigma_\nu\nu_t)\\
 i_t=\max\{1,i_t^*\}\\
 \lambda_t = c_t \\
 w_t = \chi n_t^\eta \lambda_t\\
@@ -73,7 +73,7 @@ Variables: $\{c,i^*,i,\lambda,w,\pi^{gap},y,n,g,s,z\}$\\
 \noindent De-trended Equilibrium System (10 equations):
 \small\begin{gather}
 \tilde{c}_t = [1-\varphi(\pi_t^{gap} - 1)^2/2]\tilde{y}_t\\
-i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi_t^{gap})^{\phi_\pi})^{1-\rho_i}\exp(\sigma_\nu\nu_t)\\
+i_t^*=\bar{\imath}(\pi_t^{gap})^{\phi_\pi}\exp(\sigma_\nu\nu_t)\\
 i_t=\max\{1,i_t^*\}\\
 \tilde{\lambda}_t = \tilde{c}_t\\
 \tilde{w}_t = \chi n_t^\eta \tilde{\lambda}_t  \\
@@ -89,7 +89,7 @@ Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{y},n,g,
 \noindent Log-linear Equilibrium System:
 \begin{gather}
   \hat{c}_t = \hat{y}_t\\
-  \hat{\imath}_t^n = \rho_i\hat{\imath}^n_{t-1} + (1-\rho_i)\phi_\pi\hat{\pi}_t+\sigma_\nu\nu_t \\
+  \hat{\imath}_t^n = \phi_\pi\hat{\pi}_t+\sigma_\nu\nu_t \\
   \hat{\imath}_t = \hat{\imath}_t^n\\
   \hat{\lambda}_t = \hat{c}_t \\
   \hat{w}_t =  \eta\hat{n}_t + \hat{\lambda}_t\\

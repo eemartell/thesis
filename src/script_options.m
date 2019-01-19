@@ -7,16 +7,16 @@ V = variables;
 
 % Solution space
 %   Problem size
-O.nstates = 4;
+O.nstates = 4; %%%3
 O.npfs = 2;
 O.nshocks = 3;
 %   Endogenous variable bounds
-O.in_boundper = 0.025;
+O.in_boundper = 0.025; %%%delete
 %   Density
 O.g_pts = 7;     	% Growth state
 O.s_pts = 7;     	% Risk premium shock state
 O.mp_pts = 7;    	% Policy shock state
-O.in_pts = 7;       	% Notional interest rate
+O.in_pts = 7;       	% Notional interest rate %%%delete
 O.e_pts = O.g_pts; 	% Growth shock
 O.u_pts = O.s_pts;	% Risk premium shock
 O.v_pts = O.mp_pts;	% MP shock

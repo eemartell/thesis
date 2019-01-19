@@ -16,7 +16,7 @@ Rdim = size(R,2);
 g = state(1);       %Growth state current period
 s = state(2);       %Preference state current period
 mp = state(3);      %Monetary policy state current period
-in = state(4);  	%Notional interest rate last period
+in = state(4);  	%Notional interest rate last period %%%no in
 
 for icol = 1:Rdim   
     % Policy Function Guesses
@@ -31,7 +31,7 @@ for icol = 1:Rdim
     % Aggregate resource constraint (6)    
     y = cp/(1-P.varphi*(pigap-1)^2/2);
     % Interest rate rule (8)
-    inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
+    inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp); %%%make like Model.pdf
     
     if P.zlbflag
         i = max(1,inp);
@@ -48,7 +48,7 @@ for icol = 1:Rdim
     if ~EEflag 
         [cppArr3,pigappArr3] = Fallterp423_R(...
             O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
-            G.in_grid,...
+            G.in_grid,... %%%no interpolation 
             inp,...
             pf.c,pf.pigap);
     else
@@ -56,7 +56,7 @@ for icol = 1:Rdim
         gpVec = ((1-P.rhog)*P.g + P.rhog*g + GH.e_nodes);
         % Preferences 
         spVec = ((1-P.rhos)*P.s + P.rhos*s + GH.u_nodes);
-        [cppArr3,pigappArr3] = allterp423(...
+        [cppArr3,pigappArr3] = allterp423(... %%%no interpolation
                                 G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
                                 gpVec,spVec,GH.v_nodes,inp,...
                                 pf.c,pf.pigap);

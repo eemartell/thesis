@@ -4,7 +4,7 @@ function x_up = eqm_fp(x,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3)
 g = state(1);      %Notional interest rate last period
 s = state(2);       %Growth state current period
 mp = state(3);       %Preference state current period
-in = state(4);      %Monetary policy state current period
+in = state(4);      %Monetary policy state current period %%%no in
 
 % Policy Function Guesses
 cp = x(1);     %Consumption policy current period 
@@ -15,7 +15,7 @@ pigap = x(2);	%Inflation policy current period
 % Aggregate resource constraint (1)    
 y = cp/(1-P.varphi*(pigap-1)^2/2);
 % Interest rate rule (2,3)
-inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
+inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp); %%%make like in Model.pdf
 if P.zlbflag
     i = max(1,inp);
 else
@@ -27,10 +27,10 @@ w = S.chi*y^P.eta*lam;
 %----------------------------------------------------------------------
 % Linear interpolation of the policy variables
 %----------------------------------------------------------------------
-[cppArr3,pigappArr3] = Fallterp423_R(...
+[cppArr3,pigappArr3] = Fallterp423_R(... %%%no interpolation, set cppArr3 = pf.c; pigappARr3 = pf.pigap
     O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
     G.in_grid,...
-    inp,...
+    inp,... 
     pf.c,pf.pigap);
 %----------------------------------------------------------------------        
 % Solve for variables inside expectations

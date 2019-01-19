@@ -12,8 +12,8 @@ function G = grids(O,P,S)
 %--------------------------------------------------------------------------
 % Set endogenous state space bounds
 %--------------------------------------------------------------------------
-G.inmin = (1-O.in_boundper)*S.i;
-G.inmax = (1+O.in_boundper)*S.i;
+G.inmin = (1-O.in_boundper)*S.i; %%%delete
+G.inmax = (1+O.in_boundper)*S.i; %%%delete
 %--------------------------------------------------------------------------
 % Nodes and weights for numerical integration
 %--------------------------------------------------------------------------
@@ -33,11 +33,11 @@ G.s_grid = G.u_nodes';
 % Define grid points for the monetary policy shock
 G.mp_grid = G.v_nodes';
 % Define grid points for notional interest rate
-G.in_grid = linspace(G.inmin,G.inmax,O.in_pts);
+G.in_grid = linspace(G.inmin,G.inmax,O.in_pts); %%%delete
 %--------------------------------------------------------------------------
 % Construct grid arrays
 %--------------------------------------------------------------------------
-[G.g_gr,G.s_gr,G.mp_gr,G.in_gr] = ...
-    ndgrid(G.g_grid,G.s_grid,G.mp_grid,G.in_grid);
+[G.g_gr,G.s_gr,G.mp_gr,G.in_gr] = ... %%%get rid of in
+    ndgrid(G.g_grid,G.s_grid,G.mp_grid,G.in_grid); %%%get rid of in
 G.nodes = numel(G.g_gr);
 G.griddim = size(G.g_gr);

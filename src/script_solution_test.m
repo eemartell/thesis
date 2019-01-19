@@ -50,7 +50,7 @@ istart = tic;                       % Iteration timer start
 for inode = 1:G.nodes
     % Find optimal policy functions on each node  
     start = [pf.c(inode),pf.pigap(inode)]';
-    state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),G.in_gr(inode)]; 
+    state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),G.in_gr(inode)]; %%%no in
     e_weightVec = G.e_weight(G.g_gr(inode) == G.g_grid,:)';
     u_weightVec = G.u_weight(G.s_gr(inode) == G.s_grid,:)';
     v_weightVec = G.v_weight(G.mp_gr(inode) == G.mp_grid,:)';
@@ -65,7 +65,7 @@ for inode = 1:G.nodes
                       O,P,S,G,pf,gpArr3,spArr3,weightArr3);
     elseif strcmp(O.it,'fp')
         argzero = eqm_fp(start,state,...
-                         O,P,S,G,pf,gpArr3,spArr3,weightArr3);
+                         O,P,S,G,pf,gpArr3,spArr3,weightArr3); %%%
     end
     % Store updated policy functions       
     pf_c_up(inode) = argzero(1);
@@ -84,7 +84,7 @@ pf.c = pf_c_up;
 pf.pigap = pf_pigap_up;
 
 % Find where ZLB binds
-inp = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
+inp = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr); %%%no in_gr, make like eq in new Model.pdf
 locs = find(inp <= 1);
 %   Percent nodes binding
 perbind = 100*numel(locs)/G.nodes;
