@@ -20,7 +20,7 @@ tstart = tic;                           % Job timer start
 saving = 'on';
 
 % Solution algorithm
-O.alg = 'Gust';
+O.alg = 'ART';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')

@@ -22,8 +22,8 @@ P.pi       = 1.0058;%1.0048;    % Inflation target
 % Estimated Parameters
 P.varphi   = 100;       % Price adjustment cost
 P.phipi    = 2;         % Inflation response
-P.rhos     = 0.80;      % Risk premium shock persistence
-P.rhoi     = 0.80;%0.75;      % Notional rate persistence
-P.sige     = 0.005;%0.006;%0.0120;  	% Productivity growth shock std
-P.sigu     = 0.005;%0.0100;  	% Preference shock std
+P.rhos     = 0.80;%0.80;      % Risk premium shock persistence
+P.rhoi     = 0.80;%0.745;%0.80;      % Notional rate persistence
+P.sige     = 0.005;  	% Productivity growth shock std
+P.sigu     = 0.0055;%0.005;  	% Preference shock std
 P.sigv     = 0.005;  	% Interest rate shock std
