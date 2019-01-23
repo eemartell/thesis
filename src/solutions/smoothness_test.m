@@ -48,7 +48,9 @@ xlim([.98, 1.04])
 ylim([.98, 1.04])
 zlim([.28, .38])
 title(label{i})
-text(.985,1.03,.36,['RMSE: ',num2str(RMSE{i})])
+[az, el] = view;
+view(az-90,el-10)
+text(1.03,1.04,.36,['RMSE: ',num2str(RMSE{i})])
 end
 
 % % Linear regressions using regress
