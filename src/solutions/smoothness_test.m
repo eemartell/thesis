@@ -77,4 +77,10 @@ end
 % lm_Gust = fitlm(ds_Gust,'y_Gust~g+s+mp+in+s^2+in^2+mp^2');
 % lm_Gust_zlb = fitlm(ds_Gust_zlb,'y_Gust_zlb~g+s+mp+in+s^2+in^2+mp^2');
 % lm_ART = fitlm(ds_ART,'y_ART~g+s+mp+in+s^2+in^2+mp^2');
-
+saving = 'on';
+savename = '../figs/Figs/pfs3D';
+%% Save figure
+if strcmp(saving,'on')
+    print(gcf,'-depsc2','-painters',[savename '.eps'])
+    saveas(gcf,[savename '.fig'])
+end
