@@ -29,24 +29,41 @@ disp(['Gust, c: ', num2str(lm_Gust_lin.RMSE)])
 disp(['Gust, c_zlb: ',num2str(lm_Gust_lin_zlb.RMSE)])
 disp(['ART, c: ', num2str(lm_ART_lin.RMSE)])
 
-z{1} =  squeeze(c_ART(4,:,4,:));
-z{2} = squeeze(c_Gust(4,:,4,:));
+ZLB_boundary = 3;
+z{1} =  squeeze(c_ART(4,:,4,ZLB_boundary:end));
+z{2} = squeeze(c_Gust(4,:,4,ZLB_boundary:end));
 label{1} = 'ART solution method';
 label{2} = 'GustEtAl solution method';
 RMSE{1} = lm_ART_lin.RMSE;
 RMSE{2} = lm_Gust_lin.RMSE;
 
 figure('Renderer', 'painters', 'Position', [100 100 900 450])
+% corresponds to ZLB points
+in_small = squeeze(G.in_gr(4,:,4,1:3)); 
+g_small = squeeze(G.s_gr(4,:,4,1:3));
+c_small{1} = squeeze(c_ART(4,:,4,1:3));
+c_small{2} = squeeze(c_Gust(4,:,4,1:3));
 
 for i = 1:2
 subplot(1,2,i)
-surf(squeeze(G.in_gr(4,:,4,:)),squeeze(G.s_gr(4,:,4,:)), z{i})
-xlabel('Interest rate')
-ylabel('Risk premium')
-zlabel('Consumption')
+%hold on
+surf(squeeze(G.in_gr(4,:,4,ZLB_boundary:end)),squeeze(G.s_gr(4,:,4,ZLB_boundary:end)), z{i})
+colormap spring
+freezeColors %from MATLAB file exchange
 xlim([.98, 1.04])
 ylim([.98, 1.04])
 zlim([.28, .38])
+hold on
+surf(in_small, g_small, c_small{i})
+colormap winter
+c = colorbar('Location','North');
+c.Label.String = 'ZLB locations';
+cbfreeze(c)
+freezeColors
+hold off
+xlabel('Interest rate')
+ylabel('Risk premium')
+zlabel('Consumption')
 title(label{i})
 [az, el] = view;
 view(az-90,el-10)
