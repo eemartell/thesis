@@ -12,6 +12,7 @@ load('solutionfpGust.mat')
 y_Gust = pf.c(:);
 c_Gust = pf.c;
 y_Gust_zlb = pf.c_zlb(:);
+c_Gust_zlb = pf.c_zlb;
 
 g = G.g_gr(:);
 s = G.s_gr(:);
@@ -32,33 +33,39 @@ disp(['ART, c: ', num2str(lm_ART_lin.RMSE)])
 ZLB_boundary = 3;
 z{1} =  squeeze(c_ART(4,:,4,ZLB_boundary:end));
 z{2} = squeeze(c_Gust(4,:,4,ZLB_boundary:end));
-label{1} = 'ART solution method';
-label{2} = 'GustEtAl solution method';
+z{3} = squeeze(c_Gust_zlb(4,:,4,ZLB_boundary:end));
+label{1} = 'ART policy function';
+label{2} = 'GustEtAl non-ZLB policy function';
+label{3} = 'GustEtAl ZLB policy function';
+
 RMSE{1} = lm_ART_lin.RMSE;
 RMSE{2} = lm_Gust_lin.RMSE;
+RMSE{3} = lm_Gust_lin_zlb.RMSE;
 
-figure('Renderer', 'painters', 'Position', [100 100 900 450])
+figure('Renderer', 'painters', 'Position', [100 100 825 525])
 % corresponds to ZLB points
 in_small = squeeze(G.in_gr(4,:,4,1:3)); 
 g_small = squeeze(G.s_gr(4,:,4,1:3));
 c_small{1} = squeeze(c_ART(4,:,4,1:3));
 c_small{2} = squeeze(c_Gust(4,:,4,1:3));
+c_small{3} = squeeze(c_Gust_zlb(4,:,4,1:3));
 
-for i = 1:2
-subplot(1,2,i)
+for i = 1:3
+    if i ~= 3
+    subplot(2,2,i)
+    else
+    subplot(2,2,i+1)
+    end
 %hold on
 surf(squeeze(G.in_gr(4,:,4,ZLB_boundary:end)),squeeze(G.s_gr(4,:,4,ZLB_boundary:end)), z{i})
-colormap spring
+colormap jet
 freezeColors %from MATLAB file exchange
 xlim([.98, 1.04])
 ylim([.98, 1.04])
-zlim([.28, .38])
+zlim([.28, .39])
 hold on
 surf(in_small, g_small, c_small{i})
-colormap winter
-c = colorbar('Location','North');
-c.Label.String = 'ZLB locations';
-cbfreeze(c)
+colormap gray
 freezeColors
 hold off
 xlabel('Interest rate')
@@ -67,7 +74,8 @@ zlabel('Consumption')
 title(label{i})
 [az, el] = view;
 view(az-90,el-10)
-text(1.03,1.04,.36,['RMSE: ',num2str(RMSE{i})])
+text(1.03,1.04,.37,['RMSE: ',num2str(RMSE{i})])
+text(1.03,1.04,.36,'Grayscale: ZLB')
 end
 
 % % Linear regressions using regress

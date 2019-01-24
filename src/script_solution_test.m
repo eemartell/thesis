@@ -14,6 +14,7 @@
 clear all
 % clc
 tstart = tic;                           % Job timer start
+tic
 %% Initialize
 
 % Save rule {'on','off'}
@@ -57,6 +58,7 @@ it = 1;                                 % Iteration Counter
 converged = -1;                         % Convergence Flag
 reason = 0; 							% Stopping reason
 dist_max = 0;                           % Max distance vector
+toc
 while converged == -1
 istart = tic;                       % Iteration timer start
 %        parfor inode = 1:G.nodes
@@ -157,6 +159,7 @@ if mod(it,1) == 0 || converged == 1
 else
     it = it+1;
 end
+toc
 end
 %% Save results
 if strcmp(saving,'on')
