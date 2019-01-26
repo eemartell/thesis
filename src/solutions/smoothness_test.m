@@ -7,10 +7,12 @@ close all
 load('solutionfpART.mat')
 y_ART = pf.c(:);
 c_ART = pf.c;
+inp_ART = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
 
 load('solutionfpGust.mat')
 y_Gust = pf.c(:);
 c_Gust = pf.c;
+inp_Gust = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
 y_Gust_zlb = pf.c_zlb(:);
 c_Gust_zlb = pf.c_zlb;
 
@@ -30,10 +32,20 @@ disp(['Gust, c: ', num2str(lm_Gust_lin.RMSE)])
 disp(['Gust, c_zlb: ',num2str(lm_Gust_lin_zlb.RMSE)])
 disp(['ART, c: ', num2str(lm_ART_lin.RMSE)])
 
-ZLB_boundary = 3;
-z{1} =  squeeze(c_ART(4,:,4,ZLB_boundary:end));
-z{2} = squeeze(c_Gust(4,:,4,ZLB_boundary:end));
-z{3} = squeeze(c_Gust_zlb(4,:,4,ZLB_boundary:end));
+z{1} =  squeeze(c_ART(4,:,4,:));
+z_zlb{1} = z{1};
+inp{1} = squeeze(inp_ART(4,:,4,:));
+z_zlb{1}(inp{1}>1) = nan;
+
+z{2} = squeeze(c_Gust(4,:,4,:));
+z_zlb{2} = z{2};
+inp{2} = squeeze(inp_Gust(4,:,4,:));
+z_zlb{2}(inp{2}>1) = nan;
+
+z{3} = squeeze(c_Gust_zlb(4,:,4,:));
+z_zlb{3} = z{3};
+z_zlb{3}(inp{2}>1) = nan;
+
 label{1} = 'ART policy function';
 label{2} = 'GustEtAl non-ZLB policy function';
 label{3} = 'GustEtAl ZLB policy function';
@@ -43,12 +55,11 @@ RMSE{2} = lm_Gust_lin.RMSE;
 RMSE{3} = lm_Gust_lin_zlb.RMSE;
 
 figure('Renderer', 'painters', 'Position', [100 100 825 525])
-% corresponds to ZLB points
-in_small = squeeze(G.in_gr(4,:,4,1:3)); 
-g_small = squeeze(G.s_gr(4,:,4,1:3));
-c_small{1} = squeeze(c_ART(4,:,4,1:3));
-c_small{2} = squeeze(c_Gust(4,:,4,1:3));
-c_small{3} = squeeze(c_Gust_zlb(4,:,4,1:3));
+
+in_vec = squeeze(G.in_gr(4,:,4,:));
+in_vec = in_vec(:);
+s_vec = squeeze(G.s_gr(4,:,4,:));
+s_vec = s_vec(:);
 
 for i = 1:3
     if i ~= 3
@@ -57,16 +68,15 @@ for i = 1:3
     subplot(2,2,i+1)
     end
 %hold on
-surf(squeeze(G.in_gr(4,:,4,ZLB_boundary:end)),squeeze(G.s_gr(4,:,4,ZLB_boundary:end)), z{i})
-colormap jet
+surf(squeeze(G.in_gr(4,:,4,:)),squeeze(G.s_gr(4,:,4,:)), z{i})
+colormap winter
 freezeColors %from MATLAB file exchange
 xlim([.98, 1.04])
 ylim([.98, 1.04])
 zlim([.28, .39])
 hold on
-surf(in_small, g_small, c_small{i})
-colormap gray
-freezeColors
+scatter3(in_vec,s_vec, z_zlb{i}(:),15,'MarkerEdgeColor','k',...
+        'MarkerFaceColor','k')
 hold off
 xlabel('Interest rate')
 ylabel('Risk premium')
@@ -75,7 +85,7 @@ title(label{i})
 [az, el] = view;
 view(az-90,el-10)
 text(1.03,1.04,.37,['RMSE: ',num2str(RMSE{i})])
-text(1.03,1.04,.36,'Grayscale: ZLB')
+text(1.03,1.04,.36,'Black dots: ZLB')
 end
 
 % % Linear regressions using regress
