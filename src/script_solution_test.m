@@ -22,7 +22,10 @@ time = zeros(300,1);
 saving = 'on';
 
 % Solution algorithm
-O.alg = 'ART';
+O.alg = 'Gust';
+
+% Solution method: ti- time iteration; fp- fixed point
+O.it = 'ti';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')
@@ -82,8 +85,14 @@ for inode = 1:G.nodes
     weightArr3 = e_weightArr3.*u_weightArr3.*v_weightArr3;
     % Approximate solution
     if strcmp(O.it,'ti')
-        argzero = csolve('eqm',start,[],1e-4,10,state,...
+        if strcmp(O.alg,'ART')
+            argzero = csolve('eqm',start,[],1e-4,10,state,...
                       O,P,S,G,pf,gpArr3,spArr3,weightArr3);
+        elseif strcmp(O.alg,'Gust')
+            argzero = csolve('eqm_gustetal',start,[],1e-4,10,state,...
+                      O,P,S,G,pf,gpArr3,spArr3,weightArr3);
+        end
+
     elseif strcmp(O.it,'fp')
         if strcmp(O.alg,'ART')
             argzero = eqm_fp(start,state,...
