@@ -104,6 +104,13 @@ for iEE = 1:num
     lgd = legend('ZLB not binding', 'ZLB binding');
     lgd.FontSize = 6;
     lgd.Location = 'northwest';
+    if iEE == 1
+        text(-7.5,26,['Mean: ', num2str(R.meanEE(iEE))],'Fontsize', 8)
+        text(-7.5,23,['Max: ', num2str(R.meanEE(iEE))],'Fontsize', 8)
+    else
+        text(-7.5,37,['Mean: ', num2str(R.meanEE(iEE))],'Fontsize', 8)
+        text(-7.5,32,['Max: ', num2str(R.meanEE(iEE))],'Fontsize', 8)        
+    end
 end
 
 disp('Mean Euler Equation Error')
