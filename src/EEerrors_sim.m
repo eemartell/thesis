@@ -11,14 +11,14 @@ saving = 'on';
 %   ti: time iteration
 %   fp: fixed point
 O.it = 'fp';
-O.alg = 'ART';
+O.alg = 'Gust';
 
 if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
     disp('Using ART fixed point solution')
-    load('solutions/solutionfp7ART.mat')
+    load('solutions/solutionfp13ART.mat')
 elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
     disp('Using Gust et al fixed point solution') 
-    load('solutions/solutionfp11Gust.mat')
+    load('solutions/solutionfp17Gust.mat')
 end     
 % Numerical pdf of state variables
 %   Simulation parameters

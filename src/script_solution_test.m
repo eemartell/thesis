@@ -22,7 +22,7 @@ time = zeros(300,1);
 saving = 'on';
 
 % Solution algorithm
-O.alg = 'ART';
+O.alg = 'Gust';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')

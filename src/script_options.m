@@ -2,7 +2,7 @@
 clear
 clc
 
-O.alg = 'ART';
+O.alg = 'Gust';
 
 % Model solution variables and options
 V = variables;
@@ -16,9 +16,9 @@ O.nshocks = 3;
 O.in_boundper = 0.025;
 %   Density
 O.g_pts = 7;     	% Growth state
-O.s_pts = 7;     	% Risk premium shock state
+O.s_pts = 19;     	% Risk premium shock state
 O.mp_pts = 7;    	% Policy shock state
-O.in_pts = 7;       	% Notional interest rate
+O.in_pts = 19;       	% Notional interest rate
 O.e_pts = O.g_pts; 	% Growth shock
 O.u_pts = O.s_pts;	% Risk premium shock
 O.v_pts = O.mp_pts;	% MP shock
