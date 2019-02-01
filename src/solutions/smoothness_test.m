@@ -71,9 +71,9 @@ for i = 1:3
 surf(squeeze(G.in_gr(4,:,4,:)),squeeze(G.s_gr(4,:,4,:)), z{i})
 colormap winter
 freezeColors %from MATLAB file exchange
-xlim([.98, 1.04])
-ylim([.98, 1.04])
-zlim([.28, .39])
+%xlim([.98, 1.04])
+%ylim([.98, 1.04])
+%zlim([.28, .39])
 hold on
 scatter3(in_vec,s_vec, z_zlb{i}(:),15,'MarkerEdgeColor','k',...
         'MarkerFaceColor','k')

@@ -22,10 +22,7 @@ time = zeros(300,1);
 saving = 'on';
 
 % Solution algorithm
-O.alg = 'Gust';
-
-% Solution method: ti- time iteration; fp- fixed point
-O.it = 'ti';
+O.alg = 'ART';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')
@@ -50,7 +47,7 @@ disp('Solving the model with MATLAB...'); pause(0.5)
 % Exogenous processes   
 gpArr3 = repmat(G.e_nodes,[1,O.u_pts,O.v_pts]); 
 spArr3 = permute(repmat(G.u_nodes,[1,O.e_pts,O.v_pts]),[2,1,3]); 
-mpArr3 = permute(repmat(G.v_nodes,[1,O.e_pts,O.u_pts]),[3,1,2]); 
+mpArr3 = permute(repmat(G.v_nodes,[1,O.e_pts,O.u_pts]),[2,3,1]); 
 
 % Preallocate arrays to store policy function updates
 pf_c_up = zeros(G.griddim);
@@ -177,6 +174,7 @@ end
 time = time(time>0);
 %% Save results
 if strcmp(saving,'on')
-    fname = ['solution' O.it O.alg];
+    fname = ['solution' O.it num2str(O.s_pts) O.alg];
     save(['solutions/' fname],'pf','O','P','S','G','V','perbind');    
 end
+disp(fname)
