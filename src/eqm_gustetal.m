@@ -1,4 +1,5 @@
-function R = eqm_gustetal(x,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,varargin)
+function R = eqm_gustetal(x,state,O,P,S,G,pf,gpArr3,apArr3,mpArr3,weightArr3,varargin)
+
 % Get original grids and GH nodes
 if ~isempty(varargin)
     EEflag = 1;
@@ -11,80 +12,63 @@ end
 R = zeros(size(x));
 
 % State Values
-g = state(1);       %Growth state current period
-s = state(2);       %Preference state current period
-mp = state(3);      %Monetary policy state current period
-in = state(4);  	%Notional interest rate last period
+g = state(1);      %Notional interest rate last period
+a = state(2);       %Growth state current period
+mp = state(3);       %Preference state current period
+in = state(4);      %Monetary policy state current period
 
 % Policy Function Guesses
-cp = x(1);      %Consumption policy current period, non-ZLB
-cp_zlb = x(2);  %Consumption policy current period, ZLB
-pigap = x(3);   %Inflation gap policy current period    
+cp = x(1);     %Consumption policy current period 
+cp_zlb = x(2);     %Consumption policy current period 
+pigap = x(3);	%Inflation policy current period     
 %----------------------------------------------------------------------
 % Solve for variables
 %----------------------------------------------------------------------
-% Interest rate rule (2,3)
 inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
 i = max(1,inp);
-if inp > 1
-    lam = cp;
+if inp>1
     % Aggregate resource constraint (6)    
     y = cp/(1-P.varphi*(pigap-1)^2/2);
+    % Interest rate rule (8)
+    % FOC Labor (1,2)
+    lam = cp/a;
 else
-    lam = cp_zlb;
-    % Aggregate resource constraint (6)    
-    y = cp_zlb/(1-P.varphi*(pigap-1)^2/2); 
+% Aggregate resource constraint (6)    
+    y = cp_zlb/(1-P.varphi*(pigap-1)^2/2);
+    % Interest rate rule (8)
+    % FOC Labor (1,2)
+    lam = cp_zlb/a;
 end
-% FOC Labor (7)
-w = S.chi*y^P.eta*lam;
+w = S.chi*a*y^P.eta*lam;
 %----------------------------------------------------------------------
 % Linear interpolation of the policy variables
 %----------------------------------------------------------------------
-if ~EEflag         
-    [cppArr3,pigappArr3] = Fallterp423_R(...
-        O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
-        G.in_grid,...
-        inp,...
-        pf.c,pf.pigap);
-    [cppArr3_zlb,pigappArr3] = Fallterp423_R(...
-        O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
-        G.in_grid,...
-        inp,...
-        pf.c_zlb,pf.pigap);
-else
-    % Growth rate
-    gpVec = (1-P.rhog)*P.g + P.rhog*g + GH.e_nodes;
-    % Risk premium 
-    spVec = (1-P.rhos)*P.s + P.rhos*s + GH.u_nodes;
-    % Monetary policy
-    mpVec = GH.v_nodes;    
-    [cppArr3,pigappArr3] = allterp423(...
-                            G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
-                            gpVec,spVec,GH.v_nodes,inp,...
-                            pf.c,pf.pigap);
-    [cppArr3_zlb,pigappArr3] = allterp423(...
-                            G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
-                            gpVec,spVec,GH.v_nodes,inp,...
-                            pf.c_zlb,pf.pigap);                  
-    gpArr3 = gpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));
-    mpArr3 = mpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));
-end
-
+%cppArr3 = pf.c;
+%pigappArr3 = pf.pigap;
+[cppArr3,pigappArr3] = Fallterp423_R(... %Fallterp423r???
+    O.g_pts,O.a_pts,O.mp_pts,O.in_pts,...
+    G.in_grid,...
+    inp,...
+    pf.c,pf.pigap);
+[cppArr3_zlb,pigappArr3] = Fallterp423_R(... %Fallterp423r???
+    O.g_pts,O.a_pts,O.mp_pts,O.in_pts,...
+    G.in_grid,...
+    inp,...
+    pf.c_zlb,pf.pigap);
 %----------------------------------------------------------------------        
 % Solve for variables inside expectations
-%---------------------------------------------------------------------- 
-% Back out pigap 
-inpArr3 = inp^P.rhoi.*(S.i*pigappArr3.^P.phipi).^(1-P.rhoi).*exp(mpArr3); %(2)
+%----------------------------------------------------------------------    
+inpArr3 = inp^P.rhoi*(S.i*pigappArr3.^P.phipi).^(1-P.rhoi).*exp(mpArr3);
 cppArr3_combined = cppArr3.*(inpArr3>1) + cppArr3_zlb.*(inpArr3<=1);
-% Aggregate resource constraint (6)  
+% Aggregate resource constraint  
 ypArr3 = cppArr3_combined./(1-P.varphi*(pigappArr3-1).^2/2);
 % Stochastic discount factor
-lampArr3 = cppArr3_combined;
+lampArr3 = cppArr3_combined./apArr3;
 sdfArr3 = P.beta*lam./lampArr3;
 %----------------------------------------------------------------------
 % Numerical integration
 %----------------------------------------------------------------------
-% Compute all combinations of shocks
+% Weight realizations
 EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*pigappArr3);
 EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
@@ -94,7 +78,7 @@ Efp = sum(EfpArr3(:));
 % First-order conditions
 %----------------------------------------------------------------------
 % Consumption Euler equation (3)
-R(1) = 1 - s*i*Ebond/P.pi;
-R(2) = 1 - s*Ebond/P.pi;
+R(1) = 1 - (1+P.s)*i*Ebond/P.pi;
+R(2) = 1 - (1+P.s)*Ebond/P.pi;
 % Firm Pricing (Philips Curve, 5)
 R(3) = P.varphi*(pigap-1)*pigap-(1-P.theta)-P.theta*w-P.varphi*Efp/y;

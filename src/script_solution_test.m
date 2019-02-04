@@ -22,7 +22,7 @@ time = zeros(300,1);
 saving = 'on';
 
 % Solution algorithm
-O.alg = 'ART';
+O.alg = 'Gust';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')
@@ -34,7 +34,7 @@ end
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'fp';
+O.it = 'ti';
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
@@ -87,7 +87,7 @@ for inode = 1:G.nodes
                       O,P,S,G,pf,gpArr3,apArr3,weightArr3);
         elseif strcmp(O.alg,'Gust')
             argzero = csolve('eqm_gustetal',start,[],1e-4,10,state,...
-                      O,P,S,G,pf,gpArr3,apArr3,weightArr3);
+                      O,P,S,G,pf,gpArr3,apArr3,mpArr3,weightArr3);
         end
 
     elseif strcmp(O.it,'fp')
@@ -96,7 +96,7 @@ for inode = 1:G.nodes
                             O,P,S,G,pf,gpArr3,apArr3,weightArr3);
         elseif strcmp(O.alg,'Gust')
             argzero = eqm_fp_gustetal(start,state,...
-                            O,P,S,G,pf,gpArr3,mpArr3,weightArr3);
+                            O,P,S,G,pf,gpArr3,apArr3,mpArr3,weightArr3);
         end
     end
     % Store updated policy functions
