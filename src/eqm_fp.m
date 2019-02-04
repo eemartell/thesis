@@ -1,8 +1,8 @@
-function x_up = eqm_fp(x,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3)
+function x_up = eqm_fp(x,state,O,P,S,G,pf,gpArr3,apArr3,weightArr3)
 
 % State Values
 g = state(1);      %Notional interest rate last period
-s = state(2);       %Growth state current period
+a = state(2);       %Growth state current period
 mp = state(3);       %Preference state current period
 in = state(4);      %Monetary policy state current period
 
@@ -12,33 +12,35 @@ pigap = x(2);	%Inflation policy current period
 %----------------------------------------------------------------------
 % Solve for variables
 %----------------------------------------------------------------------
-% Aggregate resource constraint (1)    
+% Aggregate resource constraint (6)    
 y = cp/(1-P.varphi*(pigap-1)^2/2);
-% Interest rate rule (2,3)
+% Interest rate rule (8)
 inp = in^P.rhoi*(S.i*pigap^P.phipi)^(1-P.rhoi)*exp(mp);
 if P.zlbflag
     i = max(1,inp);
 else
     i = inp;
 end
-% FOC Labor (4,5)
-lam = cp;
-w = S.chi*y^P.eta*lam;
+% FOC Labor (1,2)
+lam = cp/a;
+w = S.chi*a*y^P.eta*lam;
 %----------------------------------------------------------------------
 % Linear interpolation of the policy variables
 %----------------------------------------------------------------------
-[cppArr3,pigappArr3] = Fallterp423_R(...
-    O.g_pts,O.s_pts,O.mp_pts,O.in_pts,...
+%cppArr3 = pf.c;
+%pigappArr3 = pf.pigap;
+[cppArr3,pigappArr3] = Fallterp423_R(... %Fallterp423r???
+    O.g_pts,O.a_pts,O.mp_pts,O.in_pts,...
     G.in_grid,...
     inp,...
     pf.c,pf.pigap);
 %----------------------------------------------------------------------        
 % Solve for variables inside expectations
 %----------------------------------------------------------------------    
-% Aggregate resource constraint (1)  
+% Aggregate resource constraint  
 ypArr3 = cppArr3./(1-P.varphi*(pigappArr3-1).^2/2);
-% Stochastic discount factor (4,5)
-lampArr3 = cppArr3;
+% Stochastic discount factor
+lampArr3 = cppArr3./apArr3;
 sdfArr3 = P.beta*lam./lampArr3;
 %----------------------------------------------------------------------
 % Numerical integration
@@ -49,13 +51,13 @@ EfpArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*ypArr3;
 % Integrate
 Ebond = sum(EbondArr3(:));
 Efp = sum(EfpArr3(:));
+% Integrate
+RHS_firm = 1 - P.theta + P.theta*w + P.varphi*Efp/y;
 %----------------------------------------------------------------------
 % First-order conditions
 %----------------------------------------------------------------------
-% Consumption Euler Equation (6)
-x_up(1) = 1/(s*i*Ebond/(P.pi*lam));
-% Firm Pricing (7)
-RHS_firm = 1 - P.theta + P.theta*w + P.varphi*Efp/y;
+% Consumption Euler Equation
+x_up(1) = P.pi*lam*a/((1+P.s)*i*Ebond);
+% Firm Pricing 
 x_up(2) = (1+sqrt((P.varphi+4*RHS_firm)/P.varphi))/2;
-
 end

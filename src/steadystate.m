@@ -16,4 +16,4 @@ S.c = S.y;
 % FOC labor
 S.chi = S.w/(P.n^P.eta*S.c);
 % FOC bond 
-S.i = P.g*P.pi/(P.beta*P.s);
+S.i = P.g*P.pi/(P.beta*(1+P.s));

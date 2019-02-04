@@ -16,7 +16,7 @@ V.names = { 'c'          %1  Consumption
             'y'          %7  Output
             'n'          %8  Labor hours
             'g'          %9  Growth rate
-            's'          %10  Risk premium shock
+            'a'          %10  Risk premium shock
             'mp'         %11 Monetary policy shock            
           };
 
@@ -30,7 +30,7 @@ V.desc = {  'Consumption'
             'Output'
             'Labor Hours'
             'Growth'
-            'Risk premium shock'
+            'Preference shock'
             'Monetary Policy Shock'
          };
 
@@ -42,7 +42,7 @@ V.nplotvar = length(V.plotnames);
 V.desc = V.desc;
       
 % Shocks
-V.shocktypes = {'g','s','mp'};  
+V.shocktypes = {'g','a','mp'};  
 V.nshock = length(V.shocktypes);
 
 % Forecast errors

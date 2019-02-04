@@ -22,7 +22,7 @@ time = zeros(300,1);
 saving = 'on';
 
 % Solution algorithm
-O.alg = 'Gust';
+O.alg = 'ART';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')
@@ -46,7 +46,7 @@ end
 disp('Solving the model with MATLAB...'); pause(0.5)
 % Exogenous processes   
 gpArr3 = repmat(G.e_nodes,[1,O.u_pts,O.v_pts]); 
-spArr3 = permute(repmat(G.u_nodes,[1,O.e_pts,O.v_pts]),[2,1,3]); 
+apArr3 = permute(repmat(G.u_nodes,[1,O.e_pts,O.v_pts]),[2,1,3]); 
 mpArr3 = permute(repmat(G.v_nodes,[1,O.e_pts,O.u_pts]),[2,3,1]); 
 
 % Preallocate arrays to store policy function updates
@@ -71,9 +71,9 @@ for inode = 1:G.nodes
     elseif strcmp(O.alg,'Gust')
         start = [pf.c(inode),pf.c_zlb(inode),pf.pigap(inode)]';
     end
-    state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),G.in_gr(inode)]; 
+    state = [G.g_gr(inode),G.a_gr(inode),G.mp_gr(inode),G.in_gr(inode)]; 
     e_weightVec = G.e_weight(G.g_gr(inode) == G.g_grid,:)';
-    u_weightVec = G.u_weight(G.s_gr(inode) == G.s_grid,:)';
+    u_weightVec = G.u_weight(G.a_gr(inode) == G.a_grid,:)';
     v_weightVec = G.v_weight(G.mp_gr(inode) == G.mp_grid,:)';
     
     e_weightArr3 = e_weightVec(:,ones(O.u_pts,1),ones(O.v_pts,1));
@@ -84,16 +84,16 @@ for inode = 1:G.nodes
     if strcmp(O.it,'ti')
         if strcmp(O.alg,'ART')
             argzero = csolve('eqm',start,[],1e-4,10,state,...
-                      O,P,S,G,pf,gpArr3,spArr3,weightArr3);
+                      O,P,S,G,pf,gpArr3,apArr3,weightArr3);
         elseif strcmp(O.alg,'Gust')
             argzero = csolve('eqm_gustetal',start,[],1e-4,10,state,...
-                      O,P,S,G,pf,gpArr3,spArr3,weightArr3);
+                      O,P,S,G,pf,gpArr3,apArr3,weightArr3);
         end
 
     elseif strcmp(O.it,'fp')
         if strcmp(O.alg,'ART')
             argzero = eqm_fp(start,state,...
-                            O,P,S,G,pf,gpArr3,spArr3,weightArr3);
+                            O,P,S,G,pf,gpArr3,apArr3,weightArr3);
         elseif strcmp(O.alg,'Gust')
             argzero = eqm_fp_gustetal(start,state,...
                             O,P,S,G,pf,gpArr3,mpArr3,weightArr3);
@@ -174,7 +174,7 @@ end
 time = time(time>0);
 %% Save results
 if strcmp(saving,'on')
-    fname = ['solution' O.it num2str(O.s_pts) O.alg];
+    fname = ['solution' O.it num2str(O.a_pts) O.alg];
     save(['solutions/' fname],'pf','O','P','S','G','V','perbind');    
 end
 disp(fname)
