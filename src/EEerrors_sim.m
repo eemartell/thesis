@@ -10,15 +10,25 @@ saving = 'on';
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'fp';
-O.alg = 'Gust';
+O.it = 'ti';
+O.alg = 'ART';
 
-if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
-    disp('Using ART fixed point solution')
-    load('solutions/solutionfp13ART.mat')
+if  strcmp(O.alg, 'ART')
+    if strcmp(O.it,'fp')
+        disp('Using ART fixed point solution')
+        load('solutions/solutionfp9ART.mat')
+    elseif strcmp(O.it,'ti')
+        disp('Using ART time iteration solution')        
+        load('solutions/solutionti9ART.mat')
+    end
 elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
-    disp('Using Gust et al fixed point solution') 
-    load('solutions/solutionfp17Gust.mat')
+    if strcmp(O.it,'fp')
+        disp('Using Gust et al fixed point solution') 
+        load('solutions/solutionfp9Gust.mat')
+    elseif strcmp(O.it,'ti')
+        disp('Using Gust et al time iteration solution') 
+        load('solutions/solutionti9Gust.mat')  
+    end
 end     
 % Numerical pdf of state variables
 %   Simulation parameters
@@ -73,7 +83,7 @@ if strcmp(O.alg,'Gust')
     EE3 = zeros(npers,1);
 end
 for time = 2:npers
-    state = [sims(time,V.g),sims(time,V.s),sims(time,V.mp),sims(time-1,V.in)];
+    state = [sims(time,V.g),sims(time,V.a),sims(time,V.mp),sims(time-1,V.in)];
         if strcmp(O.alg, 'ART')
             start = [sims(time,V.c),sims(time,V.pi)/P.pi]';
             % Approximate solution
@@ -111,7 +121,7 @@ elseif strcmp(O.alg,'ART')
 end
 %% Save results
 if strcmp(saving,'on')
-    fname = ['eeerrors_sim' O.it num2str(O.s_pts) O.alg];
+    fname = ['eeerrors_sim' O.it num2str(O.a_pts) O.alg];
     save(['solutions/' fname],'R');    
 end
 disp(fname)

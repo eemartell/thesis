@@ -9,7 +9,7 @@ if isempty(varargin)
     sims = zeros(npers,V.nplotvar,nsims);
     % States
     sims(1,V.g,:) = P.g;
-    sims(1,V.s,:) = P.s;
+    sims(1,V.a,:) = 1;
     sims(1,V.mp,:) = 0;
     sims(1,V.in,:) = S.i;
     % Shocks
@@ -48,13 +48,13 @@ for t = 2:npers
     % Productivity growth rate
     sims(t,V.g,:) = (1-P.rhog)*P.g + P.rhog*sims(t-1,V.g,:) + P.sige.*eTemp(t,1,:);
     % Risk premium state
-    sims(t,V.s,:) = (1-P.rhos)*P.s + P.rhos*sims(t-1,V.s,:) + P.sigu.*uTemp(t,1,:);
+    sims(t,V.a,:) = 1-P.rhoa + P.rhoa*sims(t-1,V.a,:) + P.sigu.*uTemp(t,1,:);
     % Monetary policy state
     sims(t,V.mp,:) = P.rhomp*sims(t-1,V.mp,:) + P.sigv.*vTemp(t,1,:);
     % Evaluate policy functions
     [sims(t,V.c,:),pigap(1,1,:)] = Fallterp42c_F(...
-        G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
-        squeeze(sims(t,V.g,:)),squeeze(sims(t,V.s,:)),squeeze(sims(t,V.mp,:)),...
+        G.g_grid,G.a_grid,G.mp_grid,G.in_grid,...
+        squeeze(sims(t,V.g,:)),squeeze(sims(t,V.a,:)),squeeze(sims(t,V.mp,:)),...
         squeeze(sims(t-1,V.in,:)),...
         pf.c,pf.pigap);
     sims(t,V.pi,:) = P.pi*pigap;
@@ -71,9 +71,9 @@ for t = 2:npers
     % Production function
     sims(t,V.n,:) = sims(t,V.y,:);
     % FOC Labor
-    sims(t,V.w,:) = S.chi*sims(t,V.n,:).^P.eta.*(sims(t,V.c,:));
+    sims(t,V.w,:) = S.chi*sims(t,V.a,:)*sims(t,V.n,:).^P.eta.*(sims(t,V.c,:));
     % Lambda
-    sims(t,V.lam,:) = sims(t,V.c,:); 
+    sims(t,V.lam,:) = sims(t,V.c,:)\sims(t,V.a,:); 
     % Check for complex
     if ~isreal(sims(t,:,:))
         disp('Warning: complex values in simulation');

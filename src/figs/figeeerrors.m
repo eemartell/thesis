@@ -12,22 +12,25 @@ plottype = 'P';
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'fp';
+O.it = 'ti';
 O.alg = 'ART';
 
 % Figure name
 figname = ['eeerrors' O.it O.alg];
 
 % Load solution at posterior mean
-sim = true;
-if sim == true
-    if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
-        load('../solutions/eeerrors_simfpART')
-    elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
-        load('../solutions/eeerrors_simfpGust')
+if strcmp(O.alg, 'ART')
+    if strcmp(O.it,'fp')
+        load('../solutions/eeerrors_simfp9ART')
+    elseif strcmp(O.it,'ti')
+        load('../solutions/eeerrors_simti9ART')
     end
-else
-    load('../solutions/eeerrors')
+elseif strcmp(O.alg, 'Gust')
+    if strcmp(O.it,'fp')
+        load('../solutions/eeerrors_simfp9Gust')
+    elseif strcmp(O.it,'ti')
+        load('../solutions/eeerrors_simti9Gust')
+    end
 end
 
 EE(:,1) = R.EE1(:);
