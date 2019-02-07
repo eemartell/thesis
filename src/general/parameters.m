@@ -9,6 +9,10 @@ P.g        = 1.0034;    % Mean growth rate
 P.pi       = 1.0053;   	% Inflation target
 P.s        = 1.0058;    % Average risk premium
 
+% Firm
+P.alpha    = 0.33;     % Capital share
+P.delta    = 0.025;    % Depreciation
+
 % Parameters for DGP and Estimated parameters
 P.varphip  = 100;       % Rotemberg price adjustment cost
 P.h        = 0;  	% Habit persistence
