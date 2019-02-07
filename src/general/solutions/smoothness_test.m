@@ -9,52 +9,41 @@ y_ART = pf.c(:);
 c_ART = pf.c;
 inp_ART = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
 
-% load('solutionfpGust.mat')
-% y_Gust = pf.c(:);
-% c_Gust = pf.c;
-% inp_Gust = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
-% y_Gust_zlb = pf.c_zlb(:);
-% c_Gust_zlb = pf.c_zlb;
-
 g = G.g_gr(:);
-a = G.a_gr(:);
+s = G.s_gr(:);
 mp = G.mp_gr(:);
 in = G.in_gr(:);
-ds_ART = dataset(y_ART,g,a,mp,in);
+c = G.c_gr(:);
+ds_ART = dataset(y_ART,g,s,mp,in,c);
 % Linear regressions using fitlm
-lm_ART_lin = fitlm(ds_ART,'y_ART~g+a+mp+in');
+lm_ART_lin = fitlm(ds_ART,'y_ART~g+s+mp+in+c');
 disp('RMSE (residual standard error) in linear models')
 disp(['ART, c: ', num2str(lm_ART_lin.RMSE)])
 
-z{1} =  squeeze(c_ART(4,:,4,:));
+z{1} =  squeeze(c_ART(4,:,4,:,4));
 z_zlb{1} = z{1};
-inp{1} = squeeze(inp_ART(4,:,4,:));
+inp{1} = squeeze(inp_ART(4,:,4,:,4));
 z_zlb{1}(inp{1}>1) = nan;
 
-label{1} = 'ART policy function';
+label{1} = 'ART, risk premium shock';
 
 RMSE{1} = lm_ART_lin.RMSE;
 
 figure('Renderer', 'painters', 'Position', [100 100 825 525])
 
-in_vec = squeeze(G.in_gr(4,:,4,:));
+in_vec = squeeze(G.in_gr(4,:,4,:,4));
 in_vec = in_vec(:);
-s_vec = squeeze(G.a_gr(4,:,4,:));
+s_vec = squeeze(G.s_gr(4,:,4,:,4));
 s_vec = s_vec(:);
 
-for i = 1
-    if i ~= 3
-    subplot(2,2,i)
-    else
-    subplot(2,2,i+1)
-    end
+for i = 1:1
 %hold on
-surf(squeeze(G.in_gr(4,:,4,:)),squeeze(G.a_gr(4,:,4,:)), z{i})
+surf(squeeze(G.in_gr(4,:,4,:,4)),squeeze(G.s_gr(4,:,4,:,4)), z{i})
 colormap winter
 freezeColors %from MATLAB file exchange
-% xlim([.98, 1.04])
-% ylim([.98, 1.04])
-% zlim([.28, .39])
+%xlim([.98, 1.04])
+%ylim([.98, 1.04])
+%zlim([.28, .39])
 hold on
 scatter3(in_vec,s_vec, z_zlb{i}(:),15,'MarkerEdgeColor','k',...
         'MarkerFaceColor','k')
@@ -94,7 +83,7 @@ end
 % lm_Gust_zlb = fitlm(ds_Gust_zlb,'y_Gust_zlb~g+s+mp+in+s^2+in^2+mp^2');
 % lm_ART = fitlm(ds_ART,'y_ART~g+s+mp+in+s^2+in^2+mp^2');
 saving = 'on';
-savename = '../figs/Figs/pfs3D';
+savename = 'pfs3D';
 %% Save figure
 if strcmp(saving,'on')
     print(gcf,'-depsc2','-painters',[savename '.eps'])

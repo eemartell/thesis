@@ -2,53 +2,52 @@ function V = variables
 
 % Variables: Names variables and assigns locations
 % Inputs:
-%     [None]
+%     model
 % Output:
 %     V     :   Structure of variable locations and names
 
 % Variables names
-V.names = { 'n'          %1  Labor hours
-            'w'          %2  Real wage rate
-            'i'          %3  Nominal interest rate
-            'in'         %4  Notional interest rate
-            'c'          %5  Consumption
-            'g'          %6  Growth rate
-            'a'          %7  Preference shock
-            'y'          %8  Output
-            'pi'         %9  Gross inflation
-            'cg'         %10 Consumption Growth
-            'lam'        %11 Inverse MUC
-            'mp'         %12 Monetary policy shock
-          };
+V.names =      {'c'          %1  Consumption 
+                'n'          %2  Labor
+                'y'          %3  Output
+                'yf'         %4  Final goods
+                'yg'         %5  Output growth gap
+                'w'          %6  Real wage rate
+                'pi'         %7  Inflation rate
+                'i'          %8  Nominal interest rate
+                'in'         %9  Notional interest rate
+                'lam'        %10 Inverse MUC
+                'g'          %11 Growth shock       
+                's'          %12 Risk premium shock
+                'mp'         %13 Monetary policy shock    
+               };
 
 % Variables titles        
-V.desc = {  'Labor Hours'
-            'Real Wage Rate'
-            'Nominal Interest Rate'  
-            'Notional Interest Rate'
-            'Consumption'
-            'Growth'
-            'Preference shock'
-            'Output'           
-            'Inflation Rate'
-            'Consumption Growth'
-            'Inverse MUC'
-            'Monetary Policy Shock'
-         };
+V.desc =      { 'Consumption'
+                'Labor'
+                'Output'
+                'Final Goods'
+                'Output Growth Gap'
+                'Real Wage'
+                'Inflation Rate'
+                'Nominal Interest Rate'
+                'Notional Interest Rate'
+                'Inverse MUC'
+                'Growth Shock'
+                'Risk Premium Shock'
+                'Monetary Policy Shock'                          
+            };
 
 % Variables names for nonlinear model
 V.plotnames = V.names;
 V.nplotvar = length(V.plotnames);
-
-% Variables descriptions for plotting
-V.desc = V.desc;
       
 % Shocks
-V.shocktypes = {'g','a','mp'};  
+V.shocktypes = {'g','s','mp'};
 V.nshock = length(V.shocktypes);
 
 % Forecast errors
-V.foretypes = {'lam','pi','g'}; 
+V.foretypes = {'lam','g','pi'}; 
 V.nfore = length(V.foretypes);
              
 % Add expectation variables

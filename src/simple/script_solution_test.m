@@ -22,7 +22,7 @@ time = zeros(300,1);
 saving = 'on';
 
 % Solution algorithm
-O.alg = 'Gust';
+O.alg = 'ART';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')
@@ -34,7 +34,7 @@ end
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'fp';
+O.it = 'ti';
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
@@ -64,7 +64,7 @@ tic
 while converged == -1
 istart = tic;                       % Iteration timer start
 %        parfor inode = 1:G.nodes
-for inode = 1:G.nodes
+parfor inode = 1:G.nodes
     % Find optimal policy functions on each node 
     if strcmp(O.alg,'ART')
         start = [pf.c(inode),pf.pigap(inode)]';

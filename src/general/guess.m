@@ -13,22 +13,22 @@ function [pf,eu] = guess(P,S,G)
 % log-linear solution - ZLB not imposed
 %----------------------------------------------------------------------
 V = variables;
-[T,M,eu] = linmodel(P,S,V);
+[T,~,eu] = linmodel(P,S,V);
 
-% Transform discretized state space to percent deviation from steady state
-g_gr_per = G.g_gr./P.g - 1;
-a_gr_per = G.a_gr - 1;
+% Transform discretized state space to level deviation from steady state
+g_gr_per = G.g_gr - P.g;
+s_gr_per = G.s_gr - P.s;
 mp_gr_per = G.mp_gr;
-in_gr_per = G.in_gr./S.i - 1;
-c_gr_per = G.c_gr./S.c - 1;
+in_gr_per = G.in_gr - S.i;
+c_gr_per = G.c_gr - S.c;
 
 % Calculate linear policy functions on discretized state space    
 linpf_c = zeros(G.griddim);
 linpf_pi = zeros(G.griddim);
-state = [g_gr_per(:),a_gr_per(:),mp_gr_per(:),in_gr_per(:),c_gr_per(:)]';
-linpf_c(:) = T(V.c,[V.g,V.a,V.mp,V.in,V.c])*state;
-linpf_pi(:) = T(V.pi,[V.g,V.a,V.mp,V.in,V.c])*state;
+state = [g_gr_per(:),s_gr_per(:),mp_gr_per(:),in_gr_per(:),c_gr_per(:)]';
+linpf_c(:) = T(V.c,[V.g,V.s,V.mp,V.in,V.c])*state;
+linpf_pi(:) = T(V.pi,[V.g,V.s,V.mp,V.in,V.c])*state;
 
-% Convert back to levels
-pf.c = S.c*(1 + linpf_c);
-pf.pigap = 1 + linpf_pi;
+% Convert back level deviations to levels
+pf.c = S.c + linpf_c;
+pf.pigap = (P.pi + linpf_pi)/P.pi;
