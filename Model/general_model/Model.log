@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  7 FEB 2019 15:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  7 FEB 2019 15:50
 entering extended mode
 **./Model.tex
 (Model.tex
@@ -528,22 +528,22 @@ LaTeX Info: Redefining \nameref on input line 40.
 \@outlinefile=\write3
 \openout3 = `Model.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 45.
+LaTeX Font Info:    Try loading font information for U+msa on input line 46.
 
 (C:\Users\Test\Desktop\Laytech\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 45.
+LaTeX Font Info:    Try loading font information for U+msb on input line 46.
 
 (C:\Users\Test\Desktop\Laytech\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
+Underfull \hbox (badness 10000) in paragraph at lines 70--72
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--87
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
 
  []
 
@@ -555,166 +555,124 @@ eady used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{equation.1.2}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{equation.1.3}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{equation.1.4}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{equation.1.5}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.5}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{equation.1.6}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{equation.1.7}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{equation.1.8}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.8}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{equation.1.9}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.9}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{equation.1.10}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.10}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.99 \end{gather}
-                 ] [2pdfTeX warning (ext4): destination with the same identifie
-r (name{equation.1.1}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.11}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.102 \subsection{Gust Et Al Model}
-                                   pdfTeX warning (ext4): destination with the 
-same identifier (name{equation.1.2}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.102 \subsection{Gust Et Al Model}
-                                   pdfTeX warning (ext4): destination with the 
-same identifier (name{equation.1.3}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.102 \subsection{Gust Et Al Model}
-                                   pdfTeX warning (ext4): destination with the 
-same identifier (name{equation.1.4}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.102 \subsection{Gust Et Al Model}
-                                   pdfTeX warning (ext4): destination with the 
-same identifier (name{equation.1.5}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.102 \subsection{Gust Et Al Model}
-                                   pdfTeX warning (ext4): destination with the 
-same identifier (name{equation.1.6}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.102 \subsection{Gust Et Al Model}
-                                   pdfTeX warning (ext4): destination with the 
-same identifier (name{equation.1.7}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.102 \subsection{Gust Et Al Model}
-                                   pdfTeX warning (ext4): destination with the 
-same identifier (name{equation.1.8}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.102 \subsection{Gust Et Al Model}
-                                   ]pdfTeX warning (ext4): destination with the
- same identifier (name{equation.1.1}) has been already used, duplicate ignored
+l.102 \end{gather}
+                  ]pdfTeX warning (ext4): destination with the same identifier 
+(name{equation.1.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.8}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.9}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsizepdfTeX warning (ext4): destination with the same i
 dentifier (name{equation.1.11}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.116 \end{gather}
+l.140 \end{gather}
                   \normalsize
-Underfull \hbox (badness 10000) in paragraph at lines 116--118
+Underfull \hbox (badness 10000) in paragraph at lines 140--142
 
  []
 
@@ -722,54 +680,108 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.1.1}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
+l.156 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
+l.156 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
+l.156 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
+l.156 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
+l.156 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
+l.156 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
+l.156 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.8}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
+l.156 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.9}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
+l.156 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.132 \end{gather}
-                  
-Underfull \hbox (badness 10000) in paragraph at lines 132--134
+l.156 \end{gather}
+                   [2pdfTeX warning (ext4): destination with the same identifie
+r (name{equation.1.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.156 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.156 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.156 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.156 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.156 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.156 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.156 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.156 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.9}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.156 \end{gather}
+                  ]
+Underfull \hbox (badness 10000) in paragraph at lines 156--158
 
  []
 
@@ -777,44 +789,99 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.1.1}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.146 \end{gather}
+l.170 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.146 \end{gather}
+l.170 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.146 \end{gather}
+l.170 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.146 \end{gather}
+l.170 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.146 \end{gather}
+l.170 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.146 \end{gather}
+l.170 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.146 \end{gather}
+l.170 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.8}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.146 \end{gather}
-                  
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
+l.170 \end{gather}
+                   [3]pdfTeX warning (ext4): destination with the same identifi
+er (name{equation.1.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.7}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.8}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.9}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.10}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsizepdfTeX warning (ext4): destination with the same i
+dentifier (name{equation.1.11}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.187 \end{gather}
+                  \normalsize
+Underfull \hbox (badness 10000) in paragraph at lines 187--189
 
  []
 
@@ -822,38 +889,138 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.1.1}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.153 \end{gather}
+l.203 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.153 \end{gather}
+l.203 \end{gather}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{equation.1.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.153 \end{gather}
-                   [3]pdfTeX warning (ext4): destination with the same identifi
+l.203 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.7}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.8}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.9}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.10}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.203 \end{gather}
+                  
+Underfull \hbox (badness 10000) in paragraph at lines 203--205
+
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{equation.1.1}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.217 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.217 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.217 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.217 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.217 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.217 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.7}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.217 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.8}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.217 \end{gather}
+                  
+Underfull \hbox (badness 10000) in paragraph at lines 220--221
+
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{equation.1.1}
+) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.224 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.224 \end{gather}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{equation.1.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.224 \end{gather}
+                   [4]pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.1.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.157 \end{gather}
+l.228 \end{gather}
                   
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
- [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 253.
+ [5]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 253.
  (Model.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 253.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 253.
 Package rerunfilecheck Info: File `Model.out' has not changed.
-(rerunfilecheck)             Checksum: FB1BF26314E2192A4A40733C3696B4E4;189.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
+(rerunfilecheck)             Checksum: 2836FC9A1C237B8FF0BB6A87BA58AF98;277.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 253.
  ) 
 Here is how much of TeX's memory you used:
- 9134 strings out of 493323
- 134886 string characters out of 3138232
- 252684 words of memory out of 3000000
- 12515 multiletter control sequences out of 15000+200000
+ 9138 strings out of 493323
+ 134935 string characters out of 3138232
+ 254684 words of memory out of 3000000
+ 12516 multiletter control sequences out of 15000+200000
  20267 words of font info for 51 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  36i,11n,43p,350b,331s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -868,9 +1035,9 @@ s/cm/cmr12.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cm
 r8.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 ><C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Us
 ers/Test/Desktop/Laytech/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Model.pdf (4 pages, 132156 bytes).
+Output written on Model.pdf (5 pages, 140318 bytes).
 PDF statistics:
- 96 PDF objects out of 1000 (max. 8388607)
- 19 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 105 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

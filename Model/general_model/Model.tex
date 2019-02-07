@@ -41,6 +41,78 @@
 
 \section{Equilibrium System}
 
+\subsection{ART Model with capital}
+\noindent Preferences:
+\begin{gather*}
+  E_0\textstyle\sum_{t=0}^\infty\beta^t [\log(c_t-hc^a_{t-1})-\chi n_t^{1+\eta}/(1+\eta)]
+\end{gather*}
+
+\noindent Budget Constraint:
+\begin{gather*}
+  c_t+b_t/(i_ts_t)=w_tn_t+\bar{r}^kk_{t-1}+b_{t-1}/\pi_t+d_t%%%
+\end{gather*}
+
+\setcounter{equation}{0}
+\noindent Equilibrium system (11 equations):
+\small\begin{gather}
+c_t = [1-\varphi(\pi_t^{gap}-1)^2/2]y_t\\
+i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi}(c_t/(\bar{g}c_{t-1}))^{\phi_c})^{1-\rho_i}\exp(\sigma_\nu\nu_t)\\
+i_t=\max\{1,i_t^*\}\\
+\lambda_t = c_t - hc^a_{t-1} \\
+w_t = \chi n_t^\eta \lambda_t\\
+1 =  \beta E_t[(\lambda_t/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}))]\\
+\varphi(\pi_t^{gap}-1)\pi_t^{gap} = 1-\theta + \theta w_t/z_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)]\\
+y_t=k_{t-1}^\alpha(z_t n_t)^{1-\alpha}\\ %%%
+k_t = (1-\delta)k_{t-1} \\%%%
+  g_t= (1-\rho_g)\bar{g}+\rho_gg_{t-1} + \sigma_\varepsilon\varepsilon_t \\
+  s_t=(1-\rho_s)\bar{s}+\rho_ss_{t-1} + \sigma_\upsilon\upsilon_t\\
+  z_t=g_tz_{t-1}
+\end{gather}\normalsize
+Variables: $\{c,i^*,i,\lambda,w,\pi^{gap},y,n,k,g,s,z\}$\\
+
+\setcounter{equation}{0}
+\noindent De-trended Equilibrium System (10 equations):
+\small\begin{gather}
+\tilde{c}_t = [1-\varphi(\pi_t^{gap} - 1)^2/2]\tilde{y}_t\\
+i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi_t^{gap})^{\phi_\pi}(g_t\tilde{c}_t/(\bar{g}\tilde{c}_{t-1})^{\phi_c})^{1-\rho_i}\exp(\sigma_\nu\nu_t)\\
+i_t=\max\{1,i_t^*\}\\
+\tilde{\lambda}_t = \tilde{c}_t\ - h\tilde{c}_{t-1}/g_t\\
+\tilde{w}_t = \chi n_t^\eta \tilde{\lambda}_t  \\
+  1 = \beta E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\
+  \varphi(\pi_t^{gap}-1){\pi}_t^{gap} = 1-\theta + \theta\tilde{w}_t + \beta\varphi E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1}) (\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(\tilde{y}_{t+1}/\tilde{y}_t)]\\
+  \tilde{y}_t= (\tilde{k}_{t-1}/g_t)^\alpha n_t^{1-\alpha}\\ %%% 
+\tilde{k}_t = (1-\delta)(\tilde{k}_{t-1}/g_t)\\%%%
+  g_t= (1-\rho_g)\bar{g}+\rho_gg_{t-1} + \sigma_\varepsilon\varepsilon_t \\
+  s_t=(1-\rho_s)s_t+\rho_ss_{t-1} + \sigma_\upsilon\upsilon_t
+\end{gather}
+Variables: $\{\tilde{c},i^*,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{y},n,k,g,s\}$\\ 
+
+\setcounter{equation}{0}
+\noindent Log-linear Equilibrium System:
+\begin{gather}
+  \hat{c}_t = \hat{y}_t\\
+  \hat{\imath}_t^n = \rho_i\hat{\imath}^n_{t-1} + (1-\rho_i)\phi_\pi\hat{\pi}_t+ (1-\rho_i)\phi_c(\hat{g}+\hat{c}-\hat{c}_{t-1})+\sigma_\nu\nu_t \\
+  \hat{\imath}_t = \hat{\imath}_t^n\\
+  (1-h/g)\hat{\lambda}_t = \hat{c}_t + (h/g)(\hat{g} - \hat{c}_{t-1})\\
+  \hat{w}_t =  \eta\hat{n}_t + \hat{\lambda}_t\\
+  \hat{\lambda}_t + \hat{\imath}_t + s_t  = E_t\hat{\lambda}_{t+1}+E_t\hat{\pi}_{t+1} \\
+  \varphi\hat{\pi}_t = (\theta-1)\hat{w}_t+\beta\varphi E_t\hat{\pi}_{t+1}\\
+\hat{k}_t ((1-\delta)/\bar{g})[\hat{k}_{t-1} - (\bar{k}/\bar{g})\bar{g}_t]\\%%%
+  \hat{y}_t/\bar{y} = \alpha(\bar{k}_{t-1}/\bar{k}-\hat{g}_t/\bar{g}) + (1-\alpha)\hat{n}_t/\bar{n} %%%
+\end{gather}
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{ART Model pre-capital}
 \noindent Preferences:
 \begin{gather*}
   E_0\textstyle\sum_{t=0}^\infty\beta^t [\log(c_t-hc^a_{t-1})-\chi n_t^{1+\eta}/(1+\eta)]
@@ -52,7 +124,6 @@
 \end{gather*}
 
 \setcounter{equation}{0}
-\subsection{ART Model}
 \noindent Equilibrium system (11 equations):
 \small\begin{gather}
 c_t = [1-\varphi(\pi_t^{gap}-1)^2/2]y_t\\
