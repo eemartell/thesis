@@ -2,7 +2,7 @@
 clear
 clc
 
-O.alg = 'Gust';
+O.alg = 'ART';
 
 % Model solution variables and options
 V = variables;
