@@ -2,67 +2,74 @@ function V = variables
 
 % Variables: Names variables and assigns locations
 % Inputs:
-%     model
+%     [None]
 % Output:
 %     V     :   Structure of variable locations and names
 
 % Variables names
-V.names =      {'c'          %1  Consumption 
-                'n'          %2  Labor
-                'y'          %3  Output
-                'yf'         %4  Final goods
-                'yg'         %5  Output growth gap
-                'w'          %6  Real wage rate
-                'pi'         %7  Inflation rate
-                'i'          %8  Nominal interest rate
-                'in'         %9  Notional interest rate
-                'lam'        %10 Inverse MUC
-                'g'          %11 Growth shock       
-                's'          %12 Risk premium shock
-                'mp'         %13 Monetary policy shock    
-               };
+V.names = { 'n'          %1  Labor hours
+            'w'          %2  Real wage rate
+            'c'          %3  Consumption
+            'r'          %4  Nominal interest rate 
+            'pi'         %5  Gross inflation
+            'y'          %6  Output
+            'psi'        %7  Marginal cost
+            'z'          %8  Productivity
+            'beta'       %9  Discount factor
+            'k'          %10  Capital
+            'i'          %11 Investment
+            'rk'         %12 Rental Rate
+            'q'          %13 Tobin's q
+          };
 
-% Variables titles        
-V.desc =      { 'Consumption'
-                'Labor'
-                'Output'
-                'Final Goods'
-                'Output Growth Gap'
-                'Real Wage'
-                'Inflation Rate'
-                'Nominal Interest Rate'
-                'Notional Interest Rate'
-                'Inverse MUC'
-                'Growth Shock'
-                'Risk Premium Shock'
-                'Monetary Policy Shock'                          
-            };
-
-% Variables names for nonlinear model
-V.plotnames = V.names;
-V.nplotvar = length(V.plotnames);
+% Variables names for plotting
+V.plotnames = [V.names
+               'realr'
+               'rotcost'
+               'ytil'
+               'Ec'
+               'Er'
+               'Erk'
+               'Ecper'];       
       
-% Shocks
-V.shocktypes = {'g','s','mp'};
-V.nshock = length(V.shocktypes);
+% Variables titles        
+V.desc = {  'Labor Hours'
+            'Real Wage Rate'
+            'Consumption'
+            'Nominal Interest Rate'
+            'Inflation Rate'
+            'Output'
+            'Real Marginal Cost'
+            'Technology'
+            'Discount Factor'   
+            'Capital'
+            'Investment'
+            'Real Rental Rate'
+            'Tobin''s q'
+            'Real Interest Rate'
+            'Rot. Adjustment Cost'
+            'Adjusted Output'
+            'Expected Consumption'
+            'Exp. Nom. Interest Rate'
+            'Exp. Real Rental Rate'
+            'Exp Cons. Growth'
+         };
 
+%Shocktypes: 
+V.shocktypes = {'z','beta'};  
 % Forecast errors
-V.foretypes = {'lam','g','pi'}; 
-V.nfore = length(V.foretypes);
+V.foretypes = {'c','pi','rk','i','q','beta'}; 
              
-% Add expectation variables
-for j = 1:V.nfore
-    V.names = [V.names; ['e' V.foretypes{j}]];
-end
+% Number of variables
 V.nvar = length(V.names);
+V.nplotvar = length(V.plotnames);
+% Number of shocks
+V.nshock = length(V.shocktypes);
+% Number of forecast errors
+V.nfore = length(V.foretypes);
 
 % Establish variable index
-%  Linear model
-for j = 1:V.nvar
-   eval(['V.' V.names{j} ' = j;']);      
-end
-%  Nonlinear model
-for j = V.nvar-V.nfore+1:V.nplotvar
+for j = 1:V.nplotvar
    eval(['V.' V.plotnames{j} ' = j;']);      
 end
 % Establish shock index

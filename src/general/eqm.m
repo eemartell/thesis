@@ -1,65 +1,106 @@
-function Res = eqm(x,state,O,P,S,G,pf,gpArr3,weightArr3)
+function R = eqm(x,state,...
+                Ozlbflag,...
+                Palpha,Ppi,Pphipi,Pphiy,Peta,Pvarphi,...  
+                Pdelta,Pnu,Pzbar,Prhoz,Pbeta,Prhobeta,Ptheta,...
+                Schi,Sr,Sy,...       
+                Ge_weight,Ge_nodes,Gu_weight,Gu_nodes,...
+                Gk_grid,Gz_grid,Gbeta_grid,...
+                pf_n,pf_pi,pf_i)
+
+% R = eqm(x,state,P,S,G,pf,zlbflag)
+%   Outputs residuals of the equilibrium system of equations for time
+%   iteration/linear interpolation method.
+% Inputs:
+%   x       :   Policy function values on node i
+%   state   :   State variable value on node i
+%   O       :   Structure of options
+%   P       :   Structure of parameters
+%   S       :   Structure of steady state values
+%   G       :   Structure of grids
+%   pf      :   Structure of policy functions
+% zlbflag   :   Flag to impose zero-lower bound on the interest rate
+% Output:
+%   R       :   Vector of residuals on node i
 
 % Preallocate function output
-Res = zeros(size(x));
-ncol = size(Res,2);
+R = zeros(size(x));
+Rdim = size(R,2);
 
 % State Values
-g = state(1);       %Growth state current period
-s = state(2);       %Risk premium state current period
-mp = state(3);      %Monetary policy shock current period
-in = state(4);  	%Notional interest rate last period
-c = state(5);   	%Consumption last period
+k = state(1);       %Capital state last period  
+z = state(2);       %Technology state current period
+beta = state(3);    %Discount factor state current period
 
-for icol = 1:ncol   
+for j = 1:Rdim   
     % Policy Function Guesses
-    cp = x(1,icol);     %Consumption current period 
-    pigap = x(2,icol);	%Inflation gap current period     
+    n = x(1,j);     %Labor policy current period 
+    pie = x(2,j);   %Inflation policy current period 
+    i = x(3,j); 	%Investment policy current period 
     %----------------------------------------------------------------------
-    % Current period
+    % Solve for variables
     %----------------------------------------------------------------------
-    % ARC(1) and Output definition (2)
-    yf = cp/(1-P.varphip*(pigap-1)^2/2);
-    % ARC (1) and Output growth gap (3)
-    yg = g*cp/(P.g*c);
-    % Nominal interest rate (4)
-    inp = in^P.rhoi*(S.i*pigap^P.phipi*yg^P.phiy)^(1-P.rhoi)*exp(mp);
-    % Notional interest rate (5)
-    i = max(1,inp);
-%     i = inp;
-    % Inverse MUC (6)
-    lam = cp-P.h*c/g;
-    % Production function (7) and HH FOC Labor (8)
-    w = S.chi*yf^P.eta*lam;
+    % Production function
+    y = z*k^Palpha*n^(1-Palpha);    
+    % Interest rate rule
+    r = Sr*(pie/Ppi)^Pphipi*(y/Sy)^Pphiy;   
+    if Ozlbflag == 1
+        r = max(1,r);
+    end       
+    % Tobin's q
+    q = 1+Pnu*(i/k-Pdelta);    
+    % Aggregate resource constraint
+    ytil = y*(1-(Pvarphi*(pie/Ppi-1)^2)/2);
+    kac = Pnu*(i/k-Pdelta)^2/2;
+    c = ytil - i - kac*k;    
+    % FOC Labor
+    w = Schi*n^Peta*c;
+    % Firm FOC labor
+    psi = w*n/((1-Palpha)*y);
+    % Investment
+    kp = i + (1-Pdelta)*k;       
+    % Technology
+    zpVec = Pzbar*(z/Pzbar)^Prhoz*exp(Ge_nodes); 
+    % Discount factor
+    betapVec = Pbeta*(beta/Pbeta)^Prhobeta*exp(Gu_nodes);      
     %----------------------------------------------------------------------
-    % Linear interpolation of the policy functions 
+    % Linear interpolation of the policy variables 
     %---------------------------------------------------------------------- 
-    [cppArr3,pigappArr3] = Fallterp523_R(...
-        O.g_pts,O.s_pts,O.mp_pts,O.in_pts,O.c_pts,...
-        G.in_grid,G.c_grid,...
-        inp,cp,...
-        pf.c,pf.pigap);
+    [npMat,pipMat,ipMat] = Fallterp332c(Gk_grid,Gz_grid,Gbeta_grid,...
+                                        kp,zpVec,betapVec,...
+                                        pf_n,pf_pi,pf_i);    
     %----------------------------------------------------------------------        
-    % Next period
+    % Solve for variables inside expectations
+    %----------------------------------------------------------------------           
+    zpMat = zpVec(:,ones(numel(Gu_weight),1));
+    betapMat = betapVec(:,ones(length(Ge_nodes),1))';    
+    ypMat = zpMat.*(kp^Palpha).*(npMat.^(1-Palpha));      
+    qpMat = 1+Pnu*(ipMat/kp-Pdelta);  
+    ytilpMat = ypMat.*(1-(Pvarphi*(pipMat/Ppi-1).^2)/2);
+    kacpMat = Pnu*(ipMat/kp-Pdelta).^2/2;
+    cpMat = ytilpMat - ipMat - kacpMat*kp;      
+    wpMat = Schi*npMat.^Peta.*cpMat;   
+    psipMat = wpMat.*npMat./((1-Palpha)*ypMat);
+    rkpMat = Palpha*psipMat.*ypMat/kp;
+    sdfMat = betapMat.*(c./cpMat);   
+    %----------------------------------------------------------------------
+    % Numerical integration
     %----------------------------------------------------------------------    
-    % ARC(1) and Output definition (6)
-    yfpArr3 = cppArr3./(1-P.varphip*(pigappArr3-1).^2/2);
-    % Inverse MUC (5)
-    lampArr3 = cppArr3-P.h*cp./gpArr3;
-    % Stochastic discount factor
-    sdfArr3 = P.beta*lam./lampArr3;
+    eMat = Ge_weight(:,ones(numel(Gu_weight),1));
+    % Apply GH across e
+    Efp =  sum(eMat.*(sdfMat.*(pipMat./Ppi-1).*(ypMat/y).*(pipMat./Ppi)))/sqrt(pi);
+    Ebond = sum(eMat.*(r*sdfMat./pipMat))/sqrt(pi);
+    Econs = sum(eMat.*(sdfMat.*(rkpMat-kacpMat+(qpMat-1).*(ipMat/kp)+(1-Pdelta)*qpMat)))/sqrt(pi);
+    % Apply GH across u
+    Efp = sum(Gu_weight'.*Efp)/sqrt(pi);
+    Ebond = sum(Gu_weight'.*Ebond)/sqrt(pi);
+    Econs = sum(Gu_weight'.*Econs)/sqrt(pi);     
     %----------------------------------------------------------------------
-    % Expectations
+    % First-order conditions
     %----------------------------------------------------------------------
-    EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*(P.pi*pigappArr3));
-    EpcArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*(yfpArr3/yf);
-    Ebond = sum(EbondArr3(:));
-    Epc = sum(EpcArr3(:));
-    %----------------------------------------------------------------------
-    % Euler Equations
-    %----------------------------------------------------------------------
-    % HH FOC bond (9)
-    Res(1,icol) = 1-s*i*Ebond;
-    % Price Phillips Curve (10)
-    Res(2,icol) = P.varphip*(pigap-1)*pigap-(1-P.thetap)-P.thetap*w-P.varphip*Epc;
+    % Firm Pricing Equation
+    R(1,j) = Pvarphi*(pie/Ppi-1)*pie/Ppi-(1-Ptheta)-Ptheta*psi-Pvarphi*Efp;
+    % Bond Euler Equation
+    R(2,j) = 1-Ebond;
+    % Consumption Euler Equation
+    R(3,j) = q-Econs;
 end
