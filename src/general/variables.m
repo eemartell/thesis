@@ -12,24 +12,24 @@ V.names =      {'c'          %1  Consumption
                 'x'          %3  Investment
                 'k'          %4  Capital
                 'y'          %5  Output
-                'yf'         %7  Final goods       
-                'u'          %5  Utilization cost
-                'ups'        %8  Utilization choice
-                'wg'         %9  Real wage growth gap    
-                'xg'         %10 Investment growth
-                'yg'         %11 Output growth
-                'w'          %12 Real wage rate
-                'wf'         %13 Flexible real wage
-                'rk'         %14 Real rental rate
-                'pi'         %15 Inflation rate
-                'i'          %16 Nominal interest rate
-                'in'         %17 Notional interest rate
-                'q'          %18 Tobin's q
-                'mc'         %19 Real marginal cost
-                'lam'        %20 Inverse marginal utility of wealth  
-                'g'          %21 Growth shock       
-                's'          %22 Risk premium shock
-                'mp'         %23 Monetary policy shock    
+                'yf'         %6  Final goods       
+                %'u'          %  Utilization cost
+                %'ups'        %  Utilization choice
+                %'wg'         %  Real wage growth gap    
+                'xg'         %7 Investment growth
+                'yg'         %8 Output growth
+                'w'          %9 Real wage rate
+                %'wf'         % Flexible real wage
+                'rk'         %10 Real rental rate
+                'pi'         %11 Inflation rate
+                'i'          %12 Nominal interest rate
+                'in'         %13 Notional interest rate
+                'q'          %14 Tobin's q
+                'mc'         %15 Real marginal cost
+                'lam'        %16 Inverse marginal utility of wealth  
+                'g'          %17 Growth shock       
+                's'          %18 Risk premium shock
+                'mp'         %19 Monetary policy shock    
                };
 
 % Variables titles        
@@ -39,13 +39,13 @@ V.desc =      { 'Consumption'
                 'Capital'
                 'Output'
                 'Final Goods'
-                'Utilization cost'
-                'Utilization choice'
-                'Real Wage Growth Gap'
+                %'Utilization cost'
+                %'Utilization choice'
+                %'Real Wage Growth Gap'
                 'Investment Growth Gap'
                 'Output Growth Gap'
                 'Real Wage'
-                'Flexible Real Wage'
+                %'Flexible Real Wage'
                 'Real Rental Rate'
                 'Inflation Rate'
                 'Nominal Interest Rate'
