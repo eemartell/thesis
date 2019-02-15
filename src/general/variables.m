@@ -67,7 +67,8 @@ V.shocktypes = {'g','s','mp'};
 V.nshock = length(V.shocktypes);
 
 % Forecast errors
-V.foretypes = {'lam','g','pi','rk','ups','q','xg','u','wg'}; 
+%V.foretypes = {'lam','g','pi','rk','ups','q','xg','u','wg'}; 
+V.foretypes = {'lam','g','pi','rk','q','xg'}; 
 V.nfore = length(V.foretypes);
              
 % Add expectation variables

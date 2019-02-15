@@ -54,18 +54,18 @@ pf_c_up = zeros(G.griddim);
 pf_pigap_up = zeros(G.griddim);
 pf_n_up = zeros(G.griddim);
 pf_q_up = zeros(G.griddim);
-pf_ups_up = zeros(G.griddim);
+%pf_ups_up = zeros(G.griddim);
 it = 1;                                 % Iteration Counter
 converged = -1;                         % Convergence Flag
 reason = 0; 							% Stopping reason
 dist_max = 0;                           % Max distance vector
 while converged == -1
     istart = tic;                       % Iteration timer start
-    parfor inode = 1:G.nodes
+    for inode = 1:G.nodes
         % Find optimal policy functions on each node  
-        start = [pf.c(inode),pf.pigap(inode),pf.n(inode),pf.q(inode),pf.ups(inode)]';
+        start = [pf.c(inode),pf.pigap(inode),pf.n(inode),pf.q(inode)]';%,pf.ups(inode)]';
         state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),...
-            G.in_gr(inode),G.c_gr(inode),G.k_gr(inode),G.x_gr(inode),G.w_gr(inode)];
+            G.in_gr(inode),G.c_gr(inode),G.k_gr(inode),G.x_gr(inode)];
         epsg_weightVec = G.epsg_weight(G.g_gr(inode) == G.g_grid,:)';
         epss_weightVec = G.epss_weight(G.s_gr(inode) == G.s_grid,:)';
         epsmp_weightVec = G.epsmp_weight(G.mp_gr(inode) == G.mp_grid,:)';
@@ -82,7 +82,7 @@ while converged == -1
         pf_pigap_up(inode) = argzero(2);     
         pf_n_up(inode) = argzero(3);
         pf_q_up(inode) = argzero(4);
-        pf_ups_up(inode) = argzero(5);
+        %pf_ups_up(inode) = argzero(5);
     end
 
     % Policy function distances
@@ -90,17 +90,17 @@ while converged == -1
     dist_pigap = abs(pf_pigap_up - pf.pigap);
     dist_n = abs(pf_n_up - pf.n);
     dist_q = abs(pf_q_up - pf.q);
-    dist_ups = abs(pf_ups_up - pf.ups);
+    %dist_ups = abs(pf_ups_up - pf.ups);
 
     % Maximum distance
-    dist_max = max([dist_c(:)',dist_pigap(:)',dist_n(:)',dist_q(:)',dist_ups(:)']);
+    dist_max = max([dist_c(:)',dist_pigap(:)',dist_n(:)',dist_q(:)']);
 
     % Update policy functions
     pf.c = pf_c_up;
     pf.pigap = pf_pigap_up;
     pf.n = pf_n_up;
     pf.q = pf_q_up;
-    pf.ups = pf_ups_up;
+    %pf.ups = pf_ups_up;
 
     % Find where ZLB binds
     %   HH FOC utilization (1)
