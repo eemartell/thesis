@@ -1,6 +1,6 @@
 function S = steadystate(P)
 
-% S = steadystate(P)
+% S = steadystate(P) 
 %   Computes the deterministic steady state
 % Input:
 %   P : Structure of parameters
@@ -8,20 +8,25 @@ function S = steadystate(P)
 %   S : structure of steady state values
 
 % FOC bond 
-S.r = P.pi/P.beta;
-% FOC capital
-S.rk = 1/P.beta + P.delta - 1;
+S.i = P.g*P.pi/(P.beta*P.s);
+S.in = S.i;
 % Firm pricing
-S.psi = (P.theta-1)/P.theta;
+S.mc = (P.thetap-1)/P.thetap;
+% FOC capital
+S.rk = P.g/P.beta+P.delta-1;
 % Marginal cost definition
-S.w = (S.psi*(1-P.alpha)^(1-P.alpha)*P.alpha^P.alpha/S.rk^P.alpha)^(1/(1-P.alpha));
+S.w = (S.mc*(1-P.alpha)^(1-P.alpha)*P.alpha^P.alpha/S.rk^P.alpha)^(1/(1-P.alpha));
+S.wf = (P.thetaw-1)*S.w/P.thetaw;
 % Consolidated FOC firm
-S.k = S.w*P.n*P.alpha/(S.rk*(1-P.alpha));
-% Investment definition
-S.i = P.delta*S.k;
-% Prod. Tech
-S.y = P.zbar*S.k^P.alpha*P.n^(1-P.alpha);
+S.k = S.w*P.n*P.g*P.alpha/(S.rk*(1-P.alpha));
+% Law of motion for capital
+S.x = (1-(1-P.delta)/P.g)*S.k;
+% Production function
+S.yf = (S.k/P.g)^P.alpha*P.n^(1-P.alpha);
+% Real GDP
+S.y = S.yf;
 % Aggregate resouce constraint
-S.c = S.y - S.i;
+S.c = S.y-S.x;
 % FOC labor
-S.chi = S.w/(P.n^P.eta*S.c^P.sigma);
+S.lam = (1-P.h/P.g)*S.c;
+S.chi = S.wf/(P.n^P.eta*S.lam);

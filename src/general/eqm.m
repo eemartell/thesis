@@ -1,106 +1,122 @@
-function R = eqm(x,state,...
-                Ozlbflag,...
-                Palpha,Ppi,Pphipi,Pphiy,Peta,Pvarphi,...  
-                Pdelta,Pnu,Pzbar,Prhoz,Pbeta,Prhobeta,Ptheta,...
-                Schi,Sr,Sy,...       
-                Ge_weight,Ge_nodes,Gu_weight,Gu_nodes,...
-                Gk_grid,Gz_grid,Gbeta_grid,...
-                pf_n,pf_pi,pf_i)
-
-% R = eqm(x,state,P,S,G,pf,zlbflag)
-%   Outputs residuals of the equilibrium system of equations for time
-%   iteration/linear interpolation method.
-% Inputs:
-%   x       :   Policy function values on node i
-%   state   :   State variable value on node i
-%   O       :   Structure of options
-%   P       :   Structure of parameters
-%   S       :   Structure of steady state values
-%   G       :   Structure of grids
-%   pf      :   Structure of policy functions
-% zlbflag   :   Flag to impose zero-lower bound on the interest rate
-% Output:
-%   R       :   Vector of residuals on node i
+function Res = eqm(pf0,state,O,P,S,G,pf,gpArr3,weightArr3)
 
 % Preallocate function output
-R = zeros(size(x));
-Rdim = size(R,2);
+Res = zeros(size(pf0));
+ncol = size(Res,2);
 
 % State Values
-k = state(1);       %Capital state last period  
-z = state(2);       %Technology state current period
-beta = state(3);    %Discount factor state current period
+g = state(1);           %Growth state current period
+s = state(2);           %Risk premium state current period
+mp = state(3);          %Monetary policy shock current period
+in = state(4);          %Notional interest rate last period
+c = state(5);           %Consumption last period
+k = state(6);           %Capital last period
+x = state(7);           %Investment last period   
+w = state(8);           %Real wage last period
 
-for j = 1:Rdim   
+for icol = 1:ncol
     % Policy Function Guesses
-    n = x(1,j);     %Labor policy current period 
-    pie = x(2,j);   %Inflation policy current period 
-    i = x(3,j); 	%Investment policy current period 
+    cp = pf0(1,icol);      %Consumption current period
+    pigap = pf0(2,icol);   %Inflation gap current period  
+    n = pf0(3,icol);       %Labor current period 
+    q = pf0(4,icol);       %Tobin's q current period
+    ups = pf0(5,icol);     %Utilization current period
     %----------------------------------------------------------------------
-    % Solve for variables
+    % Current period
     %----------------------------------------------------------------------
-    % Production function
-    y = z*k^Palpha*n^(1-Palpha);    
-    % Interest rate rule
-    r = Sr*(pie/Ppi)^Pphipi*(y/Sy)^Pphiy;   
-    if Ozlbflag == 1
-        r = max(1,r);
-    end       
-    % Tobin's q
-    q = 1+Pnu*(i/k-Pdelta);    
-    % Aggregate resource constraint
-    ytil = y*(1-(Pvarphi*(pie/Ppi-1)^2)/2);
-    kac = Pnu*(i/k-Pdelta)^2/2;
-    c = ytil - i - kac*k;    
-    % FOC Labor
-    w = Schi*n^Peta*c;
-    % Firm FOC labor
-    psi = w*n/((1-Palpha)*y);
-    % Investment
-    kp = i + (1-Pdelta)*k;       
-    % Technology
-    zpVec = Pzbar*(z/Pzbar)^Prhoz*exp(Ge_nodes); 
-    % Discount factor
-    betapVec = Pbeta*(beta/Pbeta)^Prhobeta*exp(Gu_nodes);      
+    % HH FOC utilization (1)
+    rk = S.rk*exp(P.sigups*(ups-1));
+    % Production function (2)
+    yf = (ups*k/g)^P.alpha*n^(1-P.alpha); 
+    % Utilization definition (3)
+    u = S.rk*(exp(P.sigups*(ups-1))-1)/P.sigups;
+    % Firm FOC capital (4)
+    mc = rk*ups*k/(P.alpha*g*yf);
+    % Firm FOC labor (5)
+    wp = (1-P.alpha)*mc*yf/n;
+    % Real wage growth gap (6)
+    wg = pigap*g*wp/(P.g*w);
+    % Output definition (7)
+    yp = (1-P.varphip*(pigap-1)^2/2-P.varphiw*(wg-1)^2/2)*yf - u*k/g;
+    % Lagged ARC (13)
+    y = c + x;
+    % Output growth gap (8)
+    yg = g*yp/(P.g*y);
+    % Notional Interest Rate (9)
+    inp = in^P.rhoi*(S.i*pigap^P.phipi*yg^P.phiy)^(1-P.rhoi)*exp(mp); 
+    % Nominal Interest Rate (10)
+%     i = max(1,inp);
+    i = inp;
+    % Inverse MUC (11)
+    lam = cp-P.h*c/g;
+    % Flexible real wage definition (12)
+    wf = S.chi*n^P.eta*lam;
+    % ARC (13)
+    xp = yp-cp;  
+    % Investment growth gap (14)
+    xg = g*xp/(P.g*x);
+    % Law of motion for capital (15)
+    kp = (1-P.delta)*(k/g)+xp*(1-P.nu*(xg-1)^2/2);         
     %----------------------------------------------------------------------
-    % Linear interpolation of the policy variables 
+    % Linear interpolation of the policy functions 
     %---------------------------------------------------------------------- 
-    [npMat,pipMat,ipMat] = Fallterp332c(Gk_grid,Gz_grid,Gbeta_grid,...
-                                        kp,zpVec,betapVec,...
-                                        pf_n,pf_pi,pf_i);    
+    [cppArr3,pigappArr3,npArr3,qpArr3,upspArr3] = Fallterp853_R(...
+        O.g_pts,O.s_pts,O.mp_pts,...
+        O.in_pts,O.c_pts,O.k_pts,O.x_pts,O.w_pts,...
+        G.in_grid,G.c_grid,G.k_grid,G.x_grid,G.w_grid,...
+        inp,cp,kp,xp,wp,...
+        pf.c,pf.pigap,pf.n,pf.q,pf.ups);
     %----------------------------------------------------------------------        
-    % Solve for variables inside expectations
-    %----------------------------------------------------------------------           
-    zpMat = zpVec(:,ones(numel(Gu_weight),1));
-    betapMat = betapVec(:,ones(length(Ge_nodes),1))';    
-    ypMat = zpMat.*(kp^Palpha).*(npMat.^(1-Palpha));      
-    qpMat = 1+Pnu*(ipMat/kp-Pdelta);  
-    ytilpMat = ypMat.*(1-(Pvarphi*(pipMat/Ppi-1).^2)/2);
-    kacpMat = Pnu*(ipMat/kp-Pdelta).^2/2;
-    cpMat = ytilpMat - ipMat - kacpMat*kp;      
-    wpMat = Schi*npMat.^Peta.*cpMat;   
-    psipMat = wpMat.*npMat./((1-Palpha)*ypMat);
-    rkpMat = Palpha*psipMat.*ypMat/kp;
-    sdfMat = betapMat.*(c./cpMat);   
+    % Next period
+    %----------------------------------------------------------------------  
+    % HH FOC Utilization (1)
+    rkpArr3 = S.rk*exp(P.sigups*(upspArr3-1));  
+    % Production function (2)
+    yfpArr3 = (upspArr3*kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha);
+    % Utilization definition (3)
+    upArr3 = S.rk*(exp(P.sigups*(upspArr3-1))-1)/P.sigups;
+    % Firm FOC capital (4)
+    mcpArr3 = rkpArr3.*upspArr3*kp./(P.alpha*gpArr3.*yfpArr3);
+    % Firm FOC labor (5)
+    wppArr3 = (1-P.alpha)*mcpArr3.*yfpArr3./npArr3;
+    % Real wage growth gap (6)
+    wgpArr3 = pigappArr3.*gpArr3.*wppArr3/(P.g*wp);
+    % Output definition (7)
+    yppArr3 = (1-P.varphip*(pigappArr3-1).^2/2 ...
+        - P.varphiw*(wgpArr3-1).^2/2).*yfpArr3 ...
+        - upArr3*kp./gpArr3;
+    % Inverse MUC (11)
+    lampArr3 = cppArr3-P.h*cp./gpArr3;
+    % ARC (13)
+    xppArr3 = yppArr3-cppArr3;
+    % Investment growth gap (14)
+    xgpArr3 = gpArr3.*xppArr3/(P.g*xp);
+    % Stochastic discount factor
+    sdfArr3 = P.beta*lam./lampArr3;
     %----------------------------------------------------------------------
-    % Numerical integration
-    %----------------------------------------------------------------------    
-    eMat = Ge_weight(:,ones(numel(Gu_weight),1));
-    % Apply GH across e
-    Efp =  sum(eMat.*(sdfMat.*(pipMat./Ppi-1).*(ypMat/y).*(pipMat./Ppi)))/sqrt(pi);
-    Ebond = sum(eMat.*(r*sdfMat./pipMat))/sqrt(pi);
-    Econs = sum(eMat.*(sdfMat.*(rkpMat-kacpMat+(qpMat-1).*(ipMat/kp)+(1-Pdelta)*qpMat)))/sqrt(pi);
-    % Apply GH across u
-    Efp = sum(Gu_weight'.*Efp)/sqrt(pi);
-    Ebond = sum(Gu_weight'.*Ebond)/sqrt(pi);
-    Econs = sum(Gu_weight'.*Econs)/sqrt(pi);     
+    % Expectations
     %----------------------------------------------------------------------
-    % First-order conditions
+    EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*(P.pi*pigappArr3));
+    EcapArr3 = weightArr3.*sdfArr3.*(rkpArr3.*upspArr3-upArr3+(1-P.delta)*qpArr3)./gpArr3;
+    EinvArr3 = weightArr3.*sdfArr3.*qpArr3.*xgpArr3.^2.*(xgpArr3-1)./gpArr3;
+    EppcArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*(yfpArr3/yf);
+    EwpcArr3 = weightArr3.*sdfArr3.*(wgpArr3-1).*wgpArr3.*(yfpArr3/yf);
+    Ebond = sum(EbondArr3(:));
+    Ecap = sum(EcapArr3(:));
+    Einv = sum(EinvArr3(:));
+    Eppc = sum(EppcArr3(:));
+    Ewpc = sum(EwpcArr3(:));
     %----------------------------------------------------------------------
-    % Firm Pricing Equation
-    R(1,j) = Pvarphi*(pie/Ppi-1)*pie/Ppi-(1-Ptheta)-Ptheta*psi-Pvarphi*Efp;
-    % Bond Euler Equation
-    R(2,j) = 1-Ebond;
-    % Consumption Euler Equation
-    R(3,j) = q-Econs;
+    % Euler Equations
+    %----------------------------------------------------------------------
+    % HH FOC bond (16)
+    Res(1,icol) = 1-s*i*Ebond;
+    % HH FOC capital (17)
+    Res(2,icol) = q-Ecap;
+    % HH FOC investment (18)
+    Res(3,icol) = 1-q*(1-P.nu*(xg-1)^2/2-P.nu*(xg-1)*xg)-P.nu*P.g*Einv;    
+    % Price Phillips Curve (19)
+    Res(4,icol) = P.varphip*(pigap-1)*pigap-(1-P.thetap)-P.thetap*mc-P.varphip*Eppc;
+    % Wage Phillips Curve (20)
+    Res(5,icol) = P.varphiw*(wg-1)*wg-((1-P.thetaw)*wp+P.thetaw*wf)*n/yf-P.varphiw*Ewpc;
 end

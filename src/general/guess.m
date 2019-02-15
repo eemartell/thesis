@@ -1,8 +1,9 @@
-function pf = guess(P,S,G)
+function pf = guess(V,P,S,G)
 
-% pf = guess(P,S,G) 
+% pf = guess(V,P,S,G) 
 %   Sets the initial policy functions
 % Inputs:
+%   V : structure of variable indices
 %   P : structure of parameters
 %   S : structure of steady state values 
 %   G : structure of grids
@@ -12,25 +13,35 @@ function pf = guess(P,S,G)
 %----------------------------------------------------------------------
 % log-linear solution - ZLB not imposed
 %----------------------------------------------------------------------
-V = variables;
 [T,~,eu] = linmodel(P,S,V);
 disp(['Linear Solution: eu=' mat2str(eu)])
 
-% Transform discretized state space to percent deviation from steady state     
-k_gr_per = (G.k_gr - S.k)./S.k;   
-z_gr_per = (G.z_gr - P.zbar)./P.zbar;
-beta_gr_per = (G.beta_gr - P.beta)./P.beta;
+% Transform discretized state space to level deviation from steady state
+g_gr_per = G.g_gr - P.g;
+s_gr_per = G.s_gr - P.s;
+mp_gr_per = G.mp_gr;
+in_gr_per = G.in_gr - S.i;
+c_gr_per = G.c_gr - S.c;
+k_gr_per = G.k_gr - S.k;
+x_gr_per = G.x_gr - S.x;
+w_gr_per = G.w_gr - S.w;
 
-% Calculate linear policy functions on discretized state space    
-linpf_n = zeros(G.griddim);
+% Calculate linear policy functions on discretized state space 
+linpf_c = zeros(G.griddim);
 linpf_pi = zeros(G.griddim);
-linpf_i = zeros(G.griddim);
-state = [k_gr_per(:) z_gr_per(:) beta_gr_per(:)]';
-linpf_n(:) = T(V.n,[V.k V.z V.beta])*state;
-linpf_pi(:) = T(V.pi,[V.k V.z V.beta])*state;
-linpf_i(:) = T(V.i,[V.k V.z V.beta])*state;
+linpf_n = zeros(G.griddim);
+linpf_q = zeros(G.griddim);
+linpf_ups = zeros(G.griddim);
+state = [g_gr_per(:),s_gr_per(:),mp_gr_per(:),in_gr_per(:),c_gr_per(:),k_gr_per(:),x_gr_per(:),w_gr_per(:)]';
+linpf_c(:) = T(V.c,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x,V.w])*state;
+linpf_pi(:) = T(V.pi,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x,V.w])*state;
+linpf_n(:) = T(V.n,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x,V.w])*state;
+linpf_q(:) = T(V.q,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x,V.w])*state;
+linpf_ups(:) = T(V.ups,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x,V.w])*state;
 
 % Convert back to levels
-pf.n = P.n*(1 + linpf_n);
-pf.pi = P.pi*(1 + linpf_pi);
-pf.i = S.i*(1 + linpf_i);
+pf.c = S.c + linpf_c;
+pf.pigap = (P.pi + linpf_pi)/P.pi;
+pf.n = P.n + linpf_n;
+pf.q = 1 + linpf_q;
+pf.ups = 1 + linpf_ups;  
