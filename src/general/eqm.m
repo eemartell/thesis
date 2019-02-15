@@ -30,10 +30,14 @@ for icol = 1:ncol
     yf = (k/g)^P.alpha*n^(1-P.alpha); 
     % Utilization definition (3)
     %u = S.rk*(exp(P.sigups*(ups-1))-1)/P.sigups;
-    % Firm FOC capital (4)
-    mc = rk*k/(P.alpha*g*yf);
+    % Inverse MUC (11)
+    lam = cp-P.h*c/g;
+    % Real wage definition (12)
+    w = S.chi*n^P.eta*lam;
     % Firm FOC labor (5)
-    wp = (1-P.alpha)*mc*yf/n;
+    mc = w*n/((1-P.alpha)*yf); %w = (1-P.alpha)*mc*yf/n;
+    % Firm FOC capital (4)
+    %mc = rk*k/(P.alpha*g*yf);
     % Real wage growth gap (6)
     %wg = pigap*g*wp/(P.g*w);
     % Output definition (7)
@@ -47,10 +51,6 @@ for icol = 1:ncol
     % Nominal Interest Rate (10)
 %     i = max(1,inp);
     i = inp;
-    % Inverse MUC (11)
-    lam = cp-P.h*c/g;
-    % Flexible real wage definition (12)
-    wf = S.chi*n^P.eta*lam;
     % ARC (13)
     xp = yp-cp;  
     % Investment growth gap (14)
@@ -62,7 +62,7 @@ for icol = 1:ncol
     %---------------------------------------------------------------------- 
     [cppArr3,pigappArr3,npArr3,qpArr3] = Fallterp743_R(...
         O.g_pts,O.s_pts,O.mp_pts,...
-        O.in_pts,O.c_pts,O.k_pts,O.x_pts,O.w_pts,...
+        O.in_pts,O.c_pts,O.k_pts,O.x_pts,...
         G.in_grid,G.c_grid,G.k_grid,G.x_grid,...
         inp,cp,kp,xp,...
         pf.c,pf.pigap,pf.n,pf.q);
@@ -80,7 +80,7 @@ for icol = 1:ncol
     % Firm FOC labor (5)
     wppArr3 = (1-P.alpha)*mcpArr3.*yfpArr3./npArr3;
     % Real wage growth gap (6)
-    wgpArr3 = pigappArr3.*gpArr3.*wppArr3/(P.g*wp);
+    wgpArr3 = pigappArr3.*gpArr3.*wppArr3/(P.g*w);
     % Output definition (7)
     yppArr3 = (1-P.varphip*(pigappArr3-1).^2/2).*yfpArr3;
     % Inverse MUC (11)
