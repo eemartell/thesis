@@ -9,6 +9,7 @@ end
 
 % Preallocate function output
 R = zeros(size(x));
+Rdim = size(R,2);
 
 % State Values
 g = state(1);       %Growth state current period
@@ -16,10 +17,12 @@ s = state(2);       %Preference state current period
 mp = state(3);      %Monetary policy state current period
 in = state(4);  	%Notional interest rate last period
 
+for icol = 1:Rdim   
 % Policy Function Guesses
-cp = x(1);      %Consumption policy current period, non-ZLB
-cp_zlb = x(2);  %Consumption policy current period, ZLB
-pigap = x(3);   %Inflation gap policy current period    
+cp = x(1,icol);      %Consumption policy current period, non-ZLB
+%cp_zlb = cp;
+cp_zlb = x(2,icol);  %Consumption policy current period, ZLB
+pigap = x(3,icol);   %Inflation gap policy current period    
 %----------------------------------------------------------------------
 % Solve for variables
 %----------------------------------------------------------------------
@@ -94,7 +97,8 @@ Efp = sum(EfpArr3(:));
 % First-order conditions
 %----------------------------------------------------------------------
 % Consumption Euler equation (3)
-R(1) = 1 - s*i*Ebond/P.pi;
-R(2) = 1 - s*Ebond/P.pi;
+R(1,icol) = 1 - s*i*Ebond/P.pi;
+R(2,icol) = 1 - s*Ebond/P.pi;
 % Firm Pricing (Philips Curve, 5)
-R(3) = P.varphi*(pigap-1)*pigap-(1-P.theta)-P.theta*w-P.varphi*Efp/y;
+R(3,icol) = P.varphi*(pigap-1)*pigap-(1-P.theta)-P.theta*w-P.varphi*Efp/y;
+end

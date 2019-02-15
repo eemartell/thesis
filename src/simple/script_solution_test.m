@@ -22,7 +22,7 @@ time = zeros(300,1);
 saving = 'on';
 
 % Solution algorithm
-O.alg = 'ART';
+O.alg = 'Gust';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')
@@ -64,7 +64,7 @@ tic
 while converged == -1
 istart = tic;                       % Iteration timer start
 %        parfor inode = 1:G.nodes
-parfor inode = 1:G.nodes
+for inode = 1:G.nodes
     % Find optimal policy functions on each node 
     if strcmp(O.alg,'ART')
         start = [pf.c(inode),pf.pigap(inode)]';
@@ -105,8 +105,8 @@ parfor inode = 1:G.nodes
         pf_pigap_up(inode) = argzero(2);
     elseif strcmp(O.alg,'Gust')
         pf_c_up(inode) = argzero(1);
-        pf_c_zlb_up(inode) = argzero(2);
-        pf_pigap_up(inode) = argzero(3);
+        pf_c_zlb_up(inode) = argzero(1);
+        pf_pigap_up(inode) = argzero(2);
     end
 end
 
@@ -138,7 +138,7 @@ locs = find(inp <= 1);
 perbind = 100*numel(locs)/G.nodes;
 
 % Stopping reasons
-if dist_max > 0.75
+if dist_max > 1
     reason = 1;
 end
 if strcmp(O.alg,'ART')
