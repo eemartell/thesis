@@ -20,6 +20,8 @@ G.kmin = (1-O.k_boundper)*S.k;
 G.kmax = (1+O.k_boundper)*S.k;
 G.xmin = (1-O.x_boundper)*S.x;
 G.xmax = (1+O.x_boundper)*S.x;
+G.wmin = (1-O.w_boundper)*S.w;
+G.wmax = (1+O.w_boundper)*S.w;
 %--------------------------------------------------------------------------
 % Nodes and weights for numerical integration
 %--------------------------------------------------------------------------
@@ -46,12 +48,14 @@ G.c_grid = linspace(G.cmin,G.cmax,O.c_pts);
 G.k_grid = linspace(G.kmin,G.kmax,O.k_pts);
 % Define grid points for investment
 G.x_grid = linspace(G.xmin,G.xmax,O.x_pts);
+% Define grid points for real wage
+G.w_grid = linspace(G.wmin,G.wmax,O.w_pts);
 %--------------------------------------------------------------------------
 % Construct grid arrays
 %--------------------------------------------------------------------------
 % Full nonlinear model
-[G.g_gr,G.s_gr,G.mp_gr,G.in_gr,G.c_gr,G.k_gr,G.x_gr] = ndgrid(...
+[G.g_gr,G.s_gr,G.mp_gr,G.in_gr,G.c_gr,G.k_gr,G.x_gr,G.w_gr] = ndgrid(...
     G.g_grid,G.s_grid,G.mp_grid,...
-	G.in_grid,G.c_grid,G.k_grid,G.x_grid);
+	G.in_grid,G.c_grid,G.k_grid,G.x_grid,G.w_grid);
 G.nodes = numel(G.g_gr);
 G.griddim = size(G.g_gr);
