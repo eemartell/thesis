@@ -75,16 +75,26 @@ for icol = 1:ncol
     yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha);
     % Utilization definition (3)
     %upArr3 = S.rk*(exp(P.sigups*(upspArr3-1))-1)/P.sigups;
-    % Firm FOC capital (4)
-    mcpArr3 = rkpArr3.*kp./(P.alpha*gpArr3.*yfpArr3);
+    % Firm FOC capital (4) %solve for rkpArr3
+    %mcpArr3 = rkpArr3.*kp./(P.alpha*gpArr3.*yfpArr3);
     % Firm FOC labor (5)
-    wppArr3 = (1-P.alpha)*mcpArr3.*yfpArr3./npArr3;
+    %wppArr3 = (1-P.alpha)*mcpArr3.*yfpArr3./npArr3;
     % Real wage growth gap (6)
-    wgpArr3 = pigappArr3.*gpArr3.*wppArr3/(P.g*w);
-    % Output definition (7)
-    yppArr3 = (1-P.varphip*(pigappArr3-1).^2/2).*yfpArr3;
+    %wgpArr3 = pigappArr3.*gpArr3.*wppArr3/(P.g*w);
+        % Inverse MUC (11)
+    % Firm FOC capital (4)
+    %mc = rk*k/(P.alpha*g*yf);
     % Inverse MUC (11)
-    lampArr3 = cppArr3-P.h*cp./gpArr3;
+    lampArr3 = cppArr3-P.h*cp./gpArr3;    
+    wpArr3 = S.chi.*npArr3.^P.eta.*lampArr3;
+    % Firm FOC labor (5)
+    mcpArr3 = wpArr3.*npArr3./((1-P.alpha).*yfpArr3); %w = (1-P.alpha)*mc*yf/n;    
+    % Firm FOC capital (4) %solve for rkpArr3
+   % mcpArr3 = rkpArr3.*kp./(P.alpha*gpArr3.*yfpArr3);
+    rkpArr3 = mcpArr3.*P.alpha.*gpArr3.*yfpArr3/kp;
+    % Output definition (7)
+    yppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*yfpArr3;
+
     % ARC (13)
     xppArr3 = yppArr3-cppArr3;
     % Investment growth gap (14)
@@ -112,7 +122,7 @@ for icol = 1:ncol
     % HH FOC capital (17)
     Res(2,icol) = q-Ecap;
     % HH FOC investment (18)
-    Res(3,icol) = 1-q*(1-(xg-1)^2/2-(xg-1)*xg)-P.g*Einv;    
+    Res(3,icol) = 1-q*(1-(xg-1)^2/2-(xg-1)*xg)-P.g*Einv;   
     % Price Phillips Curve (19)
     Res(4,icol) = P.varphi*(pigap-1)*pigap-(1-P.theta)-P.theta*mc-P.varphi*Eppc;
     % Wage Phillips Curve (20)
