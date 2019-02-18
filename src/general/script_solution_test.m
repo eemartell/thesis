@@ -50,11 +50,13 @@ pf = guess(V,P,S,G);
 gpArr3 = G.epsg_nodes(:,ones(O.epss_pts,1),ones(O.epsmp_pts,1));   
 
 % Preallocate arrays to store policy function updates
-pf_c_up = zeros(G.griddim);
+%pf_c_up = zeros(G.griddim);
 pf_pigap_up = zeros(G.griddim);
 pf_n_up = zeros(G.griddim);
 pf_q_up = zeros(G.griddim);
 %pf_ups_up = zeros(G.griddim);
+pf_mc_up = zeros(G.griddim);
+
 it = 1;                                 % Iteration Counter
 converged = -1;                         % Convergence Flag
 reason = 0; 							% Stopping reason
@@ -63,7 +65,7 @@ while converged == -1
     istart = tic;                       % Iteration timer start
     for inode = 1:G.nodes
         % Find optimal policy functions on each node  
-        start = [pf.c(inode),pf.pigap(inode),pf.n(inode),pf.q(inode)]';%,pf.ups(inode)]';
+        start = [pf.pigap(inode),pf.n(inode),pf.q(inode),pf.mc(inode)]';%,pf.ups(inode)]';
         state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),...
             G.in_gr(inode),G.c_gr(inode),G.k_gr(inode),G.x_gr(inode)];
         epsg_weightVec = G.epsg_weight(G.g_gr(inode) == G.g_grid,:)';
@@ -78,29 +80,29 @@ while converged == -1
             O,P,S,G,pf,...
             gpArr3,weightArr3);
         % Store updated policy functions  
-        pf_c_up(inode) = argzero(1);
-        pf_pigap_up(inode) = argzero(2);     
-        pf_n_up(inode) = argzero(3);
-        pf_q_up(inode) = argzero(4);
+        pf_pigap_up(inode) = argzero(1);     
+        pf_n_up(inode) = argzero(2);
+        pf_q_up(inode) = argzero(3);
         %pf_ups_up(inode) = argzero(5);
+        pf_mc_up(inode) = argzero(4);
     end
 
     % Policy function distances
-    dist_c = abs(pf_c_up - pf.c);
     dist_pigap = abs(pf_pigap_up - pf.pigap);
     dist_n = abs(pf_n_up - pf.n);
     dist_q = abs(pf_q_up - pf.q);
     %dist_ups = abs(pf_ups_up - pf.ups);
+    dist_mc = abs(pf_mc_up - pf.mc);
 
     % Maximum distance
-    dist_max = max([dist_c(:)',dist_pigap(:)',dist_n(:)',dist_q(:)']);
+    dist_max = max([dist_pigap(:)',dist_n(:)',dist_q(:)',dist_mc(:)']);
 
     % Update policy functions
-    pf.c = pf_c_up;
     pf.pigap = pf_pigap_up;
     pf.n = pf_n_up;
     pf.q = pf_q_up;
     %pf.ups = pf_ups_up;
+    pf.mc = pf_mc_up;
 
     % Find where ZLB binds
     %   HH FOC utilization (1)
