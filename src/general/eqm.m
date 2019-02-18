@@ -56,7 +56,7 @@ for icol = 1:ncol
     % Investment growth gap (14)
     xg = g*xp/(P.g*x);
     % Law of motion for capital (15)
-    kp = (1-P.delta)*(k/g)+xp*(1-(xg-1)^2/2);         
+    kp = (1-P.delta)*(k/g)+xp*(1-P.nu*(xg-1)^2/2);         
     %----------------------------------------------------------------------
     % Linear interpolation of the policy functions 
     %---------------------------------------------------------------------- 
@@ -112,7 +112,7 @@ for icol = 1:ncol
     % HH FOC capital (17)
     Res(2,icol) = q-Ecap;
     % HH FOC investment (18)
-    Res(3,icol) = 1-q*(1-(xg-1)^2/2-(xg-1)*xg)-P.g*Einv;    
+    Res(3,icol) = 1-q*(1-P.nu*(xg-1)^2/2-P.nu*(xg-1)*xg)-P.nu*P.g*Einv;    
     % Price Phillips Curve (19)
     Res(4,icol) = P.varphi*(pigap-1)*pigap-(1-P.theta)-P.theta*mc-P.varphi*Eppc;
     % Wage Phillips Curve (20)

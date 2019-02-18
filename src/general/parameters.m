@@ -25,7 +25,7 @@ P.sigs     = 0.005;     % Standard deviation
 P.sigmp    = 0.002;     % Standard deviation
 P.phipi    = 2.0;       % Inflation responsiveness
 P.phiy     = 0.5;       % Output responsiveness
-%P.nu       = 4;         % Investment adjustment cost
+P.nu       = 4;         % Investment adjustment cost
 %P.sigups   = 5;         % Utilization
 
 % Algorithm
