@@ -46,7 +46,8 @@ for icol = 1:ncol
     xg = g*xp/(P.g*x);    
     % Law of motion for capital (15)
     kp = (1-P.delta)*(k/g)+xp*(1-P.nu*(xg-1)^2/2);       
-    % Real wage growth gap (6)      
+    % Inverse MUC (11)
+    lam = cp-P.h*c/g;
     %----------------------------------------------------------------------
     % Linear interpolation of the policy functions 
     %---------------------------------------------------------------------- 
@@ -59,24 +60,20 @@ for icol = 1:ncol
     %----------------------------------------------------------------------        
     % Next period
     %----------------------------------------------------------------------  
-    % HH FOC Utilization (1)
-    rkpArr3 = S.rk;  
     % Production function (2)
-    yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha);
-    % Utilization definition (3)
-    %upArr3 = S.rk*(exp(P.sigups*(upspArr3-1))-1)/P.sigups;
+    ypArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha);
     % Firm FOC capital (4)
-    %mcpArr3 = rkpArr3.*kp./(P.alpha*gpArr3.*yfpArr3);
+    rkpArr3 = P.alpha.*mcpArr3.*gpArr3.*ypArr3/kp;
     % Firm FOC labor (5)
-    %wppArr3 = (1-P.alpha)*mcpArr3.*yfpArr3./npArr3;
-    % Real wage growth gap (6)
-    %wgpArr3 = pigappArr3.*gpArr3.*wppArr3/(P.g*wp);
+    wpArr3 = (1-P.alpha)*mcpArr3.*ypArr3./npArr3;
+    % FOC labor
+    cppArr3 = wpArr3./(S.chi*npArr3.^P.eta)+P.h*cp./gpArr3;
     % Output definition (7)
-    yppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*yfpArr3;
-    % Inverse MUC (11)
-    lampArr3 = cppArr3-P.h*cp./gpArr3;
-    % ARC (13)
+    yppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*ypArr3;
+    % ARC
     xppArr3 = yppArr3-cppArr3;
+    % Inverse MUC
+    lampArr3 = cppArr3-P.h*cp./gpArr3;
     % Investment growth gap (14)
     xgpArr3 = gpArr3.*xppArr3/(P.g*xp);
     % Stochastic discount factor
