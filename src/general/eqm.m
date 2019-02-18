@@ -16,56 +16,46 @@ x = state(7);           %Investment last period
 
 for icol = 1:ncol
     % Policy Function Guesses
-    cp = pf0(1,icol);      %Consumption current period
-    pigap = pf0(2,icol);   %Inflation gap current period  
-    n = pf0(3,icol);       %Labor current period 
-    q = pf0(4,icol);       %Tobin's q current period
+    %cp = pf0(1,icol);      %Consumption current period
+    pigap = pf0(1,icol);   %Inflation gap current period  
+    n = pf0(2,icol);       %Labor current period 
+    q = pf0(3,icol);       %Tobin's q current period
     %ups = pf0(5,icol);     %Utilization current period
+    mc = pf0(4,icol);      %Marginal cost current period    
     %----------------------------------------------------------------------
     % Current period
     %----------------------------------------------------------------------
-    % HH FOC utilization (1)
-    rk = S.rk;%*exp(P.sigups*(ups-1));
     % Production function (2)
-    yf = (k/g)^P.alpha*n^(1-P.alpha); 
-    % Utilization definition (3)
-    %u = S.rk*(exp(P.sigups*(ups-1))-1)/P.sigups;
-    % Firm FOC capital (4)
-    mc = rk*k/(P.alpha*g*yf);
-    % Firm FOC labor (5)
-    wp = (1-P.alpha)*mc*yf/n;
-    % Real wage growth gap (6)
-    %wg = pigap*g*wp/(P.g*w);
-    % Output definition (7)
-    yp = (1-P.varphi*(pigap-1)^2/2)*yf;
-    % Lagged ARC (13)
-    y = c + x;
-    % Output growth gap (8)
-    yg = g*yp/(P.g*y);
+    y = (k/g)^P.alpha*n^(1-P.alpha); 
+    % Real gdp
+    rgdp = c + x;
+    rgdpp = (1-P.varphi*(pigap-1)^2/2)*y;
+    % Output growth
+    rgdpg = g*rgdpp/(P.g*rgdp);    
     % Notional Interest Rate (9)
-    inp = in^P.rhoi*(S.i*pigap^P.phipi*yg^P.phiy)^(1-P.rhoi)*exp(mp); 
+    inp = in^P.rhoi*(S.i*pigap^P.phipi*rgdpg^P.phiy)^(1-P.rhoi)*exp(mp); 
     % Nominal Interest Rate (10)
-%     i = max(1,inp);
-    i = inp;
-    % Inverse MUC (11)
-    lam = cp-P.h*c/g;
-    % Flexible real wage definition (12)
-    wf = S.chi*n^P.eta*lam;
-    % ARC (13)
-    xp = yp-cp;  
+    i = inp;    
+    % Firm FOC labor (5)
+    w = (1-P.alpha)*mc*y/n;
+    % FOC labor
+    cp = w/(S.chi*n^P.eta)+P.h*c/g;
+    % Aggregate resource constraint
+    xp = rgdpp - cp;
     % Investment growth gap (14)
-    xg = g*xp/(P.g*x);
+    xg = g*xp/(P.g*x);    
     % Law of motion for capital (15)
-    kp = (1-P.delta)*(k/g)+xp*(1-P.nu*(xg-1)^2/2);         
+    kp = (1-P.delta)*(k/g)+xp*(1-P.nu*(xg-1)^2/2);       
+    % Real wage growth gap (6)      
     %----------------------------------------------------------------------
     % Linear interpolation of the policy functions 
     %---------------------------------------------------------------------- 
-    [cppArr3,pigappArr3,npArr3,qpArr3] = Fallterp743_R(...
+    [pigappArr3,npArr3,qpArr3,mcpArr3] = Fallterp743_R(...
         O.g_pts,O.s_pts,O.mp_pts,...
         O.in_pts,O.c_pts,O.k_pts,O.x_pts,...
         G.in_grid,G.c_grid,G.k_grid,G.x_grid,...
         inp,cp,kp,xp,...
-        pf.c,pf.pigap,pf.n,pf.q);
+        pf.pigap,pf.n,pf.q,pf.mc);
     %----------------------------------------------------------------------        
     % Next period
     %----------------------------------------------------------------------  
