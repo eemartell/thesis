@@ -21,9 +21,9 @@ Pi = zeros(V.nvar,V.nfore);
 CC = zeros(V.nvar,1);
 j = 0;
 %---------------------------------------------
-j = j+1;% [FOC Utilization]
+%j = j+1;% [FOC Utilization]
 %---------------------------------------------
-G0(j,V.rk) = 1;
+%G0(j,V.rk) = 1;
 %G0(j,V.ups) = -S.rk*P.sigups;
 %---------------------------------------------
 j = j+1;% [Production Function] 
@@ -96,11 +96,11 @@ G0(j,V.c) = -1;
 G0(j,V.g) = -P.h*S.c/P.g^2;
 G1(j,V.c) = -P.h/P.g;
 %---------------------------------------------
-% j=j+1;  % [Flexible Real Wage Defintion]
+ j=j+1;  % [Flexible Real Wage Defintion]
 %---------------------------------------------
-% G0(j,V.w) = 1/S.w;
-% G0(j,V.n) = -P.eta/P.n;
-% G0(j,V.lam) = -1/S.lam;
+ G0(j,V.w) = 1/S.w;
+ G0(j,V.n) = -P.eta/P.n;
+ G0(j,V.lam) = -1/S.lam;
 %---------------------------------------------
 j = j+1;% [ARC]
 %---------------------------------------------

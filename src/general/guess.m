@@ -27,10 +27,11 @@ x_gr_per = G.x_gr - S.x;
 %w_gr_per = G.w_gr - S.w;
 
 % Calculate linear policy functions on discretized state space 
-linpf_c = zeros(G.griddim);
+%linpf_c = zeros(G.griddim);
 linpf_pi = zeros(G.griddim);
 linpf_n = zeros(G.griddim);
 linpf_q = zeros(G.griddim);
+linpf_mc = zeros(G.griddim);
 %linpf_ups = zeros(G.griddim);
 state = [g_gr_per(:),s_gr_per(:),mp_gr_per(:),in_gr_per(:),c_gr_per(:),k_gr_per(:),x_gr_per(:)]';
 %linpf_c(:) = T(V.c,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x])*state;
