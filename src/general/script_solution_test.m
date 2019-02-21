@@ -105,26 +105,35 @@ while converged == -1
     pf.mc = pf_mc_up;
 
     % Find where ZLB binds
-    %   HH FOC utilization (1)
-    rk = S.rk*exp(P.sigups*(pf.ups-1));
-    %   Production function (2)
-    yf = (pf.ups.*G.k_gr./G.g_gr).^P.alpha.*pf.n.^(1-P.alpha);
-    % Utilization definition (3)
-    u = S.rk*(exp(P.sigups*(pf.ups-1))-1)/P.sigups;
-    %   Firm FOC capital (4)
-    mc = rk.*pf.ups.*G.k_gr./(P.alpha*G.g_gr.*yf);
-    %   Firm FOC labor (5)
-    wp = (1-P.alpha)*mc.*yf./pf.n;
-    %   Real wage growth gap (6)
-    wg = pf.pigap.*G.g_gr.*wp./(P.g*G.w_gr);
-    %   Output definition (7)
-    yp = (1-(P.varphip*(pf.pigap-1).^2)/2-P.varphiw*(wg-1).^2/2).*yf - u.*G.k_gr./G.g_gr;
-    %   Lagged ARC (12)
-    y = G.c_gr+G.x_gr;
-    %   Output growth gap (8)
-    yg = G.g_gr.*yp./(P.g*y);
+    % Production function (2)
+    y = (G.k_gr./G.g_gr).^P.alpha.*pf.n.^(1-P.alpha); 
+    % Real gdp
+    rgdp = G.c_gr + G.x_gr;
+    rgdpp = (1-P.varphi.*(pf.pigap-1).^2/2).*y;
+    % Output growth
+    rgdpg = G.g_gr.*rgdpp./(P.g.*rgdp);    
+    % Notional Interest Rate (9)
+%    inp = in^P.rhoi*(S.i*pigap^P.phipi*rgdpg^P.phiy)^(1-P.rhoi)*exp(mp); 
+%     %   HH FOC utilization (1)
+%     rk = S.rk*exp(P.sigups*(pf.ups-1));
+%     %   Production function (2)
+%     yf = (pf.ups.*G.k_gr./G.g_gr).^P.alpha.*pf.n.^(1-P.alpha);
+%     % Utilization definition (3)
+%     u = S.rk*(exp(P.sigups*(pf.ups-1))-1)/P.sigups;
+%     %   Firm FOC capital (4)
+%     mc = rk.*pf.ups.*G.k_gr./(P.alpha*G.g_gr.*yf);
+%     %   Firm FOC labor (5)
+%     wp = (1-P.alpha)*mc.*yf./pf.n;
+%     %   Real wage growth gap (6)
+%     wg = pf.pigap.*G.g_gr.*wp./(P.g*G.w_gr);
+%     %   Output definition (7)
+%     yp = (1-(P.varphip*(pf.pigap-1).^2)/2-P.varphiw*(wg-1).^2/2).*yf - u.*G.k_gr./G.g_gr;
+%     %   Lagged ARC (12)
+%     y = G.c_gr+G.x_gr;
+%     %   Output growth gap (8)
+%     yg = G.g_gr.*yp./(P.g*y);
     %   Interest rate rule
-    inp = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi.*yg.^P.phiy).^(1-P.rhoi).*exp(G.mp_gr);
+    inp = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi.*rgdpg.^P.phiy).^(1-P.rhoi).*exp(G.mp_gr);
     %   Percent nodes binding
     locs = find(inp <= 1);
     perbind = 100*numel(locs)/G.nodes;
