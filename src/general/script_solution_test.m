@@ -165,5 +165,5 @@ end
 
 %% Save results
 if strcmp(saving,'on')
-    save('solutions/solution_test.mat','pf','O','P','S','G','R');
+    save('solutions/solution_test.mat','pf','O','P','S','G');%,'R');
 end
