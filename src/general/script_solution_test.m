@@ -41,6 +41,11 @@ saving = 'off';
 % Load parameters, steady state and grids
 load('options.mat')
 
+% Iteration
+%   ti: time iteration
+%   fp: fixed point
+O.it = 'fp';
+
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
@@ -63,7 +68,7 @@ reason = 0; 							% Stopping reason
 dist_max = 0;                           % Max distance vector
 while converged == -1
     istart = tic;                       % Iteration timer start
-    parfor inode = 1:G.nodes
+    for inode = 1:G.nodes
         % Find optimal policy functions on each node  
         start = [pf.pigap(inode),pf.n(inode),pf.q(inode),pf.mc(inode)]';%,pf.ups(inode)]';
         state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),...
@@ -76,9 +81,16 @@ while converged == -1
         epsmp_weightArr = permute(epsmp_weightVec(:,ones(O.epsg_pts,1),ones(O.epss_pts,1)),[2,3,1]);
         weightArr3 = epsg_weightArr.*epss_weightArr.*epsmp_weightArr;
         % Approximate solution
-        argzero = csolve('eqm',start,[],1e-4,10,state,...
-            O,P,S,G,pf,...
-            gpArr3,weightArr3);
+        if strcmp(O.it,'ti')
+            argzero = csolve('eqm',start,[],1e-4,10,state,...
+                      O,P,S,G,pf,gpArr3,weightArr3);
+        elseif strcmp(O.it,'fp')
+            argzero = eqm_fp(start,state,...
+                            O,P,S,G,pf,gpArr3,weightArr3);
+        end
+%         argzero = csolve('eqm',start,[],1e-4,10,state,...
+%             O,P,S,G,pf,...
+%             gpArr3,weightArr3);
         % Store updated policy functions  
         pf_pigap_up(inode) = argzero(1);     
         pf_n_up(inode) = argzero(2);
@@ -165,5 +177,6 @@ end
 
 %% Save results
 if strcmp(saving,'on')
-    save('solutions/solution_test.mat','pf','O','P','S','G');%,'R');
+    fname = ['solution' O.it];    
+    save(['solutions/' fname],'pf','O','P','S','G');%,'R');
 end
