@@ -14,6 +14,7 @@ if strcmp(O.it,'ti') && strcmp(O.alg, 'ART')
     load('solutions/solution_test.mat')
 end
 
+O.it = 'ti';
 O.alg = 'ART';
 V = variables;
 % Numerical pdf of state variables
@@ -65,6 +66,8 @@ mpArr3 = permute(v_nodes(:,ones(GH.shockpts,1),ones(GH.shockpts,1)),[2,3,1]); %?
 
 EE1 = zeros(npers,1);
 EE2 = zeros(npers,1);
+EE3 = zeros(npers,1);
+EE4 = zeros(npers,1);
 if strcmp(O.alg,'Gust')
     EE3 = zeros(npers,1);
 end
@@ -83,31 +86,34 @@ for time = 2:npers
          % Store Euler Equation errors
         EE1(time) = abs(EE_temp(1));
         EE2(time) = abs(EE_temp(2));
+        EE3(time) = abs(EE_temp(3));
+        EE4(time) = abs(EE_temp(4));
         if strcmp(O.alg,'Gust')
             EE3(time) = abs(EE_temp(3));
         end
 end
 % Find where ZLB binds
-inp = sims(1:end-1,V.in).^P.rhoi.*(S.i*sims(2:end,V.pi).^P.phipi).^(1-P.rhoi).*exp(sims(2:end,V.mp));
+%inp = sims(1:end-1,V.in).^P.rhoi.*(S.i*sims(2:end,V.pi).^P.phipi).^(1-P.rhoi).*exp(sims(2:end,V.mp));
 
-R.ZLBlocs = find(inp <= 1);
-R.notZLBlocs = find(inp > 1);
+%R.ZLBlocs = find(inp <= 1);
+%R.notZLBlocs = find(inp > 1);
 %   Percent nodes binding
-R.perbind = 100*numel(R.ZLBlocs)/npers;
+%R.perbind = 100*numel(R.ZLBlocs)/npers;
 
 R.EE1 = log10(EE1(2:end));
 R.EE2 = log10(EE2(2:end));
+R.EE3 = log10(EE3(2:end));
+R.EE4 = log10(EE4(2:end));
 if strcmp(O.alg,'Gust')
     R.EE3 = log10(EE3(2:end));
     R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3)];
     R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3)];
 elseif strcmp(O.alg,'ART')
-    R.meanEE = [mean(R.EE1),mean(R.EE2)];
-    R.maxEE = [max(R.EE1),max(R.EE2)];
+    R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3),mean(R.EE4)];
+    R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3),max(R.EE4)];
 end
 %% Save results
 if strcmp(saving,'on')
-    fname = ['eeerrors_sim' O.it num2str(O.s_pts) O.alg];
+    fname = ['eeerrors_sim' O.it O.alg];
     save(['solutions/' fname],'R');    
 end
-disp(fname)
