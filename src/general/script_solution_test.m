@@ -44,13 +44,19 @@ load('options.mat')
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'fp';
+O.it = 'ti';
+
+% Solution algorithm
+O.alg = 'ART';
 
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
 pf = guess(V,P,S,G);
- 
+if strcmp(O.alg,'Gust')
+    pf.n_zlb = pf.n;
+end
+
 % Exogenous processes
 gpArr3 = G.epsg_nodes(:,ones(O.epss_pts,1),ones(O.epsmp_pts,1));   
 
@@ -61,6 +67,9 @@ pf_n_up = zeros(G.griddim);
 pf_q_up = zeros(G.griddim);
 %pf_ups_up = zeros(G.griddim);
 pf_mc_up = zeros(G.griddim);
+if strcmp(O.alg,'Gust')
+    pf_n_zlb_up = zeros(G.griddim);
+end
 
 it = 1;                                 % Iteration Counter
 converged = -1;                         % Convergence Flag
@@ -69,8 +78,12 @@ dist_max = 0;                           % Max distance vector
 while converged == -1
     istart = tic;                       % Iteration timer start
     for inode = 1:G.nodes
-        % Find optimal policy functions on each node  
-        start = [pf.pigap(inode),pf.n(inode),pf.q(inode),pf.mc(inode)]';%,pf.ups(inode)]';
+        % Find optimal policy functions on each node
+        if strcmp(O.alg,'ART')
+            start = [pf.pigap(inode),pf.n(inode),pf.q(inode),pf.mc(inode)]';%,pf.ups(inode)]';
+        elseif strcmp(O.alg,'Gust')
+            start = [pf.pigap(inode),pf.n(inode),pf.n_zlb(inode),pf.q(inode),pf.mc(inode)]';%,pf.ups(inode)]';
+        end
         state = [G.g_gr(inode),G.s_gr(inode),G.mp_gr(inode),...
             G.in_gr(inode),G.c_gr(inode),G.k_gr(inode),G.x_gr(inode)];
         epsg_weightVec = G.epsg_weight(G.g_gr(inode) == G.g_grid,:)';
@@ -82,8 +95,13 @@ while converged == -1
         weightArr3 = epsg_weightArr.*epss_weightArr.*epsmp_weightArr;
         % Approximate solution
         if strcmp(O.it,'ti')
-            argzero = csolve('eqm',start,[],1e-4,10,state,...
+            if strcmp(O.alg,'ART')
+                argzero = csolve('eqm',start,[],1e-4,10,state,...
+                        O,P,S,G,pf,gpArr3,weightArr3);
+            elseif strcmp(O.alg,'Gust')
+                argzero = csolve('eqm_gustetal',start,[],1e-4,10,state,...
                       O,P,S,G,pf,gpArr3,weightArr3);
+            end
         elseif strcmp(O.it,'fp')
             argzero = eqm_fp(start,state,...
                             O,P,S,G,pf,gpArr3,weightArr3);
@@ -92,11 +110,18 @@ while converged == -1
 %             O,P,S,G,pf,...
 %             gpArr3,weightArr3);
         % Store updated policy functions  
-        pf_pigap_up(inode) = argzero(1);     
-        pf_n_up(inode) = argzero(2);
-        pf_q_up(inode) = argzero(3);
-        %pf_ups_up(inode) = argzero(5);
-        pf_mc_up(inode) = argzero(4);
+        if strcmp(O.alg,'ART')
+            pf_pigap_up(inode) = argzero(1);     
+            pf_n_up(inode) = argzero(2);
+            pf_q_up(inode) = argzero(3);
+            pf_mc_up(inode) = argzero(4);
+        elseif strcmp(O.alg,'Gust')
+            pf_pigap_up(inode) = argzero(1);     
+            pf_n_up(inode) = argzero(2);
+            pf_n_zlb_up(inode) = argzero(3);
+            pf_q_up(inode) = argzero(4);
+            pf_mc_up(inode) = argzero(5);
+        end
     end
 
     % Policy function distances
@@ -105,16 +130,25 @@ while converged == -1
     dist_q = abs(pf_q_up - pf.q);
     %dist_ups = abs(pf_ups_up - pf.ups);
     dist_mc = abs(pf_mc_up - pf.mc);
+    if strcmp(O.alg,'Gust')
+        dist_n_zlb = abs(pf_n_zlb_up - pf.n_zlb);
+    end
 
     % Maximum distance
-    dist_max = max([dist_pigap(:)',dist_n(:)',dist_q(:)',dist_mc(:)']);
-
+    if strcmp(O.alg,'ART')
+        dist_max = max([dist_pigap(:)',dist_n(:)',dist_q(:)',dist_mc(:)']);
+    elseif strcmp(O.alg,'Gust')
+        dist_max = max([dist_pigap(:)',dist_n(:)',dist_n_zlb(:)',dist_q(:)',dist_mc(:)']);
+    end
     % Update policy functions
     pf.pigap = pf_pigap_up;
     pf.n = pf_n_up;
     pf.q = pf_q_up;
     %pf.ups = pf_ups_up;
     pf.mc = pf_mc_up;
+    if strcmp(O.alg,'Gust')
+        pf.n_zlb = pf_n_zlb_up;
+    end
 
     % Find where ZLB binds
     % Production function (2)
@@ -153,8 +187,16 @@ while converged == -1
     % Stopping reasons
     if dist_max > 5
         reason = 1;
-    elseif (all(pf_n_up(:) < 0) || any(pf_pigap_up(:) < 0.5))
-        reason = 2;
+    end
+    
+    if strcmp(O.alg,'ART')
+        if (all(pf_n_up(:) < 0) || any(pf_pigap_up(:) < 0.5))
+            reason = 2;
+        end
+    elseif strcmp(O.alg,'Gust')
+        if (all(pf_n_up(:) < 0) || all(pf_n_zlb_up(:) < 0) || any(pf_pigap_up(:) < 0.5))
+            reason = 2;
+        end
     end
 
     % Check convergence criterion
@@ -177,6 +219,6 @@ end
 
 %% Save results
 if strcmp(saving,'on')
-    fname = ['solution' O.it];    
+    fname = ['solution' O.it O.alg];    
     save(['solutions/' fname],'pf','O','P','S','G','V');%,'R');
 end
