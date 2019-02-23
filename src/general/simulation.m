@@ -5,7 +5,7 @@ function sims = simulation(pf,P,S,G,V,epsg,epss,epsmp,varargin)
 %----------------------------------------------------------------------
 % Containers for simulated variables
 [npers,nsims] = size(epsg);
-sims = zeros(npers,V.nstate,nsims);
+sims = zeros(npers,V.nplotvar,nsims);
 
 if isempty(varargin)
     % Initialize state variables at deterministic steady state
@@ -44,7 +44,7 @@ for t = 2:npers
     sims(t,V.mp,:) = P.sigmp.*epsmpTemp(t,1,:);
     % Evaluate policy functions
     %[sims(t,V.c,:),pigap(1,1,:),sims(t,V.n,:),sims(t,V.q,:),sims(t,V.ups,:)] = ...
-    [pigap(1,1,:),sims(t,V.n,:),sims(t,V.q,:),sims(t,V.mp,:)] = ...
+    [pigap(1,1,:),sims(t,V.n,:),sims(t,V.q,:),sims(t,V.mc,:)] = ...
         Fallterp74c_F( ...
             G.g_grid,G.s_grid,G.mp_grid,...
             G.in_grid,G.c_grid,G.k_grid,G.x_grid,...
@@ -52,19 +52,19 @@ for t = 2:npers
             squeeze(sims(t,V.mp,:)),squeeze(sims(t-1,V.in,:)),...
             squeeze(sims(t-1,V.c,:)),squeeze(sims(t-1,V.k,:)),...
             squeeze(sims(t-1,V.x,:)),...
-            pf.pigap,pf.n,pf.q,pf.mp);
+            pf.pigap,pf.n,pf.q,pf.mc);
     sims(t,V.pi,:) = P.pi*pigap;
     % Production function (2)
-    sims(t,V.yf,:) = (sims(t,V.ups,:).*sims(t-1,V.k,:)./sims(t,V.g,:)).^P.alpha.*sims(t,V.n,:).^(1-P.alpha); 
+    sims(t,V.yf,:) = (sims(t-1,V.k,:)./sims(t,V.g,:)).^P.alpha.*sims(t,V.n,:).^(1-P.alpha); 
     % Firm FOC capital (4)
     sims(t,V.rk,:) = P.alpha.*sims(t,V.mc,:).*sims(t,V.g,:).*sims(t,V.yf,:)./sims(t-1,V.k,:);
     % Firm FOC labor (5)
     sims(t,V.w,:) = (1-P.alpha)*sims(t,V.mc,:).*sims(t,V.yf,:)./sims(t,V.n,:);
-    sims(t,V.c,:) = sims(t,V.w,:)./(S.chi.*sims(t,V.n,:).^P.eta)+P.h*sims(t-1,V.c,:)./gpArr3;
+    sims(t,V.c,:) = sims(t,V.w,:)./(S.chi.*sims(t,V.n,:).^P.eta)+P.h*sims(t-1,V.c,:)./sims(t,V.g,:);
     % Real wage growth gap (6)
     %sims(t,V.wg,:) = pigap.*sims(t,V.g,:).*sims(t,V.w,:)./(P.g*sims(t-1,V.w,:));
     % Output definition (7)
-    sims(t,V.y,:) = (1-P.varphip*(pigap-1).^2/2).*sims(t,V.yf,:);
+    sims(t,V.y,:) = (1-P.varphi*(pigap-1).^2/2).*sims(t,V.yf,:);
     % Output growth gap (8)
     sims(t,V.yg,:) = sims(t,V.g,:).*sims(t,V.y,:)./(P.g*sims(t-1,V.y,:));
     % Interest rate rule (9)
@@ -80,6 +80,7 @@ for t = 2:npers
     sims(t,V.k,:) = ...
         (1-P.delta)*(sims(t-1,V.k,:)./sims(t,V.g,:))+ ...
         sims(t,V.x,:).*(1-P.nu*(sims(t,V.xg,:)-1).^2/2);
+    sims(t,V.lam,:) = sims(t,V.c,:)-P.h.*sims(t-1,V.c,:)./sims(t,V.g,:);
 
 %     % Check for complex
 %     if mod(t,10) == 0

@@ -1,4 +1,12 @@
-function Res = eqm(pf0,state,O,P,S,G,pf,gpArr3,weightArr3)
+function Res = eqm(pf0,state,O,P,S,G,pf,gpArr3,weightArr3,varargin)
+
+% Get original grids and GH nodes
+if ~isempty(varargin)
+    EEflag = 1;
+    GH = varargin{1};
+else
+    EEflag = 0;
+end
 
 % Preallocate function output
 Res = zeros(size(pf0));
@@ -51,12 +59,25 @@ for icol = 1:ncol
     %----------------------------------------------------------------------
     % Linear interpolation of the policy functions 
     %---------------------------------------------------------------------- 
+    if ~EEflag
     [pigappArr3,npArr3,qpArr3,mcpArr3] = Fallterp743_R(...
         O.g_pts,O.s_pts,O.mp_pts,...
         O.in_pts,O.c_pts,O.k_pts,O.x_pts,...
         G.in_grid,G.c_grid,G.k_grid,G.x_grid,...
         inp,cp,kp,xp,...
         pf.pigap,pf.n,pf.q,pf.mc);
+    else
+        % Growth rate (9)
+        gpVec = P.g + GH.e_nodes;
+        % Risk premium (10)
+        spVec = (1-P.rhos)*P.s + P.rhos*s + GH.u_nodes;
+        [pigappArr3,npArr3,qpArr3,mcpArr3] = Fallterp743(...
+            G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
+            G.c_grid,G.k_grid,G.x_grid,...
+            gpVec,spVec,GH.v_nodes,inp,cp,kp,xp,...
+            pf.pigap,pf.n,pf.q,pf.mc);
+        gpArr3 = gpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));    
+    end
     %----------------------------------------------------------------------        
     % Next period
     %----------------------------------------------------------------------  

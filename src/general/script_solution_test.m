@@ -178,5 +178,5 @@ end
 %% Save results
 if strcmp(saving,'on')
     fname = ['solution' O.it];    
-    save(['solutions/' fname],'pf','O','P','S','G');%,'R');
+    save(['solutions/' fname],'pf','O','P','S','G','V');%,'R');
 end
