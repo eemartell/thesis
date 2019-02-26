@@ -44,10 +44,10 @@ load('options.mat')
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'ti';
+O.it = 'fp';
 
 % Solution algorithm
-O.alg = 'Gust';
+O.alg = 'ART';
 
 %% Run Policy Function Iteration Algorithm
 

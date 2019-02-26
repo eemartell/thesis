@@ -101,14 +101,17 @@ Eppc = sum(EppcArr3(:));
 %Res(5,icol) = P.varphiw*(wg-1)*wg-((1-P.thetaw)*wp+P.thetaw*wf)*n/yf-P.varphiw*Ewpc;
 
 %pigap,n,q,mc
+x_up(3) = Ecap; %pf.q
+pf_lam = 1/(s*i*Ebond/(P.pi*lam));
+c_pf = pf_lam + P.h*c/g;
+var = (1-P.g*Einv)/x_up(3); %just q?
+xg_pf = 1/3*(sqrt(7-6*var)+2);
+x_pf = xg_pf*P.g*x/g;
+y_pf = c_pf + x_pf;
+x_up(2) = (y_pf/(k/g)^P.alpha)^(1/(1-P.alpha)); %pf.n
 RHS_firm = 1 - P.theta + P.theta*mc + P.varphi*Eppc;
-LHS_firm = P.varphi*(pigap-1)*pigap-(1-P.theta) - P.varphi*Eppc;
-%pigap
 x_up(1) = (1+sqrt((P.varphi+4*RHS_firm)/P.varphi))/2;
-%n
-x_up(2) = (1-P.alpha)*(LHS_firm/P.theta)*y/w;
-%q
-x_up(3) = Ecap;
-%mc
+%LHS_firm = P.varphi*(x_up(1)-1)*x_up(1)-(1-P.theta) - P.varphi*Eppc;
+LHS_firm = P.varphi*(pigap-1)*pigap-(1-P.theta) - P.varphi*Eppc;
 x_up(4) = LHS_firm/P.theta;
 end
