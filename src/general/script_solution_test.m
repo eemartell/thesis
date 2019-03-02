@@ -77,7 +77,7 @@ reason = 0; 							% Stopping reason
 dist_max = 0;                           % Max distance vector
 while converged == -1
     istart = tic;                       % Iteration timer start
-    for inode = 1:G.nodes
+    parfor inode = 1:G.nodes
         % Find optimal policy functions on each node
         if strcmp(O.alg,'ART')
             start = [pf.pigap(inode),pf.n(inode),pf.q(inode),pf.mc(inode)]';%,pf.ups(inode)]';

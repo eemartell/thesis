@@ -40,45 +40,27 @@
 
 \begin{document}
 
-\section{Equilibrium System}
-
-\subsection{ART Model with capital}
-\noindent Preferences:
-\begin{gather*}
-  E_0\textstyle\sum_{t=0}^\infty\beta^t [\log(c_t-hc^a_{t-1})-\chi n_t^{1+\eta}/(1+\eta)]
-\end{gather*}
-
-\noindent Budget Constraint:
-\begin{gather*}
-  c_t+x_t+b_t/(i_ts_t)=w_tn_t+r_t^kk_{t-1}+b_{t-1}/\pi_t+d_t%%%
-\end{gather*}
 
 \setcounter{equation}{0}
-\noindent Equilibrium system:
+\noindent Fixed point:
 \small\begin{gather}
-y_t = k_{t-1}^\alpha(z_t n_t)^{1-\alpha}\\ %%%
-r_t^k = \alpha mc_ty_t/k_{t-1}\\
-w_t = (1-\alpha)mc_ty_t/n_t\\
-%w_t^g = \pi_tw_t(\bar{\pi}gw_{t-1})\\
-y_t^{gdp} = [1 - \varphi(\pi_t^{gap}-1)^2/2]y_t \\
-y^g_t = y^{gdp}_t/(\bar{g}y^{gdp}_{t-1})\\
-i_t^*=(i^*_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi}(y^{g}_{t})^{\phi_y})^{1-\rho_i}\exp(mp_t)\\
-i_t=\max\{1,i_t^*\}\\
-\lambda_t = c_t - hc^a_{t-1} \\
-w_t = \chi n_t^\eta \lambda_t\\
-c_t + x_t = y_t^{gdp}\\
-x_t^g = x_t/(\bar{g}x_{t-1})\\
-k_t = (1-\delta)k_{t-1}+x_t(1-\nu(x_t^g-1)^2/2) \\%%%
-1 =  \beta E_t[(\lambda_t/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}))]\\
-q_t = \beta E_t[(\lambda_t/\lambda_{t+1})(r^k_{t+1}+(1-\delta)q_{t+1})]\\
-1 = q_t[1-(x^g_t-1)^2/2 - (x_t^g-1)x_t^g] + \beta\bar{g}E_t[q_{t+1}(\lambda_t/\lambda_{t+1})(x^g_{t+1})^2(x^g_{t+1}-1)]\\
-\varphi(\pi_t^{gap}-1)\pi_t^{gap} = 1-\theta + \theta mc_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)]\\
-g_t = \bar{g} + \sigma_g\varepsilon_{g,t}\\
-s_t=(1-\rho_s)\bar{s}+\rho_ss_{t-1} + \sigma_s\varepsilon_{s,t}\\
-mp_t = \sigma_i\varepsilon_{i,t}\\
-  z_t=g_tz_{t-1}
-\end{gather}\normalsize
-Variables: $\{c,n,x,k,y^{gdp},y,x^g,y^g,w,r^k,\pi,i,i^n,q,mc,\lambda,g,s,mp,z\}$\\
+Ebond = \beta\sum_w(\lambda_t/\lambda_{t+1})/(g_{t+1}\bar{\pi}\pi^{gap}_{t+1})\\
+Ecap = \beta\sum_w(\lambda_t/\lambda_{t+1})(r^k_{t+1}+(1-\delta)q_{t+1})/g_{t+1}\\
+Einv = \beta\sum_w(\lambda_t/\lambda_{t+1})q_{t+1} (x^g_{t+1})^2 (x^g_{t+1}-1)/g_{t+1}\\
+Eppc = \beta\sum_w(\lambda_t/\lambda_{t+1})(\pi^{gap}_{t+1}-1)\pi^{gap}_{t+1}(y_{t+1}/y_t)\\
+x\_up(3) = Ecap\\
+\lambda_{t} = 1/(s_ti_tEbond/(\bar{\pi}\lambda_t))\\
+c_{t} = \lambda_{t} + \bar{h}c_t/g_t\\
+var = (1-\bar{g}Einv)/x\_up(3)\\
+x^g_{t} = 1/3\sqrt{7-6var}+2)\\
+x_{t} = x^g_{t}\bar{g}x_t/g_t\\
+y_{t} = c_{t} + x_{t}\\
+x\_up(2) = (y_{t}/(k_t/g_t)^\alpha)^{1/(1-\alpha)}\\%
+RHS = 1 - \theta + \theta mc_t + \varphi Eppc\\
+x\_up(1) = (1+\sqrt{(\varphi+4RHS)/\varphi})/2\\
+LHS = \varphi(\pi^{gap}_{t+1}-1)\pi^{gap}_{t+1}-(1-\theta)-\varphi Eppc\\
+x\_up(4) = LHS/\theta
+\end{gather}
 
 \setcounter{equation}{0}
 \noindent De-trended Equilibrium System:
@@ -105,29 +87,6 @@ q_t = \beta E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(r^k_{t+1} + (1-\delta)
 \end{gather}
 Variables:$\{\tilde{c},\tilde{n},\tilde{x},\tilde{k},\tilde{y^{gdp}},\tilde{y},x^g,y^g,\tilde{w},r^k,\pi,i,i^n,q,mc,\tilde{\lambda},g,s,mp\}$\\
 
-\setcounter{equation}{0}
-\noindent Log-linear Equilibrium System:
-\begin{gather}
-  \hat{y}_t/\bar{y} = \alpha(\hat{k}_{t-1}/\bar{k} - \hat{g}_t/\bar{g}) + (1-\alpha)\hat{n}_t/\bar{n}\\
-\hat{r}^k_t/\bar{r}^k = \hat{mc}_t/\bar{mc} + \hat{g}_t/\bar{g} + \hat{y}_t/\bar{y} - \hat{k}_{t-1}/\bar{k}\\
-\hat{w}_t/\bar{w} = \hat{mc}_t/\bar{mc} + \hat{y}_t/\bar{y} - \hat{n}_t/\bar{n}\\
-\hat{y}_t^{gdp} = \hat{y}_t\\
-\hat{y}^g_t = \hat{g}_t/\bar{g} + \hat{y}^{gdp}_t/\bar{y}^{gdp} - \hat{y}^{gdp}_{t-1}/\bar{y}^{gdp}\\
-  \hat{i}_t/\bar{i} = \rho_i\hat{i}_{t-1}/\bar{i} + (1-\rho_i)(\phi_\pi\hat{\pi}^{gap}_t+ \phi_y\hat{y}^g_t)+\hat{mp}_t \\
-  \hat{\imath}_t = \hat{\imath}_t^n\\
-  \hat{\lambda}_t = \hat{c}_t - (h/\bar{g})\hat{c}_{t-1} + (h\bar{c}/\bar{g}^2)\hat{g}_t\\
-  \hat{c}_t + \hat{x}_t = \hat{y}^{gdp}_t\\
-  \hat{x}^g_t = \hat{g}_t/\bar{g} + \hat{x}_t/\bar{x} - \hat{x}_{t-1}/\bar{x}\\
-  \hat{k}_t = ((1-\delta)/\bar{g})[\hat{k}_{t-1}-(\bar{k}/\bar{g})\hat{g}_t] + \hat{x}_t\\
-  \hat{\lambda}_t/\bar{\lambda} + \hat{\imath}_t/\bar{i} + \hat{s}_t/\bar{s}  = E_t\hat{\lambda}_{t+1}/\bar{\lambda}+E_t\hat{g}_{t+1}/\bar{g}+E_t\hat{\pi}_{t+1}/\bar{\pi} \\
-  \hat{q}_t = \hat{\lambda}_t/\bar{\lambda} - E_t\hat{\lambda}_{t+1}/\bar{\lambda} + (\beta/\bar{g})[E_t\hat{r}^k_{t+1} + (1-\delta)E_t\hat{q}_{t+1}] - E_t\hat{g}_{t+1}/\bar{g}\\
-  \hat{x}^g_t = \hat{q}_t + \beta E_t\hat{x}^g_{t+1}\\
-  \varphi\hat{\pi}^{gap}_t = \theta\hat{mc}_t+\beta\varphi E_t\hat{\pi}^{gap}_{t+1}\\
-  \hat{g}_t = \sigma_g\varepsilon_{g,t}\\
-  \hat{s}_t = \rho_s\hat{s}_{t-1} + \sigma_s\varepsilon_{s,t}\\
-  \hat{mp}_t = \sigma_i\varepsilon_{i,t}
-\end{gather}
-Variables:$\{\hat{c},\hat{n},\hat{x},\hat{k},\hat{y^{gdp}},\hat{y},\hat{x^g},\hat{y^g},\hat{w},\hat{r^k},\hat{\pi},\hat{i},\hat{i^n},\hat{q},\hat{\lambda},\hat{g},\hat{s},\hat{mp}\}$\\
 \begin{comment}
 \pagebreak
 

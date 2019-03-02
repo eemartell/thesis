@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  1 MAR 2019 16:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  1 MAR 2019 16:18
 entering extended mode
-**./Model.tex
-(Model.tex
+**./fp.tex
+(fp.tex
 LaTeX2e <2017-04-15>
 Babel <3.10> and hyphenation patterns for 75 language(s) loaded.
 (C:\Users\Test\Desktop\Laytech\tex\latex\base\article.cls
@@ -427,8 +427,8 @@ Package: accents 2006/05/12 v1.3 Math Accent Tools
 \cc@code=\count129
 \cc@group=\count130
 \cc@skewchar=\count131
-) (Model.aux)
-\openout1 = `Model.aux'.
+) (fp.aux)
+\openout1 = `fp.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
 LaTeX Font Info:    ... okay on input line 41.
@@ -528,273 +528,152 @@ LaTeX Info: Redefining \ref on input line 41.
 LaTeX Info: Redefining \pageref on input line 41.
 LaTeX Info: Redefining \nameref on input line 41.
 
-(Model.out) (Model.out)
+(fp.out) (fp.out)
 \@outlinefile=\write4
-\openout4 = `Model.out'.
+\openout4 = `fp.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 47.
-
-(C:\Users\Test\Desktop\Laytech\tex\latex\amsfonts\umsa.fd
+LaTeX Font Info:    Try loading font information for U+msa on input line 46.
+ (C:\Users\Test\Desktop\Laytech\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 47.
+LaTeX Font Info:    Try loading font information for U+msb on input line 46.
 
 (C:\Users\Test\Desktop\Laytech\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 10000) in paragraph at lines 80--82
-
- []
-
-[1
+) [1
 
 {C:/Users/Test/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 105--107
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
 
  []
 
-pdfTeX warning (ext4): destination with the same identifier (name{equation.1.1}
-) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.2}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.3}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.5}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.6}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.7}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.8}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.9}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.10}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.11}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.12}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.13}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.14}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.15}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.16}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.17}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.18}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.129 \end{gather}
-                   [2pdfTeX warning (ext4): destination with the same identifie
-r (name{equation.1.1}) has been already used, duplicate ignored
+Excluding 'comment' comment.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 239.
+ [2pdfTeX warning (ext4): destination with the same identifier (name{equation.0
+.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.2}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.3}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.4}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.5}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.5}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.6}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.7}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.8}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.8}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.9}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.9}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.10}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.10}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.11}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.11}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.12}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.12}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.13}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.13}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.14}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.14}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.15}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.15}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.16}) has been already used, duplicate ignored
+l.239 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{equation.0.16}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.17}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.18}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.129 \end{gather}
-                  pdfTeX warning (ext4): destination with the same identifier (
-name{equation.1.19}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.129 \end{gather}
-                  ] Excluding 'comment' comment.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 280.
-
-Underfull \hbox (badness 10000) in paragraph at lines 129--280
-
- []
-
-[3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 280.
- (Model.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 280.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 280.
-Package rerunfilecheck Info: File `Model.out' has not changed.
-(rerunfilecheck)             Checksum: DFA73DDF7CC8BA056750DB88F0712AE1;132.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 280.
+l.239 \end{document}
+                    ]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 239.
+ (fp.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 239.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 239.
+Package rerunfilecheck Info: File `fp.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 239.
  ) 
 Here is how much of TeX's memory you used:
- 9174 strings out of 493323
- 135542 string characters out of 3138232
- 260572 words of memory out of 3000000
- 12545 multiletter control sequences out of 15000+200000
- 17529 words of font info for 47 fonts, out of 3000000 for 9000
+ 9146 strings out of 493323
+ 135170 string characters out of 3138232
+ 253572 words of memory out of 3000000
+ 12526 multiletter control sequences out of 15000+200000
+ 12770 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,11n,43p,364b,331s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,11n,43p,361b,331s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Test/Desktop/Laytech/fonts/enc/dvips/base/8r.enc}<C:/Users/Test/Des
 ktop/Laytech/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Test/Desktop/L
 aytech/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Test/Desktop/Laytech
-/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Test/Desktop/Laytech/fonts
-/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/
-public/amsfonts/cm/cmmi8.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/public/
-amsfonts/cm/cmr10.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfont
-s/cm/cmr12.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cm
-r8.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cmsy10.pfb
-><C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Us
-ers/Test/Desktop/Laytech/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Model.pdf (3 pages, 133068 bytes).
+/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/Test/Desktop/Laytech/fonts/
+type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/p
+ublic/amsfonts/cm/cmr10.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/public/a
+msfonts/cm/cmr8.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cms
+y8.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/urw/times/utmr8a.pfb>
+Output written on fp.pdf (2 pages, 103790 bytes).
 PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
- 17 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 75 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
