@@ -47,7 +47,7 @@ load('options.mat')
 O.it = 'fp';
 
 % Solution algorithm
-O.alg = 'ART';
+O.alg = 'Gust';
 
 %% Run Policy Function Iteration Algorithm
 
@@ -103,8 +103,14 @@ while converged == -1
                       O,P,S,G,pf,gpArr3,weightArr3);
             end
         elseif strcmp(O.it,'fp')
-            argzero = eqm_fp(start,state,...
+            if strcmp(O.alg,'ART')
+                argzero = eqm_fp(start,state,...
                             O,P,S,G,pf,gpArr3,weightArr3);
+            elseif strcmp(O.alg,'Gust')
+                argzero = eqm_fp_gustetal(start,state,...
+                            O,P,S,G,pf,gpArr3,weightArr3);
+            end
+  
         end
 %         argzero = csolve('eqm',start,[],1e-4,10,state,...
 %             O,P,S,G,pf,...
