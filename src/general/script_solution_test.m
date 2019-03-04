@@ -59,6 +59,8 @@ end
 
 % Exogenous processes
 gpArr3 = G.epsg_nodes(:,ones(O.epss_pts,1),ones(O.epsmp_pts,1));   
+spArr3 = permute(repmat(G.epss_nodes,[1,O.epsg_pts,O.epsmp_pts]),[2,1,3]); 
+mpArr3 = permute(repmat(G.epsmp_nodes,[1,O.epsg_pts,O.epss_pts]),[2,3,1]); 
 
 % Preallocate arrays to store policy function updates
 %pf_c_up = zeros(G.griddim);
@@ -77,7 +79,7 @@ reason = 0; 							% Stopping reason
 dist_max = 0;                           % Max distance vector
 while converged == -1
     istart = tic;                       % Iteration timer start
-    parfor inode = 1:G.nodes
+    for inode = 1:G.nodes
         % Find optimal policy functions on each node
         if strcmp(O.alg,'ART')
             start = [pf.pigap(inode),pf.n(inode),pf.q(inode),pf.mc(inode)]';%,pf.ups(inode)]';
@@ -108,7 +110,7 @@ while converged == -1
                             O,P,S,G,pf,gpArr3,weightArr3);
             elseif strcmp(O.alg,'Gust')
                 argzero = eqm_fp_gustetal(start,state,...
-                            O,P,S,G,pf,gpArr3,weightArr3);
+                            O,P,S,G,pf,gpArr3,mpArr3,weightArr3);
             end
   
         end

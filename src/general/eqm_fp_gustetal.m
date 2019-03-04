@@ -1,4 +1,4 @@
-function x_up = eqm_fp_gustetal(pf0,state,O,P,S,G,pf,gpArr3,weightArr3)
+function x_up = eqm_fp_gustetal(pf0,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3)
 
 % State Values
 g = state(1);           %Growth state current period
@@ -77,7 +77,7 @@ lam = cp-P.h*c/g;
 ypArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha);
 rgdpppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*ypArr3;
 rgdppgArr3 = g*rgdpppArr3/(P.g*rgdpp); 
-inppArr3 = inp.^P.rhoi.*(S.i.*pigappArr3.^P.phipi.*rgdppgArr3.^P.phiy).^(1-P.rhoi).*exp(mp); 
+inppArr3 = inp.^P.rhoi.*(S.i.*pigappArr3.^P.phipi.*rgdppgArr3.^P.phiy).^(1-P.rhoi).*exp(mpArr3); 
 npArr3_combined = npArr3.*(inppArr3>1) + npArr3_zlb.*(inppArr3<=1);
 % Production function (2)
 ypArr3 = (kp./gpArr3).^P.alpha.*npArr3_combined.^(1-P.alpha);
