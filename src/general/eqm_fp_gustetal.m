@@ -136,7 +136,6 @@ xg_pf = 1/3*(sqrt(7-6*var)+2);
 x_pf = xg_pf*P.g*x/g;
 y_pf = c_pf + x_pf;
 x_up(2) = (y_pf/(k/g)^P.alpha)^(1/(1-P.alpha)); %pf.n
-w = (1-P.alpha)*mc*y/n;
 x_up(5) = (w*x_up(2))/((1-P.alpha)*y_pf); %What about x_up(3), zlb n?
 pf_lam_zlb = 1/(s*Ebond/(P.pi*lam));
 c_pf = pf_lam_zlb + P.h*c/g;
