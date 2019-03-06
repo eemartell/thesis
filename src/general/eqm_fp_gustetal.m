@@ -22,33 +22,34 @@ mc = pf0(5);      %Marginal cost current period
 % Current period
 %----------------------------------------------------------------------
 % Production function (2)
-y = (k/g)^P.alpha*n^(1-P.alpha); 
+yf = (k/g)^P.alpha*n^(1-P.alpha); %should also be recalculated? CHECK
 % Real gdp
-rgdp = c + x;
-rgdpp = (1-P.varphi*(pigap-1)^2/2)*y;
+y = c + x;
+yp = (1-P.varphi*(pigap-1)^2/2)*yf;
 % Output growth
-rgdpg = g*rgdpp/(P.g*rgdp);    
+yg = g*yp/(P.g*y);    
 % Notional Interest Rate (9)
-inp = in^P.rhoi*(S.i*pigap^P.phipi*rgdpg^P.phiy)^(1-P.rhoi)*exp(mp); 
+inp = in^P.rhoi*(S.i*pigap^P.phipi*yg^P.phiy)^(1-P.rhoi)*exp(mp); 
 % Nominal Interest Rate (10)
-i = inp;    
+i = inp; 
 if inp > 1
     % Firm FOC labor (5)
-    w = (1-P.alpha)*mc*y/n;
+    w = (1-P.alpha)*mc*yf/n;
     % FOC labor
     cp = w/(S.chi*n^P.eta)+P.h*c/g;
+    % Aggregate resource constraint
 else
-    % Production function (2)
-    y = (k/g)^P.alpha*n_zlb^(1-P.alpha); 
-    % Real gdp
-    rgdpp = (1-P.varphi*(pigap-1)^2/2)*y;    
+%   % Production function (2)
+%    yf = (k/g)^P.alpha*n_zlb^(1-P.alpha); %(now recalculated)
+%    % Real gdp
+%    yp = (1-P.varphi*(pigap-1)^2/2)*yf; 
     % Firm FOC labor (5)
-    w = (1-P.alpha)*mc*y/n_zlb;
+    w = (1-P.alpha)*mc*yf/n_zlb;
     % FOC labor
-    cp = w/(S.chi*n_zlb^P.eta)+P.h*c/g;    
+    cp = w/(S.chi*n_zlb^P.eta)+P.h*c/g;
+    % Aggregate resource constraint
 end
-% Aggregate resource constraint
-xp = rgdpp - cp;
+xp = yp - cp;
 % Investment growth gap (14)
 xg = g*xp/(P.g*x);    
 % Law of motion for capital (15)
@@ -74,26 +75,29 @@ lam = cp-P.h*c/g;
 % Next period
 %----------------------------------------------------------------------  
 % Production function (2)
-ypArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha);
-rgdpppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*ypArr3;
-rgdppgArr3 = g*rgdpppArr3/(P.g*rgdpp); 
-inppArr3 = inp.^P.rhoi.*(S.i.*pigappArr3.^P.phipi.*rgdppgArr3.^P.phiy).^(1-P.rhoi).*exp(mpArr3); 
-npArr3_combined = npArr3.*(inppArr3>1) + npArr3_zlb.*(inppArr3<=1);
+yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha); %should also be recalculated? CHECK
+% Real gdp
+%yp = cp + xp; %try to see if reusing yp wasn't correct (just comment out line if doesn't work)
+yppArr3 = (1-P.varphi.*(pigappArr3-1).^2/2).*yfpArr3;
+% Output growth
+ygpArr3 = g.*yppArr3./(P.g.*yp);  %correct way to calculate?   
+% Notional Interest Rate (9)
+inpArr3 = inp.^P.rhoi.*(S.i.*pigappArr3.^P.phipi.*ygpArr3.^P.phiy).^(1-P.rhoi).*exp(mpArr3);
+npArr3_combined = npArr3.*(inpArr3>1) + npArr3_zlb.*(inpArr3<=1);
 % Production function (2)
-ypArr3 = (kp./gpArr3).^P.alpha.*npArr3_combined.^(1-P.alpha);
+yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3_combined.^(1-P.alpha);
 % Firm FOC capital (4)
-rkpArr3 = P.alpha.*mcpArr3.*gpArr3.*ypArr3/kp;
+rkpArr3 = P.alpha.*mcpArr3.*gpArr3.*yfpArr3/kp;
 % Firm FOC labor (5)
-wpArr3 = (1-P.alpha)*mcpArr3.*ypArr3./npArr3_combined;
+wpArr3 = (1-P.alpha)*mcpArr3.*yfpArr3./npArr3_combined;
 % FOC labor
 cppArr3 = wpArr3./(S.chi*npArr3_combined.^P.eta)+P.h*cp./gpArr3;
-% Output definition (7)
-rgdpppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*ypArr3;
-% Output definition (7)
-%yppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*ypArr3;
+% Production function (2)
+%yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3_combined.^(1-P.alpha); %(now recalculated) check
+% Output definition
+%yppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*yfpArr3;
 % ARC
-%xppArr3 = yppArr3-cppArr3; %should it be rgdpppArr3???
-xppArr3 = rgdpppArr3-cppArr3;
+xppArr3 = yppArr3-cppArr3;
 % Inverse MUC
 lampArr3 = cppArr3-P.h*cp./gpArr3;
 % Investment growth gap (14)
@@ -106,7 +110,7 @@ sdfArr3 = P.beta*lam./lampArr3;
 EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*(P.pi*pigappArr3));
 EcapArr3 = weightArr3.*sdfArr3.*(rkpArr3+(1-P.delta)*qpArr3)./gpArr3;
 EinvArr3 = weightArr3.*sdfArr3.*qpArr3.*xgpArr3.^2.*(xgpArr3-1)./gpArr3;
-EppcArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*(ypArr3/y);
+EppcArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*(yfpArr3/yf);
 %EwpcArr3 = weightArr3.*sdfArr3.*(wgpArr3-1).*wgpArr3.*(yfpArr3/yf);
 Ebond = sum(EbondArr3(:));
 Ecap = sum(EcapArr3(:));
@@ -136,14 +140,16 @@ xg_pf = 1/3*(sqrt(7-6*var)+2);
 x_pf = xg_pf*P.g*x/g;
 y_pf = c_pf + x_pf;
 x_up(2) = (y_pf/(k/g)^P.alpha)^(1/(1-P.alpha)); %pf.n
-x_up(5) = (w*x_up(2))/((1-P.alpha)*y_pf); %What about x_up(3), zlb n?
-pf_lam_zlb = 1/(s*Ebond/(P.pi*lam));
-c_pf = pf_lam_zlb + P.h*c/g;
-y_pf = c_pf + x_pf;
-x_up(3) = (y_pf/(k/g)^P.alpha)^(1/(1-P.alpha)); %pf.n
 RHS_firm = 1 - P.theta + P.theta*mc + P.varphi*Eppc;%/y*y_pf;
 x_up(1) = (1+sqrt((P.varphi+4*RHS_firm)/P.varphi))/2;
+x_up(5) = (w*x_up(2))/((1-P.alpha)*y_pf);
+
+pf_lam_zlb = 1/(s*Ebond/(P.pi*lam));
+c_pf = pf_lam_zlb + P.h*c/g;
+x_pf = xg_pf*P.g*x/g;
+y_pf = c_pf + x_pf;
+x_up(3) = (y_pf/(k/g)^P.alpha)^(1/(1-P.alpha)); %pf.n
 %LHS_firm = P.varphi*(x_up(1)-1)*x_up(1)-(1-P.theta) - P.varphi*Eppc;
 %LHS_firm = P.varphi*(pigap-1)*pigap-(1-P.theta) - P.varphi*Eppc;
-%x_up(4) = LHS_firm/P.theta;
+%x_up(5) = LHS_firm/P.theta;
 end

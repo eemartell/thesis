@@ -1,4 +1,4 @@
-function Res = eqm_gustetal(pf0,state,O,P,S,G,pf,gpArr3,weightArr3,varargin)
+function Res = eqm_gustetal(pf0,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,varargin)
 
 % Get original grids and GH nodes
 if ~isempty(varargin)
@@ -35,31 +35,30 @@ for icol = 1:ncol
     % Current period
     %----------------------------------------------------------------------
     % Production function (2)
-    y = (k/g)^P.alpha*n^(1-P.alpha); 
+    yf = (k/g)^P.alpha*n^(1-P.alpha); 
     % Real gdp
-    rgdp = c + x;
-    rgdpp = (1-P.varphi*(pigap-1)^2/2)*y;
+    y = c + x;
+    yp = (1-P.varphi*(pigap-1)^2/2)*yf;
     % Output growth
-    rgdpg = g*rgdpp/(P.g*rgdp);    
+    yg = g*yp/(P.g*y);    
     % Notional Interest Rate (9)
-    inp = in^P.rhoi*(S.i*pigap^P.phipi*rgdpg^P.phiy)^(1-P.rhoi)*exp(mp); 
+    inp = in^P.rhoi*(S.i*pigap^P.phipi*yg^P.phiy)^(1-P.rhoi)*exp(mp); 
     % Nominal Interest Rate (10)
-    i = inp;    
+    i = inp;
     if inp > 1
         % Firm FOC labor (5)
-        w = (1-P.alpha)*mc*y/n;
+        w = (1-P.alpha)*mc*yf/n;
         % FOC labor
         cp = w/(S.chi*n^P.eta)+P.h*c/g;
+        % Aggregate resource constraint
     else
-        y = (k/g)^P.alpha*n_zlb^(1-P.alpha); 
-        rgdpp = (1-P.varphi*(pigap-1)^2/2)*y;
         % Firm FOC labor (5)
-        w = (1-P.alpha)*mc*y/n_zlb;
+        w = (1-P.alpha)*mc*yf/n_zlb;
         % FOC labor
         cp = w/(S.chi*n_zlb^P.eta)+P.h*c/g;
-    end 
-    % Aggregate resource constraint
-    xp = rgdpp - cp;
+        % Aggregate resource constraint  
+    end
+    xp = yp - cp;
     % Investment growth gap (14)
     xg = g*xp/(P.g*x);    
     % Law of motion for capital (15)
@@ -87,47 +86,47 @@ for icol = 1:ncol
         gpVec = P.g + GH.e_nodes;
         % Risk premium (10)
         spVec = (1-P.rhos)*P.s + P.rhos*s + GH.u_nodes;
-        [pigappArr3,npArr3,qpArr3,mcpArr3] = Fallterp743(...
+        % Monetary policy
+        mpVec = GH.v_nodes;
+        [pigappArr3,npArr3,qpArr3,mcpArr3] = Fallterp743_exogfirst(...
             G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
             G.c_grid,G.k_grid,G.x_grid,...
-            gpVec,spVec,GH.v_nodes,inp,cp,kp,xp,...
+            gpVec,spVec,GH.v_nodes,...
+            inp,cp,kp,xp,...
             pf.pigap,pf.n,pf.q,pf.mc);
-        [pigappArr3,npArr3_zlb,qpArr3,mcpArr3] = Fallterp743(...
+        [pigappArr3,npArr3_zlb,qpArr3,mcpArr3] = Fallterp743_exogfirst(...
             G.g_grid,G.s_grid,G.mp_grid,G.in_grid,...
             G.c_grid,G.k_grid,G.x_grid,...
-            gpVec,spVec,GH.v_nodes,inp,cp,kp,xp,...
-            pf.pigap,pf.n_zlb,pf.q,pf.mc);
-        gpArr3 = gpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));    
+            gpVec,spVec,GH.v_nodes,...
+            inp,cp,kp,xp,...
+            pf.pigap,pf.n_zlb,pf.q,pf.mc);        
+        gpArr3 = gpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));  
+        mpArr3 = mpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));        
     end
     %----------------------------------------------------------------------        
     % Next period
     %----------------------------------------------------------------------  
     % Production function (2)
-    ypArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha);
-    % Firm FOC capital (4)
-    %rkpArr3 = P.alpha.*mcpArr3.*gpArr3.*ypArr3/kp;
-    % Firm FOC labor (5)
-    %wpArr3 = (1-P.alpha)*mcpArr3.*ypArr3./npArr3;
-    % FOC labor
-    %cppArr3 = wpArr3./(S.chi*npArr3.^P.eta)+P.h*cp./gpArr3;
-    % Output definition (7)
-    rgdpppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*ypArr3;
-    rgdppgArr3 = g*rgdpppArr3/(P.g*rgdpp); 
-    inppArr3 = inp.^P.rhoi.*(S.i.*pigappArr3.^P.phipi.*rgdppgArr3.^P.phiy).^(1-P.rhoi).*exp(mp); 
-    npArr3_combined = npArr3.*(inppArr3>1) + npArr3_zlb.*(inppArr3<=1);
-
+    yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha); %should also be recalculated? CHECK
+    % Real gdp
+    yppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*yfpArr3;
+    % Output growth
+    ygpArr3 = g*yppArr3/(P.g*yp);  %correct way to calculate?   
+    % Notional Interest Rate (9)
+    inpArr3 = inp.^P.rhoi.*(S.i.*pigappArr3.^P.phipi.*ygpArr3.^P.phiy).^(1-P.rhoi).*exp(mpArr3);
+    npArr3_combined = npArr3.*(inpArr3>1) + npArr3_zlb.*(inpArr3<=1);
     % Production function (2)
-    ypArr3 = (kp./gpArr3).^P.alpha.*npArr3_combined.^(1-P.alpha);
+    yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3_combined.^(1-P.alpha);
     % Firm FOC capital (4)
-    rkpArr3 = P.alpha.*mcpArr3.*gpArr3.*ypArr3/kp;
+    rkpArr3 = P.alpha.*mcpArr3.*gpArr3.*yfpArr3/kp;
     % Firm FOC labor (5)
-    wpArr3 = (1-P.alpha)*mcpArr3.*ypArr3./npArr3_combined;
+    wpArr3 = (1-P.alpha)*mcpArr3.*yfpArr3./npArr3_combined;
     % FOC labor
     cppArr3 = wpArr3./(S.chi*npArr3_combined.^P.eta)+P.h*cp./gpArr3;
     % Output definition (7)
-    rgdpppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*ypArr3;
+    yppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*yfpArr3;
     % ARC
-    xppArr3 = rgdpppArr3-cppArr3;
+    xppArr3 = yppArr3-cppArr3;
     % Inverse MUC
     lampArr3 = cppArr3-P.h*cp./gpArr3;
     % Investment growth gap (14)
@@ -140,7 +139,7 @@ for icol = 1:ncol
     EbondArr3 = weightArr3.*sdfArr3./(gpArr3.*(P.pi*pigappArr3));
     EcapArr3 = weightArr3.*sdfArr3.*(rkpArr3+(1-P.delta)*qpArr3)./gpArr3;
     EinvArr3 = weightArr3.*sdfArr3.*qpArr3.*xgpArr3.^2.*(xgpArr3-1)./gpArr3;
-    EppcArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*(ypArr3/y);
+    EppcArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*(yfpArr3/yf);
     %EwpcArr3 = weightArr3.*sdfArr3.*(wgpArr3-1).*wgpArr3.*(yfpArr3/yf);
     Ebond = sum(EbondArr3(:));
     Ecap = sum(EcapArr3(:));

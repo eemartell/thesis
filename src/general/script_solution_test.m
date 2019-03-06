@@ -47,7 +47,7 @@ load('options.mat')
 O.it = 'fp';
 
 % Solution algorithm
-O.alg = 'Gust';
+O.alg = 'ART';
 
 %% Run Policy Function Iteration Algorithm
 
@@ -79,7 +79,7 @@ reason = 0; 							% Stopping reason
 dist_max = 0;                           % Max distance vector
 while converged == -1
     istart = tic;                       % Iteration timer start
-    for inode = 1:G.nodes
+    parfor inode = 1:G.nodes
         % Find optimal policy functions on each node
         if strcmp(O.alg,'ART')
             start = [pf.pigap(inode),pf.n(inode),pf.q(inode),pf.mc(inode)]';%,pf.ups(inode)]';
@@ -102,7 +102,7 @@ while converged == -1
                         O,P,S,G,pf,gpArr3,weightArr3);
             elseif strcmp(O.alg,'Gust')
                 argzero = csolve('eqm_gustetal',start,[],1e-4,10,state,...
-                      O,P,S,G,pf,gpArr3,weightArr3);
+                      O,P,S,G,pf,gpArr3,mpArr3,weightArr3);
             end
         elseif strcmp(O.it,'fp')
             if strcmp(O.alg,'ART')
@@ -110,9 +110,8 @@ while converged == -1
                             O,P,S,G,pf,gpArr3,weightArr3);
             elseif strcmp(O.alg,'Gust')
                 argzero = eqm_fp_gustetal(start,state,...
-                            O,P,S,G,pf,gpArr3,mpArr3,weightArr3);
+                            O,P,S,G,pf,gpArr3,mpArr3,weightArr3);  
             end
-  
         end
 %         argzero = csolve('eqm',start,[],1e-4,10,state,...
 %             O,P,S,G,pf,...
