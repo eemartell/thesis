@@ -133,7 +133,7 @@ Eppc = sum(EppcArr3(:));
 
 %pigap,n,q,mc
 x_up(4) = Ecap; %pf.q %all policy functions at time t
-pf_lam = 1/(s*i*Ebond/(P.pi*lam));
+pf_lam = 1/(s*i*Ebond/lam);
 c_pf = pf_lam + P.h*c/g;
 var = (1-P.g*Einv)/x_up(4); %just q?
 xg_pf = 1/3*(sqrt(7-6*var)+2);
@@ -144,7 +144,7 @@ RHS_firm = 1 - P.theta + P.theta*mc + P.varphi*Eppc;%/y*y_pf;
 x_up(1) = (1+sqrt((P.varphi+4*RHS_firm)/P.varphi))/2;
 x_up(5) = (w*x_up(2))/((1-P.alpha)*y_pf);
 
-pf_lam_zlb = 1/(s*Ebond/(P.pi*lam));
+pf_lam_zlb = 1/(s*Ebond/lam);
 c_pf = pf_lam_zlb + P.h*c/g;
 x_pf = xg_pf*P.g*x/g;
 y_pf = c_pf + x_pf;

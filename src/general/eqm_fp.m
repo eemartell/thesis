@@ -102,7 +102,7 @@ Eppc = sum(EppcArr3(:));
 
 %pigap,n,q,mc
 x_up(3) = Ecap; %pf.q %all policy functions at time t
-pf_lam = 1/(s*i*Ebond/(P.pi*lam));
+pf_lam = 1/(s*i*Ebond/lam); %already P.pi in Ebond???
 c_pf = pf_lam + P.h*c/g;
 var = (1-P.g*Einv)/x_up(3); %just q?
 xg_pf = 1/3*(sqrt(7-6*var)+2);
