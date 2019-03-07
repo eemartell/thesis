@@ -1,0 +1,98 @@
+\documentclass[12pt, final]{article}
+\usepackage{color}
+\usepackage{times}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage[paperwidth=8.5in,left=1.0in,right=1.0in,top=1.0in,bottom=1.0in,paperheight=11.0in]{geometry}
+\usepackage[labelsep=colon,singlelinecheck=false,footnotesize]{caption}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage[sort&compress]{natbib}
+\usepackage{subfig}
+\usepackage{titlesec}
+\usepackage[dvips,breaklinks]{hyperref}
+\hypersetup{pdfdisplaydoctitle=true,bookmarksnumbered=true,colorlinks=true,citecolor=black,linkcolor=darkblue,urlcolor=darkred,pdfstartview=FitH,pdfpagemode=UseNone}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage{accents}
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+
+
+%Define Color Names
+\definecolor{Gray}{rgb}{0.65,0.65,0.65}
+\definecolor{darkblue}{rgb}{0,0,0.55}
+\definecolor{darkred}{rgb}{0.5,0,0}
+
+%Section Headings
+\newcommand\Bheadfont{\fontsize{14pt}{\baselineskip}\selectfont}
+\titleformat{\section}[hang]{\normalfont\sc\color{darkblue}\Bheadfont}{\thesection\hskip0.618em}{0em}{}
+\titlespacing*{\section}{0pt}{15pt plus 2pt minus 2pt}{9pt plus 2pt minus 2pt}
+\titleformat{\subsection}[runin]{\normalfont\sc\color{darkblue}} {\thesubsection\hskip0.618em}{0em}{}
+\titlespacing*{\subsection}{0pt}{13pt plus 2pt minus 2pt}{13pt plus 2pt minus 2pt}
+\titleformat{\subsubsection}[runin]{\normalfont\sc\color{darkblue}} {\thesubsubsection\hskip0.618em}{0em}{}
+\titlespacing*{\subsubsection}{0pt}{13pt plus 2pt minus 2pt}{13pt plus 2pt minus 2pt}
+\titleformat{\paragraph}[runin]{\bfseries}{\theparagraph\hskip0.618em}{0em}{}
+\titlespacing*{\paragraph}{0pt}{13pt plus 2pt minus 2pt}{13pt plus 2pt minus 2pt}
+
+\begin{document}
+
+\section{Investment Adjustment Costs}
+
+Preferences:
+\begin{gather*}
+ E_0\sum_{t=0}^\infty\tilde{\beta}_t[\log(c_t-hc_{t-1}^a)-\chi n_t^{1+\eta}/(1+\eta)] 
+\end{gather*}
+Budget Constraint:
+\begin{gather*}
+  c_t+i_t+b_t=w_tn_t+r_t^kk_{t-1}+r_{t-1}b_{t-1}/\pi_t+d_t\\
+  k_t=(1-\delta)k_{t-1}+i_t\left[1-\frac{\nu}{2}\left(\frac{i_t}{\bar{g}i_{t-1}}-1\right)^2\right]
+\end{gather*}
+Equilibrium system (17 equations):
+\scriptsize\begin{gather}
+  w_t=\chi n_t^\eta(c_t-hc_{t-1})\\
+  1= r_tE_t\left[\frac{\beta_{t+1}}{\pi_{t+1}}\frac{c_t-hc_{t-1}}{c_{t+1}-hc_t}\right]\\
+  q_t = E_t\left\{\beta_{t+1}\frac{c_t-hc_{t-1}}{c_{t+1}-hc_t}\left(r_{t+1}^k+q_{t+1}(1-\delta)\right)\right\}\\
+  1 = \mu_tq_t\left[1-\frac{\nu}{2}\left(\frac{i_t}{\bar{g}i_{t-1}}-1\right)^2-\nu\frac{i_t}{\bar{g}i_{t-1}}\left(\frac{i_t}{\bar{g}i_{t-1}}-1\right)\right]+\nu\bar{g}
+  E_t\left[\beta_{t+1}\mu_{t+1}q_{t+1}\frac{c_t-hc_{t-1}}{c_{t+1}-hc_t}\left(\frac{i_{t+1}}{\bar{g}i_t}\right)^2\left(\frac{i_{t+1}}{\bar{g}i_t}-1\right)\right]\\
+  y_t=k_{t-1}^\alpha(z_tn_t)^{1-\alpha}\\
+  k_t=(1-\delta)k_{t-1}+\mu_ti_t\left[1-\frac{\nu}{2}\left(\frac{i_{t}}{\bar{g}i_{t-1}}-1\right)^2\right]\\
+  w_t = (1-\alpha)mc_ty_t/n_t\\
+  r_t^k = \alpha mc_ty_t/k_{t-1}\\
+  \varphi\left(\frac{\pi_t}{\bar{\pi}}-1\right)\frac{\pi_t}{\bar{\pi}} = (1-\theta) + \theta mc_t + \varphi E_t\left[\beta_{t+1}\frac{c_t-hc_{t-1}}{c_{t+1}-hc_t}\left(\frac{\pi_{t+1}}{\bar{\pi}}-1\right)\frac{\pi_{t+1}}{\bar{\pi}}\frac{y_{t+1}}{y_t}\right]\\
+  c_t+i_t=y_t^{gdp}\\
+  y_t^{gdp} = [1-\varphi(\pi_t/\bar{\pi}-1)^2/2]y_t\\
+  r_t=\max\{\ubar{r},r_t^*\}\\
+   r_t^n=(r_{t-1}^n)^{\rho_r}(\bar{r}(\pi_t/\bar{\pi})^{\phi_\pi}(y_t^{gdp}/(\bar{g}y_{t-1}^{gdp}))^{\phi_y})^{1-\rho_r}\exp(\nu_t)\\
+  z_t=z_{t-1}g_t\\
+  g_t=\bar{g}(g_{t-1}/\bar{g})^{\rho_g}\exp(\varepsilon_t)\\
+  \beta_t=\beta(\beta_{t-1}/\beta)^{\rho_\beta}\exp(\upsilon_t)\\
+  \mu_t=\mu_{t-1}^{\rho_\mu}\exp(\xi_t)
+\end{gather}\normalsize
+Variables: $\{w,c,y,y^{gdp},n,r,r^n,\pi,mc,k,i,q,r^k,g,\beta,\mu,z\}$\\
+
+\noindent De-trended System (14 equations):
+\scriptsize\begin{gather}
+  \tilde{\lambda}_t = \tilde{c}_t-h\tilde{c}_{t-1}/g_t\\
+  \tilde{w}_t=\chi n_t^\eta\tilde{\lambda}_t \\
+  1= r_tE_t[\beta_{t+1}(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(1/(g_{t+1}\pi_{t+1}))]\\
+  q_t = E_t[\beta_{t+1}(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(r_{t+1}^k+q_{t+1}(1-\delta))/g_{t+1}]\\
+  1 = \mu_tq_t\left[1-\frac{\nu}{2}\left(\frac{g_t\tilde{\imath}_t}{\bar{g}\tilde{\imath}_{t-1}}-1\right)^2-\nu\frac{g_t\tilde{\imath}_t}{\bar{g}\tilde{\imath}_{t-1}} \left(\frac{g_t\tilde{\imath}_t}{\bar{g}\tilde{\imath}_{t-1}}-1\right)\right]+\nu\bar{g}
+  E_t\left[\frac{\beta_{t+1}\mu_{t+1}q_{t+1}}{g_{t+1}}\frac{\tilde{c}_t-h\tilde{c}_{t-1}/g_t}{\tilde{c}_{t+1}-h\tilde{c}_t/g_{t+1}}\left(\frac{g_{t+1}\tilde{\imath}_{t+1}}{\bar{g}\tilde{\imath}_t}\right)^2\left(\frac{g_{t+1}\tilde{\imath}_{t+1}}{\bar{g}\tilde{\imath}_t}-1\right)\right]\\
+  \tilde{y}_t=(\tilde{k}_{t-1}/g_t)^\alpha n_t^{1-\alpha}\\
+  \tilde{k}_t=(1-\delta)(\tilde{k}_{t-1}/g_t)+\mu_t\tilde{\imath}_t\left[1-\frac{\nu}{2}\left(\frac{g_t\tilde{\imath}_t}{\bar{g}\tilde{\imath}_{t-1}}-1\right)^2\right]\\
+  \tilde{w}_t = (1-\alpha)\Psi_t\tilde{y}_t/n_t\\
+  r_t^k = \alpha\Psi_tg_t\tilde{y}_t/\tilde{k}_{t-1}\\
+  \varphi\left(\frac{\pi_t}{\bar{\pi}}-1\right)\frac{\pi_t}{\bar{\pi}} = (1-\theta) + \theta\Psi_t + \varphi E_t\left[\beta_{t+1}\frac{\tilde{c}_t-h\tilde{c}_{t-1}/g_t}{\tilde{c}_{t+1}-h\tilde{c}_t/g_{t+1}}\left(\frac{\pi_{t+1}}{\bar{\pi}}-1\right)\frac{\pi_{t+1}}{\bar{\pi}}\frac{\tilde{y}_{t+1}}{\tilde{y}_t}\right]\\
+  \tilde{c}_t+\tilde{\imath}_t=[1-\varphi(\pi_t/\bar{\pi}-1)^2/2]\tilde{y}_t\\
+   r_t=\max\{\ubar{r},r_t^*\}\\
+   r_t^*=(r_{t-1}^*)^{\rho_r}(\bar{r}(\pi_t/\bar{\pi})^{\phi_\pi}(g_t\tilde{c}_t/(\bar{g}\tilde{c}_{t-1}))^{\phi_y})^{1-\rho_r}\exp(\nu_t)\\
+  g_t=\bar{g}(g_{t-1}/\bar{g})^{\rho_g}\exp(\upsilon_t)\\
+  \beta_t=\beta(\beta_{t-1}/\beta)^{\rho_\beta}\exp(\varepsilon_t)
+\end{gather}\normalsize
+Variables: $\{\tilde{w},\tilde{c},\tilde{y},\tilde{y}^n,n,r,\pi,\beta,g,\Psi,\tilde{k},\tilde{\imath},q,r^k\}$. $\tilde{x}_t\equiv x_t/z_t$
+
+
+\end{document}
+
