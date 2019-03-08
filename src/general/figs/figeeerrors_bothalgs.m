@@ -11,7 +11,6 @@ plottype = 'P';
 %   ti: time iteration
 %   fp: fixed point
 O.it = 'fp';
-O.alg = 'Gust';
 
 % Figure name
 figname = ['eeerrors' O.it 'bothalgs'];
@@ -20,22 +19,35 @@ figname = ['eeerrors' O.it 'bothalgs'];
 load('../solutions/eeerrors_simfpART')
 EE_ART(:,1) = R.EE1(:);
 EE_ART(:,2) = R.EE2(:);
+EE_ART(:,3) = R.EE3(:);
+EE_ART(:,4) = R.EE4(:);
 RMeanEEART(:,1) = R.meanEE;
 RMaxEEART(:,1) = R.maxEE;
+
 load('../solutions/eeerrors_simfpGust')
 EE_Gust(:,1) = R.EE1(:);
 EE_Gust(:,2) = R.EE3(:);
+EE_Gust(:,3) = R.EE4(:);
+EE_Gust(:,4) = R.EE5(:);
+
 RMeanEEGust(:,1) = R.meanEE(:,1);
 RMeanEEGust(:,2) = R.meanEE(:,3);
+RMeanEEGust(:,3) = R.meanEE(:,4);
+RMeanEEGust(:,4) = R.meanEE(:,5);
+
 RMaxEEGust(:,1) = R.maxEE(:,1);
 RMaxEEGust(:,2) = R.maxEE(:,3);
+RMaxEEGust(:,3) = R.maxEE(:,4);
+RMaxEEGust(:,4) = R.maxEE(:,5);
 
-bins{1} = -6:.125:-2.25;
-bins{2} = -7.25:.125:-1.75;
+bins{1} = -6:.125:-1.25;
+bins{2} = -7.25:.125:-2.25;
+bins{3} = -4.5:.125:-.5;
+bins{4} = -4.5:.125:-.5;
 
 nEE = size(EE_ART,1);
 
-titles = {'Consumption Euler','Firm Pricing','Consumption Euler','Firm Pricing'};
+titles = {'HH FOC bond','HH FOC capital','HH FOC investment','Price Phillips Curve','HH FOC Bond','HH FOC capital','HH FOC investment', 'Price Phillips Curve'};
 
 % Plot options
 if strcmp(plottype,'M')
@@ -59,7 +71,7 @@ elseif strcmp(plottype,'P')
     fontsize = 8;
 end
 
-plotdim = [2,2];
+plotdim = [2,4];
 
 figure;
 set(gcf,'position',figbox);
@@ -75,7 +87,7 @@ for isubplot = 1:prod(plotdim)
     %[N,X] = hist(EE(:,iEE),nbars);
     %bar(X,100*N/nEE)
     subplot(plotdim(1),plotdim(2),isubplot,'Position',[left bottom width height]); grid on; box on; hold on;
-    if isubplot < 3
+    if isubplot < 5
         N1 = hist(EE_ART(:,iEE1),bins{iEE1}); %ART
         bar(bins{iEE1},100*N1/length(EE_ART(:,iEE1)),'grouped')
         text(-7.5,16.5,['Mean: ', num2str(RMeanEEART(iEE1))],'Fontsize',8);
