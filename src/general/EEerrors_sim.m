@@ -7,14 +7,14 @@ clc
 % Save rule {'on','off'}
 saving = 'on';
 
-O.it = 'ti';
+O.it = 'fp';
 O.alg = 'ART';
 
-if strcmp(O.it,'ti') && strcmp(O.alg, 'ART')
-    load('solutions/solution_test.mat')
+if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
+    load('solutions/solutionfpART.mat')
 end
 
-O.it = 'ti';
+O.it = 'fp';
 O.alg = 'ART';
 V = variables;
 % Numerical pdf of state variables
