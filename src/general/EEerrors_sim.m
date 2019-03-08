@@ -8,14 +8,16 @@ clc
 saving = 'on';
 
 O.it = 'fp';
-O.alg = 'ART';
+O.alg = 'Gust';
 
 if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
     load('solutions/solutionfpART.mat')
+elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
+    load('solutions/solutionfpGust.mat')    
 end
 
 O.it = 'fp';
-O.alg = 'ART';
+O.alg = 'Gust';
 V = variables;
 % Numerical pdf of state variables
 %   Simulation parameters
@@ -37,8 +39,8 @@ v = shocksv;
 if strcmp(O.alg, 'ART')
     sims = simulation(pf,P,S,G,V,e,u,v);
 elseif strcmp(O.alg, 'Gust')
-    V.c_zlb = V.nplotvar+1;    
-    sims = simulation_test_gustetal(pf,P,S,G,V,e,u,v); %%%fix
+    V.n_zlb = V.nplotvar+1;    
+    sims = simulation_gustetal(pf,P,S,G,V,e,u,v);
 end
 
 % Shocks
@@ -79,7 +81,7 @@ for time = 2:npers
             EE_temp = eqm(start,state,O,P,S,G,pf,gpArr3,weightArr3,GH);      
         elseif strcmp(O.alg, 'Gust')
             %%%cs and pigap here
-            start = [sims(time,V.c),sims(time,V.c_zlb),sims(time,V.pi)/P.pi]; %???
+            start = [sims(time,V.pi)/P.pi,sims(time,V.n),sims(time,V.n_zlb,:),sims(time,V.q),sims(time,V.mc)]';
              % Approximate solution           
              EE_temp = eqm_gustetal(start,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,GH);    
         end
@@ -89,7 +91,7 @@ for time = 2:npers
         EE3(time) = abs(EE_temp(3));
         EE4(time) = abs(EE_temp(4));
         if strcmp(O.alg,'Gust')
-            EE3(time) = abs(EE_temp(3));
+            EE5(time) = abs(EE_temp(5));
         end
 end
 % Find where ZLB binds
@@ -105,9 +107,9 @@ R.EE2 = log10(EE2(2:end));
 R.EE3 = log10(EE3(2:end));
 R.EE4 = log10(EE4(2:end));
 if strcmp(O.alg,'Gust')
-    R.EE3 = log10(EE3(2:end));
-    R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3)];
-    R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3)];
+    R.EE5 = log10(EE5(2:end));
+    R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3),mean(R.EE4),mean(R.EE5)];
+    R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3),max(R.EE4),max(R.EE5)];
 elseif strcmp(O.alg,'ART')
     R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3),mean(R.EE4)];
     R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3),max(R.EE4)];
