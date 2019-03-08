@@ -34,7 +34,7 @@ for j = 1:Rdim
     % Firm FOC labor
     w = (1-P.alpha)*psi*y/n;
     % FOC labor
-    cp = w/(S.chi*n^P.eta)+P.h*c/g;
+    cp = w/(S.chi*n^P.eta);
     % Aggregate resource constraint
     ip = rgdpp - cp;  
     % Investment adjustment costs
@@ -59,13 +59,13 @@ for j = 1:Rdim
     % Firm FOC labor
     wpArr = (1-P.alpha)*psipArr.*ypArr./npArr;
     % FOC labor
-    cppArr = wpArr./(S.chi*npArr.^P.eta)+P.h*cp./gpArr;
+    cppArr = wpArr./(S.chi*npArr.^P.eta);
     % Aggregate resource constraint  
     ippArr = ypArr.*(1-(P.varphi*(pipArr/P.pi-1).^2)/2) - cppArr;       
     % Investment adjustment costs
     iacpArr = ippArr.*gpArr/(ip*P.g);
     % Stochastic discount factor
-    sdfArr = betapArr.*(cp-P.h*c/g)./(cppArr-P.h*cp./gpArr);
+    sdfArr = betapArr.*cp./cppArr;
     %----------------------------------------------------------------------
     % Numerical integration
     %----------------------------------------------------------------------

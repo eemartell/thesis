@@ -25,41 +25,41 @@ j=j+1;%	[FOC Labor]
 %---------------------------------------------
 G0(j,V.w) = 1;
 G0(j,V.n) = -P.eta;
-G0(j,V.c) = -1/(1-P.htilde);
-G0(j,V.g) = -P.htilde/(1-P.htilde);
-G1(j,V.c) = -P.htilde/(1-P.htilde);
+G0(j,V.c) = -1;
+% G0(j,V.g) = -0/(1-0);
+% G1(j,V.c) = -0/(1-0);
 %---------------------------------------------
 j = j+1;% [FOC Bond]
 %---------------------------------------------
-G0(j,V.c) = 1/(1-P.htilde);
+G0(j,V.c) = 1;
 G0(j,V.pi) = 1;
 G0(j,V.beta) = -1;
-G0(j,V.g) = 1/(1-P.htilde);
+G0(j,V.g) = 1;
 G1(j,V.r) = 1;
-G1(j,V.c) = (1+P.htilde)/(1-P.htilde);
-G1(j,V.g) = P.htilde/(1-P.htilde);
-G1(j,V.clag) = -P.htilde/(1-P.htilde);
-Pi(j,V.fec) = 1/(1-P.htilde);
+G1(j,V.c) = 1;
+% G1(j,V.g) = 0/(1-0);
+% G1(j,V.clag) = -0/(1-0);
+Pi(j,V.fec) = 1;
 Pi(j,V.fepi) = 1;
 Pi(j,V.febeta) = -1;
-Pi(j,V.feg) = 1/(1-P.htilde);
+Pi(j,V.feg) = 1;
 %---------------------------------------------
 j = j+1;% [FOC Capital]
 %---------------------------------------------
 G0(j,V.q) = P.beta*(1-P.delta)/P.g;
 G0(j,V.beta) = 1;
 G0(j,V.rk) = 1-P.beta*(1-P.delta)/P.g;
-G0(j,V.g) = -1/(1-P.htilde);
-G0(j,V.c) = -1/(1-P.htilde);
+G0(j,V.g) = -1;
+G0(j,V.c) = -1;
 G1(j,V.q) = 1;
-G1(j,V.c) = -(1+P.htilde)/(1-P.htilde);
-G1(j,V.g) = -P.htilde/(1-P.htilde);
-G1(j,V.clag) = P.htilde/(1-P.htilde);
+G1(j,V.c) = -1;
+% G1(j,V.g) = -0/(1-0);
+% G1(j,V.clag) = 0/(1-0);
 Pi(j,V.feq) = P.beta*(1-P.delta)/P.g;
 Pi(j,V.febeta) = 1;
 Pi(j,V.ferk) = 1-P.beta*(1-P.delta)/P.g;
-Pi(j,V.feg) = -1/(1-P.htilde);
-Pi(j,V.fec) = -1/(1-P.htilde);
+Pi(j,V.feg) = -2;
+Pi(j,V.fec) = -1;
 %---------------------------------------------
 j = j+1;% [FOC Investment]
 %---------------------------------------------

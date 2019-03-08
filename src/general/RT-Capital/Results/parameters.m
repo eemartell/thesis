@@ -10,7 +10,7 @@ P.delta    = 0.025;     % Depreciation
 
 % Estimated Parameters
 P.varphi   = 95;        % Rotemberg parameter
-P.h        = 0.5;  	    % Habit persistence
+% P.h        = 0.5;  	    % Habit persistence
 P.rhobeta  = 0.90;      % Persistence
 P.rhog     = 0.1;       % Persistence
 P.rhor     = 0.8; 	    % Persistence
@@ -26,7 +26,7 @@ P.nu       = 4;         % Investment adjustment cost
 
 % Implied parameters
 P.mu       = P.theta/(P.theta-1);
-P.htilde   = P.h/P.g;
+% P.htilde   = P.h/P.g;
 
 % Algorithm
 P.tol      = 1e-7;      % Convergence criterion

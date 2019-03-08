@@ -28,4 +28,4 @@ S.c = S.y-S.i;
 % Real GDP
 S.rgdp = S.c+S.i;
 % FOC labor
-S.chi = S.w/(P.n^P.eta*(S.c-P.htilde*S.c));
+S.chi = S.w/(P.n^P.eta*S.c);
