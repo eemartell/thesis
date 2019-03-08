@@ -13,8 +13,8 @@
 \usepackage[sort&compress]{natbib}
 \usepackage{subfig}
 \usepackage{titlesec}
-\usepackage[dvips,breaklinks]{hyperref}
-\hypersetup{pdfdisplaydoctitle=true,bookmarksnumbered=true,colorlinks=true,citecolor=black,linkcolor=darkblue,urlcolor=darkred,pdfstartview=FitH,pdfpagemode=UseNone}
+%\usepackage[dvips,breaklinks]{hyperref}
+%\hypersetup{pdfdisplaydoctitle=true,bookmarksnumbered=true,colorlinks=true,citecolor=black,linkcolor=darkblue,urlcolor=darkred,pdfstartview=FitH,pdfpagemode=UseNone}
 \usepackage[hyphenbreaks]{breakurl}
 \usepackage{accents}
 \newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
@@ -42,7 +42,7 @@
 
 Preferences:
 \begin{gather*}
- E_0\sum_{t=0}^\infty\tilde{\beta}_t[\log(c_t-hc_{t-1}^a)-\chi n_t^{1+\eta}/(1+\eta)] 
+ E_0\sum_{t=0}^\infty\tilde{\beta}_t[\log(c_t)-\chi n_t^{1+\eta}/(1+\eta)] 
 \end{gather*}
 Budget Constraint:
 \begin{gather*}
@@ -51,16 +51,16 @@ Budget Constraint:
 \end{gather*}
 Equilibrium system (17 equations):
 \scriptsize\begin{gather}
-  w_t=\chi n_t^\eta(c_t-hc_{t-1})\\
-  1= r_tE_t\left[\frac{\beta_{t+1}}{\pi_{t+1}}\frac{c_t-hc_{t-1}}{c_{t+1}-hc_t}\right]\\
-  q_t = E_t\left\{\beta_{t+1}\frac{c_t-hc_{t-1}}{c_{t+1}-hc_t}\left(r_{t+1}^k+q_{t+1}(1-\delta)\right)\right\}\\
+  w_t=\chi n_t^\eta c_t\\
+  1= r_tE_t\left[\frac{\beta_{t+1}}{\pi_{t+1}}\frac{c_t}{c_{t+1}}\right]\\
+  q_t = E_t\left\{\beta_{t+1}\frac{c_t}{c_{t+1}}\left(r_{t+1}^k+q_{t+1}(1-\delta)\right)\right\}\\
   1 = \mu_tq_t\left[1-\frac{\nu}{2}\left(\frac{i_t}{\bar{g}i_{t-1}}-1\right)^2-\nu\frac{i_t}{\bar{g}i_{t-1}}\left(\frac{i_t}{\bar{g}i_{t-1}}-1\right)\right]+\nu\bar{g}
-  E_t\left[\beta_{t+1}\mu_{t+1}q_{t+1}\frac{c_t-hc_{t-1}}{c_{t+1}-hc_t}\left(\frac{i_{t+1}}{\bar{g}i_t}\right)^2\left(\frac{i_{t+1}}{\bar{g}i_t}-1\right)\right]\\
+  E_t\left[\beta_{t+1}\mu_{t+1}q_{t+1}\frac{c_t}{c_{t+1}}\left(\frac{i_{t+1}}{\bar{g}i_t}\right)^2\left(\frac{i_{t+1}}{\bar{g}i_t}-1\right)\right]\\
   y_t=k_{t-1}^\alpha(z_tn_t)^{1-\alpha}\\
   k_t=(1-\delta)k_{t-1}+\mu_ti_t\left[1-\frac{\nu}{2}\left(\frac{i_{t}}{\bar{g}i_{t-1}}-1\right)^2\right]\\
   w_t = (1-\alpha)mc_ty_t/n_t\\
   r_t^k = \alpha mc_ty_t/k_{t-1}\\
-  \varphi\left(\frac{\pi_t}{\bar{\pi}}-1\right)\frac{\pi_t}{\bar{\pi}} = (1-\theta) + \theta mc_t + \varphi E_t\left[\beta_{t+1}\frac{c_t-hc_{t-1}}{c_{t+1}-hc_t}\left(\frac{\pi_{t+1}}{\bar{\pi}}-1\right)\frac{\pi_{t+1}}{\bar{\pi}}\frac{y_{t+1}}{y_t}\right]\\
+  \varphi\left(\frac{\pi_t}{\bar{\pi}}-1\right)\frac{\pi_t}{\bar{\pi}} = (1-\theta) + \theta mc_t + \varphi E_t\left[\beta_{t+1}\frac{c_t}{c_{t+1}}\left(\frac{\pi_{t+1}}{\bar{\pi}}-1\right)\frac{\pi_{t+1}}{\bar{\pi}}\frac{y_{t+1}}{y_t}\right]\\
   c_t+i_t=y_t^{gdp}\\
   y_t^{gdp} = [1-\varphi(\pi_t/\bar{\pi}-1)^2/2]y_t\\
   r_t=\max\{\ubar{r},r_t^*\}\\
@@ -74,7 +74,7 @@ Variables: $\{w,c,y,y^{gdp},n,r,r^n,\pi,mc,k,i,q,r^k,g,\beta,\mu,z\}$\\
 
 \noindent De-trended System (17 equations):
 \scriptsize\begin{gather}
-  \tilde{\lambda}_t = \tilde{c}_t-h\tilde{c}_{t-1}/g_t\\
+  \tilde{\lambda}_t = \tilde{c}_t\\
   \tilde{w}_t=\chi n_t^\eta\tilde{\lambda}_t \\
   1= r_tE_t[\beta_{t+1}(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(1/(g_{t+1}\pi_{t+1}))]\\
   q_t = E_t[\beta_{t+1}(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(r_{t+1}^k+q_{t+1}(1-\delta))/g_{t+1}]\\
