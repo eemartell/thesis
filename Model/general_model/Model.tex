@@ -50,7 +50,8 @@
 
 \noindent Budget Constraint:
 \begin{gather*}
-  c_t+x_t+b_t/(i_ts_t)=w_tn_t+r_t^kk_{t-1}+b_{t-1}/\pi_t+d_t%%%
+  c_t+x_t+b_t/(i_ts_t)=w_tn_t+r_t^kk_{t-1}+b_{t-1}/\pi_t+d_t\\
+  k_t = (1-\delta)k_{t-1} + x_t(1 - \nu(x^g_t-1)^2/2)
 \end{gather*}
 
 \setcounter{equation}{0}
@@ -71,7 +72,7 @@ x_t^g = x_t/(\bar{g}x_{t-1})\\
 k_t = (1-\delta)k_{t-1}+x_t(1-\nu(x_t^g-1)^2/2) \\%%%
 1 =  \beta E_t[(\lambda_t/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}))]\\
 q_t = \beta E_t[(\lambda_t/\lambda_{t+1})(r^k_{t+1}+(1-\delta)q_{t+1})]\\
-1 = q_t[1-(x^g_t-1)^2/2 - (x_t^g-1)x_t^g] + \beta\bar{g}E_t[q_{t+1}(\lambda_t/\lambda_{t+1})(x^g_{t+1})^2(x^g_{t+1}-1)]\\
+1 = q_t[1-\nu(x^g_t-1)^2/2 - \nu(x_t^g-1)x_t^g] + \nu\beta\bar{g}E_t[q_{t+1}(\lambda_t/\lambda_{t+1})(x^g_{t+1})^2(x^g_{t+1}-1)]\\
 \varphi(\pi_t^{gap}-1)\pi_t^{gap} = 1-\theta + \theta mc_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)]\\
 g_t = \bar{g} + \sigma_g\varepsilon_{g,t}\\
 s_t=(1-\rho_s)\bar{s}+\rho_ss_{t-1} + \sigma_s\varepsilon_{s,t}\\
@@ -97,7 +98,7 @@ x^g_t = g_t\tilde{x}_t/(\bar{g}\tilde{x}_{t-1})\\
 \tilde{k}_t = (1-\delta)(\tilde{k}_{t-1}/g_t) + \tilde{x}_t(1-\nu(x^g_t-1)^2/2)\\%%%
   1 = \beta E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}g_{t+1}))]\\
 q_t = \beta E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(r^k_{t+1} + (1-\delta)q_{t+1})/g_{t+1}]\\
-1 = q_t[1 - (x^g_t-1)^2/2 - (x^g_t-1)x^g_t] + \beta\bar{g}E_t[q_{t+1}(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(x^g_{t+1})^2(x^g_{t+1}-1)/g_{t+1}]\\
+1 = q_t[1 - \nu(x^g_t-1)^2/2 - \nu(x^g_t-1)x^g_t] + \nu\beta\bar{g}E_t[q_{t+1}(\tilde{\lambda}_t/\tilde{\lambda}_{t+1})(x^g_{t+1})^2(x^g_{t+1}-1)/g_{t+1}]\\
   \varphi(\pi_t^{gap}-1){\pi}_t^{gap} = 1-\theta + \theta mc_t + \beta\varphi E_t[(\tilde{\lambda}_t/\tilde{\lambda}_{t+1}) (\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(\tilde{y}_{t+1}/\tilde{y}_t)]\\
   g_t= \bar{g} + \sigma_g\varepsilon_{g,t} \\
   s_t=(1-\rho_s)s_t+\rho_ss_{t-1} + \sigma_s\varepsilon_{s,t}\\

@@ -135,8 +135,10 @@ Eppc = sum(EppcArr3(:));
 x_up(4) = Ecap; %pf.q %all policy functions at time t
 pf_lam = 1/(s*i*Ebond/lam);
 c_pf = pf_lam + P.h*c/g;
-var = (1-P.g*Einv)/x_up(4); %just q?
-xg_pf = 1/3*(sqrt(7-6*var)+2);
+var = 1-(1-P.nu*P.g*Einv)/x_up(4);
+xg_pf = 1/3*(2+sqrt(P.nu*(P.nu+6*var))/P.nu); %fixed
+
+
 x_pf = xg_pf*P.g*x/g;
 y_pf = c_pf + x_pf;
 x_up(2) = (y_pf/(k/g)^P.alpha)^(1/(1-P.alpha)); %pf.n
