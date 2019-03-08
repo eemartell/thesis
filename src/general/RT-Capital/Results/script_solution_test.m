@@ -72,6 +72,8 @@ O.e_pts = O.g_pts;    % Technology shock
 O.u_pts = O.beta_pts; % Discount factor shock
 O.v_pts = O.mp_pts;   % MP shock
 
+O.alg = 'fp';
+
 % Grids
 G = grids(O,P);
 
@@ -129,9 +131,14 @@ elseif strcmp(O.imp,'M')
             v_weightArr = permute(v_weightVec(:,ones(O.e_pts,1),ones(O.u_pts,1)),[2,3,1]);
             weightArr = e_weightArr.*u_weightArr.*v_weightArr;
             % Approximate solution
-            argzero = csolve('eqm',start,[],1e-4,10,state,...
-                             P,S,G,pf,...
-                             gpArr,betapArr,weightArr);
+            if strcmp(O.alg,'ti')            
+                argzero = csolve('eqm',start,[],1e-4,10,state,...
+                                 P,S,G,pf,...
+                                 gpArr,betapArr,weightArr);
+            elseif strcmp(O.alg,'fp')
+                argzero = eqm_fp(start,state,...
+                                 P,S,G,pf,gpArr,betapArr,weightArr);
+            end
             % Store updated policy functions       
             pf_n_up(inode) = argzero(1);
             pf_q_up(inode) = argzero(2);
