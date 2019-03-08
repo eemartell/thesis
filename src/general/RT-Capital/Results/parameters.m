@@ -29,4 +29,4 @@ P.mu       = P.theta/(P.theta-1);
 % P.htilde   = P.h/P.g;
 
 % Algorithm
-P.tol      = 1e-7;      % Convergence criterion
+P.tol      = 1e-6;      % Convergence criterion
