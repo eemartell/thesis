@@ -79,9 +79,13 @@ Efp = sum(EfpArr(:));
 %----------------------------------------------------------------------
 x_up(2) = Ecap; %q
 RHS = (1-P.theta) + P.theta*mc + P.varphi*Efp;
-x_up(3) = 1/2*(1-sqrt(4*RHS+1))*P.pi;
-
-
+x_up(3) = 1/2*(1-sqrt(4*RHS+1))*P.pi; %pie
+var = 1-(1-P.nu*Einv)/x_up(2);
+ig_up = 1/3*(2-sqrt(P.nu*(P.nu+6*var))/P.nu);
+i_up = ig_up*P.g*i/g;
+lam_up = lam/(rnp*Ebond);%no P.pi (not gap); note interest rate is updated
+%solve for c
+ygdp_up = 
 % % FOC capital
 % R(1,j) = q - Ecap;
 % % FOC investment
