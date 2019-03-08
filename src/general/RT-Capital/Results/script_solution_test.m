@@ -116,7 +116,7 @@ elseif strcmp(O.imp,'M')
     dist_max = 0;                           % Max distance vector
     while converged == -1
         istart = tic;                       % Iteration timer start
-        parfor inode = 1:G.nodes
+        for inode = 1:G.nodes
             % Find optimal policy functions on each node.
             % csolve finds the zeros of 'eqm'
             % Start csolve with the current policy function  

@@ -78,14 +78,18 @@ Efp = sum(EfpArr(:));
 % First-order conditions
 %----------------------------------------------------------------------
 x_up(2) = Ecap; %q
-RHS = (1-P.theta) + P.theta*mc + P.varphi*Efp;
-x_up(3) = 1/2*(1-sqrt(4*RHS+1))*P.pi; %pie
+RHS = (1-P.theta) + P.theta*psi + P.varphi*Efp;
+x_up(3) = 1/2*(1+sqrt(4*RHS+1))*P.pi; %pie
 var = 1-(1-P.nu*Einv)/x_up(2);
 ig_up = 1/3*(2-sqrt(P.nu*(P.nu+6*var))/P.nu);
 i_up = ig_up*P.g*i/g;
-lam_up = lam/(rnp*Ebond);%no P.pi (not gap); note interest rate is updated
+lam_up = (cp-P.h*c/g)/(r*Ebond);%no P.pi (not gap); note interest rate is updated
+c_up = lam_up + P.h*c/g;
 %solve for c
-ygdp_up = 
+ygdp_up = c_up + i_up;
+y_up = ygdp_up/(1-P.varphi*(x_up(3)/P.pi-1)^2/2);
+x_up(1) = (y_up/(k/g)^P.alpha)^(1/(1-P.alpha));
+x_up(4) = w*x_up(1)/((1-P.alpha)*y_up);
 % % FOC capital
 % R(1,j) = q - Ecap;
 % % FOC investment
