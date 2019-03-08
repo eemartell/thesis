@@ -29,4 +29,4 @@ P.nu       = 4;         % Investment adjustment cost
 %P.sigups   = 5;         % Utilization
 
 % Algorithm
-P.tol      = 1e-7;      % Convergence criterion
+P.tol      = 1e-6;      % Convergence criterion
