@@ -137,21 +137,22 @@ pf_lam = 1/(s*i*Ebond/lam);
 c_pf = pf_lam + P.h*c/g;
 var = 1-(1-P.nu*P.g*Einv)/x_up(4);
 xg_pf = 1/3*(2+sqrt(P.nu*(P.nu+6*var))/P.nu); %fixed
-
-
 x_pf = xg_pf*P.g*x/g;
-y_pf = c_pf + x_pf;
-x_up(2) = (y_pf/(k/g)^P.alpha)^(1/(1-P.alpha)); %pf.n
+ygdp_pf = c_pf + x_pf;
 RHS_firm = 1 - P.theta + P.theta*mc + P.varphi*Eppc;%/y*y_pf;
 x_up(1) = (1+sqrt((P.varphi+4*RHS_firm)/P.varphi))/2;
+
+y_pf = ygdp_pf/(1-P.varphi*(x_up(1)-1)^2/2);
+x_up(2) = (y_pf/(k/g)^P.alpha)^(1/(1-P.alpha)); %pf.n
+
 x_up(5) = (w*x_up(2))/((1-P.alpha)*y_pf);
 
 pf_lam_zlb = 1/(s*Ebond/lam);
 c_pf = pf_lam_zlb + P.h*c/g;
 x_pf = xg_pf*P.g*x/g;
-y_pf = c_pf + x_pf;
+ygdp_pf = c_pf + x_pf;
+
+y_pf = ygdp_pf/(1-P.varphi*(x_up(1)-1)^2/2);
 x_up(3) = (y_pf/(k/g)^P.alpha)^(1/(1-P.alpha)); %pf.n
-%LHS_firm = P.varphi*(x_up(1)-1)*x_up(1)-(1-P.theta) - P.varphi*Eppc;
-%LHS_firm = P.varphi*(pigap-1)*pigap-(1-P.theta) - P.varphi*Eppc;
-%x_up(5) = LHS_firm/P.theta;
+
 end

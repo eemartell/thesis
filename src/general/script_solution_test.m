@@ -47,7 +47,7 @@ load('options.mat')
 O.it = 'fp';
 
 % Solution algorithm
-O.alg = 'ART';
+O.alg = 'Gust';
 
 %% Run Policy Function Iteration Algorithm
 
