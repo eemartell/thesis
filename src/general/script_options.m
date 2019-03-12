@@ -19,13 +19,13 @@ O.x_boundper = 0.15;
 %O.w_boundper = 0.04;
 
 %   Density
-O.g_pts = 3;            % Growth shock state
-O.s_pts = 5;%13;           % Risk premium shock state
-O.mp_pts = 3;           % Monetary policy shock state
-O.in_pts = 5;           % Notional interest rate
-O.c_pts = 5;            % Consumption
-O.k_pts = 5;            % Capital
-O.x_pts = 5;%11;            % Investment
+O.g_pts = 5;            % Growth shock state
+O.s_pts = 5;%5;%13;           % Risk premium shock state
+O.mp_pts = 5;           % Monetary policy shock state
+O.in_pts = 5;%5;           % Notional interest rate
+O.c_pts = 5;%5;            % Consumption
+O.k_pts = 5;%5;            % Capital
+O.x_pts = 5;% 5;%5;%11;            % Investment
 %O.w_pts = 7;            % Real wage state
 
 O.epsg_pts = O.g_pts;	% Growth shock

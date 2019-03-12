@@ -8,16 +8,16 @@ clc
 saving = 'on';
 
 O.it = 'fp';
-O.alg = 'Gust';
+O.alg = 'ART';
 
 if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
-    load('solutions/solutionfpART.mat')
+    load('solutions/solutionfpART_5.mat')
 elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
-    load('solutions/solutionfpGust.mat')    
+    load('solutions/solutionfpGust_5.mat')    
 end
 
 O.it = 'fp';
-O.alg = 'Gust';
+O.alg = 'ART';
 V = variables;
 % Numerical pdf of state variables
 %   Simulation parameters
@@ -116,6 +116,6 @@ elseif strcmp(O.alg,'ART')
 end
 %% Save results
 if strcmp(saving,'on')
-    fname = ['eeerrors_sim' O.it O.alg];
+    fname = ['eeerrors_sim' O.it O.alg '_5'];
     save(['solutions/' fname],'R');    
 end

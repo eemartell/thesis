@@ -44,10 +44,10 @@ load('options.mat')
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'ti';
+O.it = 'fp';
 
 % Solution algorithm
-O.alg = 'ART';
+O.alg = 'Gust';
 
 %% Run Policy Function Iteration Algorithm
 
@@ -226,6 +226,6 @@ end
 
 %% Save results
 if strcmp(saving,'on')
-    fname = ['solution' O.it O.alg];    
+    fname = ['solution' O.it O.alg '_5'];    
     save(['solutions/' fname],'pf','O','P','S','G','V');%,'R');
 end

@@ -16,7 +16,7 @@ O.it = 'fp';
 figname = ['eeerrors' O.it 'bothalgs'];
 
 % Load solution at posterior mean
-load('../solutions/eeerrors_simfpART')
+load('../solutions/eeerrors_simfpART_5')
 EE_ART(:,1) = R.EE1(:);
 EE_ART(:,2) = R.EE2(:);
 EE_ART(:,3) = R.EE3(:);
@@ -24,7 +24,7 @@ EE_ART(:,4) = R.EE4(:);
 RMeanEEART(:,1) = R.meanEE;
 RMaxEEART(:,1) = R.maxEE;
 
-load('../solutions/eeerrors_simfpGust')
+load('../solutions/eeerrors_simfpGust_5')
 EE_Gust(:,1) = R.EE1(:);
 EE_Gust(:,2) = R.EE3(:);
 EE_Gust(:,3) = R.EE4(:);
@@ -51,7 +51,7 @@ titles = {'HH FOC bond','HH FOC capital','HH FOC investment','Price Phillips Cur
 
 % Plot options
 if strcmp(plottype,'M')
-    savename = ['Figs/' figname];
+    savename = [figname];
     figbox = [1,1,6.5,2.5];
     subpad.bot = .175; % Increase if xaxis lables are cut off
     subpad.top = .125; % Increase if subplot title is cut off
@@ -60,7 +60,7 @@ if strcmp(plottype,'M')
     subpad.legend = 0; % Increase if legend overlaps subplot titles
     fontsize = 10; 
 elseif strcmp(plottype,'P')
-    savename = ['Figs/' figname '_pres'];
+    savename = [figname '_pres'];
     set(0,'DefaultAxesFontSize',8)
     figbox = [1,1,4.5,2.5];
     subpad.bot = .175; % Increase if xaxis lables are cut off
@@ -124,6 +124,5 @@ end
 
 %% Save figure
 if strcmp(saving,'on')
-    print(gcf,'-depsc2','-painters',[savename '.eps'])
-    saveas(gcf,[savename '.fig'])
+    savefig([savename '.fig'])
 end

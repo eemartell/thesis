@@ -113,9 +113,8 @@ text(1.01,1.03,.36,'Black dots: ZLB')
 end
 
 saving = 'on';
-savename = '../figs/Figs/pfs3D';
+savename = '../figs/pfs3D';
 %% Save figure
 if strcmp(saving,'on')
-    print(gcf,'-depsc2','-painters',[savename '.eps'])
-    saveas(gcf,[savename '.fig'])
+    savefig([savename '.fig'])
 end
