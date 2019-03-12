@@ -20,8 +20,6 @@ G.kmin = (1-O.k_boundper)*S.k;
 G.kmax = (1+O.k_boundper)*S.k;
 G.xmin = (1-O.x_boundper)*S.x;
 G.xmax = (1+O.x_boundper)*S.x;
-%G.wmin = (1-O.w_boundper)*S.w;
-%G.wmax = (1+O.w_boundper)*S.w;
 %--------------------------------------------------------------------------
 % Nodes and weights for numerical integration
 %--------------------------------------------------------------------------
@@ -48,8 +46,6 @@ G.c_grid = linspace(G.cmin,G.cmax,O.c_pts);
 G.k_grid = linspace(G.kmin,G.kmax,O.k_pts);
 % Define grid points for investment
 G.x_grid = linspace(G.xmin,G.xmax,O.x_pts);
-% Define grid points for real wage
-%G.w_grid = linspace(G.wmin,G.wmax,O.w_pts);
 %--------------------------------------------------------------------------
 % Construct grid arrays
 %--------------------------------------------------------------------------

@@ -27,24 +27,18 @@ x_gr_per = G.x_gr - S.x;
 %w_gr_per = G.w_gr - S.w;
 
 % Calculate linear policy functions on discretized state space 
-%linpf_c = zeros(G.griddim);
 linpf_pi = zeros(G.griddim);
 linpf_n = zeros(G.griddim);
 linpf_q = zeros(G.griddim);
 linpf_mc = zeros(G.griddim);
-%linpf_ups = zeros(G.griddim);
 state = [g_gr_per(:),s_gr_per(:),mp_gr_per(:),in_gr_per(:),c_gr_per(:),k_gr_per(:),x_gr_per(:)]';
-%linpf_c(:) = T(V.c,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x])*state;
 linpf_pi(:) = T(V.pi,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x])*state;
 linpf_n(:) = T(V.n,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x])*state;
 linpf_q(:) = T(V.q,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x])*state;
-%linpf_ups(:) = T(V.ups,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x])*state;
 linpf_mc(:) = T(V.mc,[V.g,V.s,V.mp,V.in,V.c,V.k,V.x])*state;
 
 % Convert back to levels
-%pf.c = S.c + linpf_c;
 pf.pigap = (P.pi + linpf_pi)/P.pi;
 pf.n = P.n + linpf_n;
 pf.q = 1 + linpf_q;
-%pf.ups = 1 + linpf_ups;  
 pf.mc = S.mc*(1 + linpf_mc);

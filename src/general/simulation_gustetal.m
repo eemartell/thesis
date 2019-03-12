@@ -63,11 +63,6 @@ for t = 2:npers
     sims(t,V.pi,:) = P.pi*pigap;
     % Production function (2)
     sims(t,V.yf,:) = (sims(t-1,V.k,:)./sims(t,V.g,:)).^P.alpha.*sims(t,V.n,:).^(1-P.alpha); 
-%     % HH FOC utilization (1)
-%     sims(t,V.rk,:) = P.alpha*sims(t,V.mc,:).*sims(t,V.g,:).*sims(t,V.yf,:)./sims(t-1,V.k,:); 
-%     % Firm FOC labor (5)
-%     sims(t,V.w,:) = (1-P.alpha)*sims(t,V.mc,:).*sims(t,V.yf,:)./sims(t,V.n,:);
-%     sims(t,V.c,:) = sims(t,V.w,:)./(S.chi*sims(t,V.n,:).^P.eta) + P.h*sims(t-1,V.c,:)./sims(t,V.g,:);
     % Output definition (7)
     sims(t,V.y,:) = (1-P.varphi*(pigap-1).^2/2).*sims(t,V.yf,:);
     % Output growth gap (8)
@@ -78,16 +73,7 @@ for t = 2:npers
         sims(t,V.yg,:).^P.phiy).^(1-P.rhoi).*exp(sims(t,V.mp,:));
     sims(t,V.i,:) = max(1,sims(t,V.in,:));
     n_combined = sims(t,V.n,:).*(sims(t,V.in,:)>1) + sims(t,V.n_zlb,:).*(sims(t,V.in,:)<=1);
-    % ARC (13)    c_combined = sims(t,V.c,:).*(sims(t,V.in,:)>1) + sims(t,V.c_zlb,:).*(sims(t,V.in,:)<=1); %%%combined with c's instead
 
-%     %Recalculate (try recaluclating another time)
-%     % Production function (2)
-%     sims(t,V.yf,:) = (sims(t-1,V.k,:)./sims(t,V.g,:)).^P.alpha.*n_combined.^(1-P.alpha); 
-%     % Output definition (7)
-%     sims(t,V.y,:) = (1-P.varphi*(pigap-1).^2/2).*sims(t,V.yf,:);
-%     % Output growth gap (8)
-%     sims(t,V.yg,:) = sims(t,V.g,:).*sims(t,V.y,:)./(P.g*sims(t-1,V.y,:));
-    
     % HH FOC utilization (1)
     sims(t,V.rk,:) = P.alpha*sims(t,V.mc,:).*sims(t,V.g,:).*sims(t,V.yf,:)./sims(t-1,V.k,:); 
     % Firm FOC labor (5)

@@ -16,7 +16,6 @@ S.mc = (P.theta-1)/P.theta;
 S.rk = P.g/P.beta+P.delta-1;
 % Marginal cost definition
 S.w = (S.mc*(1-P.alpha)^(1-P.alpha)*P.alpha^P.alpha/S.rk^P.alpha)^(1/(1-P.alpha));
-%S.wf = (P.thetaw-1)*S.w/P.thetaw;
 % Consolidated FOC firm
 S.k = S.w*P.n*P.g*P.alpha/(S.rk*(1-P.alpha));
 % Law of motion for capital

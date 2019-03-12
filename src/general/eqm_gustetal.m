@@ -20,16 +20,13 @@ in = state(4);          %Notional interest rate last period
 c = state(5);           %Consumption last period
 k = state(6);           %Capital last period
 x = state(7);           %Investment last period   
-%w = state(8);           %Real wage last period
 
 for icol = 1:ncol
     % Policy Function Guesses
-    %cp = pf0(1,icol);      %Consumption current period
     pigap = pf0(1,icol);   %Inflation gap current period  
     n = pf0(2,icol);       %Labor current period 
     n_zlb = pf0(3,icol);
     q = pf0(4,icol);       %Tobin's q current period
-    %ups = pf0(5,icol);     %Utilization current period
     mc = pf0(5,icol);      %Marginal cost current period    
     %----------------------------------------------------------------------
     % Current period
@@ -50,13 +47,11 @@ for icol = 1:ncol
         w = (1-P.alpha)*mc*yf/n;
         % FOC labor
         cp = w/(S.chi*n^P.eta)+P.h*c/g;
-        % Aggregate resource constraint
     else
         % Firm FOC labor (5)
         w = (1-P.alpha)*mc*yf/n_zlb;
         % FOC labor
         cp = w/(S.chi*n_zlb^P.eta)+P.h*c/g;
-        % Aggregate resource constraint  
     end
     xp = yp - cp;
     % Investment growth gap (14)
@@ -107,11 +102,11 @@ for icol = 1:ncol
     % Next period
     %----------------------------------------------------------------------  
     % Production function (2)
-    yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha); %should also be recalculated? CHECK
+    yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha);
     % Real gdp
     yppArr3 = (1-P.varphi*(pigappArr3-1).^2/2).*yfpArr3;
     % Output growth
-    ygpArr3 = g*yppArr3/(P.g*yp);  %correct way to calculate?   
+    ygpArr3 = g*yppArr3/(P.g*yp);  
     % Notional Interest Rate (9)
     inpArr3 = inp.^P.rhoi.*(S.i.*pigappArr3.^P.phipi.*ygpArr3.^P.phiy).^(1-P.rhoi).*exp(mpArr3);
     npArr3_combined = npArr3.*(inpArr3>1) + npArr3_zlb.*(inpArr3<=1);
@@ -140,12 +135,10 @@ for icol = 1:ncol
     EcapArr3 = weightArr3.*sdfArr3.*(rkpArr3+(1-P.delta)*qpArr3)./gpArr3;
     EinvArr3 = weightArr3.*sdfArr3.*qpArr3.*xgpArr3.^2.*(xgpArr3-1)./gpArr3;
     EppcArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*(yfpArr3/yf);
-    %EwpcArr3 = weightArr3.*sdfArr3.*(wgpArr3-1).*wgpArr3.*(yfpArr3/yf);
     Ebond = sum(EbondArr3(:));
     Ecap = sum(EcapArr3(:));
     Einv = sum(EinvArr3(:));
     Eppc = sum(EppcArr3(:));
-    %Ewpc = sum(EwpcArr3(:));
     %----------------------------------------------------------------------
     % Euler Equations
     %----------------------------------------------------------------------
@@ -159,6 +152,4 @@ for icol = 1:ncol
     Res(4,icol) = 1-q*(1-P.nu*(xg-1)^2/2-P.nu*(xg-1)*xg)-P.nu*P.g*Einv;    
     % Price Phillips Curve (19)
     Res(5,icol) = P.varphi*(pigap-1)*pigap-(1-P.theta)-P.theta*mc-P.varphi*Eppc;
-    % Wage Phillips Curve (20)
-    %Res(5,icol) = P.varphiw*(wg-1)*wg-((1-P.thetaw)*wp+P.thetaw*wf)*n/yf-P.varphiw*Ewpc;
 end

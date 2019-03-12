@@ -20,15 +20,12 @@ in = state(4);          %Notional interest rate last period
 c = state(5);           %Consumption last period
 k = state(6);           %Capital last period
 x = state(7);           %Investment last period   
-%w = state(8);           %Real wage last period
 
 for icol = 1:ncol
     % Policy Function Guesses
-    %cp = pf0(1,icol);      %Consumption current period
     pigap = pf0(1,icol);   %Inflation gap current period  
     n = pf0(2,icol);       %Labor current period 
     q = pf0(3,icol);       %Tobin's q current period
-    %ups = pf0(5,icol);     %Utilization current period
     mc = pf0(4,icol);      %Marginal cost current period    
     %----------------------------------------------------------------------
     % Current period
@@ -107,12 +104,10 @@ for icol = 1:ncol
     EcapArr3 = weightArr3.*sdfArr3.*(rkpArr3+(1-P.delta)*qpArr3)./gpArr3;
     EinvArr3 = weightArr3.*sdfArr3.*qpArr3.*xgpArr3.^2.*(xgpArr3-1)./gpArr3;
     EppcArr3 = weightArr3.*sdfArr3.*(pigappArr3-1).*pigappArr3.*(yfpArr3/yf);
-    %EwpcArr3 = weightArr3.*sdfArr3.*(wgpArr3-1).*wgpArr3.*(yfpArr3/yf);
     Ebond = sum(EbondArr3(:));
     Ecap = sum(EcapArr3(:));
     Einv = sum(EinvArr3(:));
     Eppc = sum(EppcArr3(:));
-    %Ewpc = sum(EwpcArr3(:));
     %----------------------------------------------------------------------
     % Euler Equations
     %----------------------------------------------------------------------
