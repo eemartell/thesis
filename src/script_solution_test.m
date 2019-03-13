@@ -22,7 +22,7 @@ time = zeros(300,1);
 saving = 'on';
 
 % Solution algorithm
-O.alg = 'ART';
+O.alg = 'Gust';
 
 % Load options, parameters, and steady state
 if strcmp(O.alg,'ART')
@@ -34,7 +34,7 @@ end
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'ti';
+O.it = 'fp';
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
@@ -174,7 +174,7 @@ end
 time = time(time>0);
 %% Save results
 if strcmp(saving,'on')
-    fname = ['solution' O.it num2str(O.a_pts) O.alg];
+    fname = ['solution' O.it O.alg];
     save(['solutions/' fname],'pf','O','P','S','G','V','perbind');    
 end
 disp(fname)

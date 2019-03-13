@@ -1,4 +1,4 @@
-function R = eqm_gustetal(x,state,O,P,S,G,pf,gpArr3,apArr3,mpArr3,weightArr3,varargin)
+function R = eqm_gustetal(x,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,varargin)
 
 % Get original grids and GH nodes
 if ~isempty(varargin)
@@ -55,16 +55,20 @@ for icol = 1:Rdim
 		inp,...
 		pf.c_zlb,pf.pigap);    
     else
-%         % Growth rate
-%         gpVec = ((1-P.rhog)*P.g + P.rhog*g + GH.e_nodes);
-%         % Preferences 
-%         apVec = (1-P.rhoa + P.rhoa*a + GH.u_nodes);
-%         [cppArr3,pigappArr3] = allterp423(...
-%                                 G.g_grid,G.a_grid,G.mp_grid,G.in_grid,...
-%                                 gpVec,apVec,GH.v_nodes,inp,...
-%                                 pf.c,pf.pigap);                            
-%         gpArr3 = gpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));
-%         apArr3 = permute(apVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1)),[2,1,3]);
+        % Growth rate
+        gpVec = ((1-P.rhog)*P.g + P.rhog*g + GH.e_nodes);
+        % Preferences 
+        apVec = (1-P.rhoa + P.rhoa*a + GH.u_nodes);
+        [cppArr3,pigappArr3] = allterp423(...
+                                G.g_grid,G.a_grid,G.mp_grid,G.in_grid,...
+                                gpVec,apVec,GH.v_nodes,inp,...
+                                pf.c,pf.pigap);    
+        [cppArr3_zlb,pigappArr3] = allterp423(...
+                                G.g_grid,G.a_grid,G.mp_grid,G.in_grid,...
+                                gpVec,apVec,GH.v_nodes,inp,...
+                                pf.c_zlb,pf.pigap);                                 
+        gpArr3 = gpVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1));
+        apArr3 = permute(apVec(:,ones(GH.shockpts,1),ones(GH.shockpts,1)),[2,1,3]);
     end
     %----------------------------------------------------------------------        
     % Solve for variables inside expectations

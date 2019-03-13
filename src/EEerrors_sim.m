@@ -10,24 +10,24 @@ saving = 'on';
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'ti';
-O.alg = 'ART';
+O.it = 'fp';
+O.alg = 'Gust';
 
 if  strcmp(O.alg, 'ART')
     if strcmp(O.it,'fp')
         disp('Using ART fixed point solution')
-        load('solutions/solutionfp9ART.mat')
+        load('solutions/solutionfpART.mat')
     elseif strcmp(O.it,'ti')
         disp('Using ART time iteration solution')        
-        load('solutions/solutionti9ART.mat')
+        load('solutions/solutiontiART.mat')
     end
 elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
     if strcmp(O.it,'fp')
         disp('Using Gust et al fixed point solution') 
-        load('solutions/solutionfp9Gust.mat')
+        load('solutions/solutionfpGust.mat')
     elseif strcmp(O.it,'ti')
         disp('Using Gust et al time iteration solution') 
-        load('solutions/solutionti9Gust.mat')  
+        load('solutions/solutiontiGust.mat')  
     end
 end     
 % Numerical pdf of state variables
@@ -90,7 +90,7 @@ for time = 2:npers
             EE_temp = eqm(start,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3,GH);      
         elseif strcmp(O.alg, 'Gust')
             %%%cs and pigap here
-            start = [sims(time,V.c),sims(time,V.c_zlb),sims(time,V.pi)/P.pi]; %???
+            start = [sims(time,V.c),sims(time,V.c_zlb),sims(time,V.pi)/P.pi]'; %???
              % Approximate solution           
              EE_temp = eqm_gustetal(start,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,GH);    
         end
@@ -121,7 +121,7 @@ elseif strcmp(O.alg,'ART')
 end
 %% Save results
 if strcmp(saving,'on')
-    fname = ['eeerrors_sim' O.it num2str(O.a_pts) O.alg];
+    fname = ['eeerrors_sim' O.it O.alg];
     save(['solutions/' fname],'R');    
 end
 disp(fname)

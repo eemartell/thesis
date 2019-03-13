@@ -17,16 +17,16 @@ y_Gust_zlb = pf.c_zlb(:);
 c_Gust_zlb = pf.c_zlb;
 
 g = G.g_gr(:);
-s = G.s_gr(:);
+a = G.a_gr(:);
 mp = G.mp_gr(:);
 in = G.in_gr(:);
-ds_Gust = dataset(y_Gust,g,s,mp,in);
-ds_Gust_zlb = dataset(y_Gust_zlb,g,s,mp,in);
-ds_ART = dataset(y_ART,g,s,mp,in);
+ds_Gust = dataset(y_Gust,g,a,mp,in);
+ds_Gust_zlb = dataset(y_Gust_zlb,g,a,mp,in);
+ds_ART = dataset(y_ART,g,a,mp,in);
 % Linear regressions using fitlm
-lm_Gust_lin = fitlm(ds_Gust,'y_Gust~g+s+mp+in');
-lm_Gust_lin_zlb = fitlm(ds_Gust_zlb,'y_Gust_zlb~g+s+mp+in');
-lm_ART_lin = fitlm(ds_ART,'y_ART~g+s+mp+in');
+lm_Gust_lin = fitlm(ds_Gust,'y_Gust~g+a+mp+in');
+lm_Gust_lin_zlb = fitlm(ds_Gust_zlb,'y_Gust_zlb~g+a+mp+in');
+lm_ART_lin = fitlm(ds_ART,'y_ART~g+a+mp+in');
 disp('RMSE (residual standard error) in linear models')
 disp(['Gust, c: ', num2str(lm_Gust_lin.RMSE)])
 disp(['Gust, c_zlb: ',num2str(lm_Gust_lin_zlb.RMSE)])
@@ -58,8 +58,8 @@ figure('Renderer', 'painters', 'Position', [100 100 825 525])
 
 in_vec = squeeze(G.in_gr(4,:,4,:));
 in_vec = in_vec(:);
-s_vec = squeeze(G.s_gr(4,:,4,:));
-s_vec = s_vec(:);
+a_vec = squeeze(G.a_gr(4,:,4,:));
+a_vec = a_vec(:);
 
 for i = 1:3
     if i ~= 3
@@ -68,14 +68,14 @@ for i = 1:3
     subplot(2,2,i+1)
     end
 %hold on
-surf(squeeze(G.in_gr(4,:,4,:)),squeeze(G.s_gr(4,:,4,:)), z{i})
+surf(squeeze(G.in_gr(4,:,4,:)),squeeze(G.a_gr(4,:,4,:)), z{i})
 colormap winter
 freezeColors %from MATLAB file exchange
 %xlim([.98, 1.04])
 %ylim([.98, 1.04])
 %zlim([.28, .39])
 hold on
-scatter3(in_vec,s_vec, z_zlb{i}(:),15,'MarkerEdgeColor','k',...
+scatter3(in_vec,a_vec, z_zlb{i}(:),15,'MarkerEdgeColor','k',...
         'MarkerFaceColor','k')
 hold off
 xlabel('Interest rate')
