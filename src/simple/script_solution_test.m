@@ -34,7 +34,7 @@ end
 % Iteration
 %   ti: time iteration
 %   fp: fixed point
-O.it = 'ti';
+O.it = 'fp';
 %% Run Policy Function Iteration Algorithm
 
 % Obtain Guess
@@ -105,8 +105,8 @@ for inode = 1:G.nodes
         pf_pigap_up(inode) = argzero(2);
     elseif strcmp(O.alg,'Gust')
         pf_c_up(inode) = argzero(1);
-        pf_c_zlb_up(inode) = argzero(1);
-        pf_pigap_up(inode) = argzero(2);
+        pf_c_zlb_up(inode) = argzero(2);
+        pf_pigap_up(inode) = argzero(3);
     end
 end
 
@@ -174,7 +174,7 @@ end
 time = time(time>0);
 %% Save results
 if strcmp(saving,'on')
-    fname = ['solution' O.it num2str(O.s_pts) O.alg];
+    fname = ['solution' O.it O.alg];
     save(['solutions/' fname],'pf','O','P','S','G','V','perbind');    
 end
 disp(fname)

@@ -11,14 +11,14 @@ saving = 'on';
 %   ti: time iteration
 %   fp: fixed point
 O.it = 'fp';
-O.alg = 'Gust';
+O.alg = 'ART';
 
 if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
     disp('Using ART fixed point solution')
-    load('solutions/solutionfp13ART.mat')
+    load('solutions/solutionfpART.mat')
 elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
     disp('Using Gust et al fixed point solution') 
-    load('solutions/solutionfp17Gust.mat')
+    load('solutions/solutionfpGust.mat')
 end     
 % Numerical pdf of state variables
 %   Simulation parameters
@@ -111,7 +111,7 @@ elseif strcmp(O.alg,'ART')
 end
 %% Save results
 if strcmp(saving,'on')
-    fname = ['eeerrors_sim' O.it num2str(O.s_pts) O.alg];
+    fname = ['eeerrors_sim' O.it O.alg];
     save(['solutions/' fname],'R');    
 end
 disp(fname)
