@@ -11,7 +11,7 @@ saving = 'on';
 %   ti: time iteration
 %   fp: fixed point
 O.it = 'fp';
-O.alg = 'ART';
+O.alg = 'Gust';
 
 if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
     disp('Using ART fixed point solution')
@@ -80,7 +80,7 @@ for time = 2:npers
             EE_temp = eqm(start,state,O,P,S,G,pf,gpArr3,spArr3,weightArr3,GH);      
         elseif strcmp(O.alg, 'Gust')
             %%%cs and pigap here
-            start = [sims(time,V.c),sims(time,V.c_zlb),sims(time,V.pi)/P.pi]; %???
+            start = [sims(time,V.c),sims(time,V.c_zlb),sims(time,V.pi)/P.pi]'; %???
              % Approximate solution           
              EE_temp = eqm_gustetal(start,state,O,P,S,G,pf,gpArr3,mpArr3,weightArr3,GH);    
         end
