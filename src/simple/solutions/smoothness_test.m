@@ -27,10 +27,6 @@ ds_ART = dataset(y_ART,g,s,mp,in);
 lm_Gust_lin = fitlm(ds_Gust,'y_Gust~g+s+mp+in');
 lm_Gust_lin_zlb = fitlm(ds_Gust_zlb,'y_Gust_zlb~g+s+mp+in');
 lm_ART_lin = fitlm(ds_ART,'y_ART~g+s+mp+in');
-disp('RMSE (residual standard error) in linear models')
-disp(['Gust, c: ', num2str(lm_Gust_lin.RMSE)])
-disp(['Gust, c_zlb: ',num2str(lm_Gust_lin_zlb.RMSE)])
-disp(['ART, c: ', num2str(lm_ART_lin.RMSE)])
 
 z{1} =  squeeze(c_ART(4,:,4,:));
 z_zlb{1} = z{1};
@@ -53,6 +49,25 @@ label{3} = 'GustEtAl ZLB policy function';
 RMSE{1} = lm_ART_lin.RMSE;
 RMSE{2} = lm_Gust_lin.RMSE;
 RMSE{3} = lm_Gust_lin_zlb.RMSE;
+FIT{1} = lm_ART_lin.Fitted;
+FIT{2} = lm_Gust_lin.Fitted;
+FIT{3} = lm_Gust_lin_zlb.Fitted;
+perc_errART = abs(y_ART - FIT{1})./S.y*100;
+meanperc_err{1} = mean(perc_errART(:));
+perc_errGust = abs(y_Gust - FIT{2})./S.y*100;
+meanperc_err{2} = mean(perc_errGust(:));
+perc_errGust_zlb = abs(y_Gust_zlb - FIT{3})./S.y*100;
+meanperc_err{3} = mean(perc_errGust_zlb(:));
+
+disp('RMSE (residual standard error) in linear models')
+disp(['ART, c: ', num2str(lm_ART_lin.RMSE), ' consumption units'])
+disp(['Gust, c: ', num2str(lm_Gust_lin.RMSE), ' consumption units'])
+disp(['Gust, c_zlb: ',num2str(lm_Gust_lin_zlb.RMSE), ' consumption units'])
+
+disp('Average percent error of consumption policy function from linear fitted model')
+disp(['ART, c: ', num2str(meanperc_err{1}), '%'])
+disp(['Gust, c: ',num2str(meanperc_err{2}), '%'])
+disp(['Gust, c_zlb: ', num2str(meanperc_err{3}), '%'])
 
 figure('Renderer', 'painters', 'Position', [100 100 825 525])
 
@@ -84,8 +99,8 @@ zlabel('Consumption')
 title(label{i})
 [az, el] = view;
 view(az-90,el-10)
-text(1.03,1.04,.37,['RMSE: ',num2str(RMSE{i})])
-text(1.03,1.04,.36,'Black dots: ZLB')
+text(1.013,1.04,.37,['avg % err: ',num2str(meanperc_err{i})])
+text(1.013,1.04,.36,'Black dots: ZLB')
 end
 
 % % Linear regressions using regress

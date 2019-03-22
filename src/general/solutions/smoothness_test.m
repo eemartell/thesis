@@ -74,6 +74,26 @@ label{3} = 'GustEtAl ZLB policy function';
 RMSE{1} = lm_ART_lin.RMSE;
 RMSE{2} = lm_Gust_lin.RMSE;
 RMSE{3} = lm_Gust_lin_zlb.RMSE;
+FIT{1} = lm_ART_lin.Fitted;
+FIT{2} = lm_Gust_lin.Fitted;
+FIT{3} = lm_Gust_lin_zlb.Fitted;
+
+perc_errART = abs(y_ART - FIT{1})./S.y*100;
+meanperc_err{1} = mean(perc_errART(:));
+perc_errGust = abs(y_Gust - FIT{2})./S.y*100;
+meanperc_err{2} = mean(perc_errGust(:));
+perc_errGust_zlb = abs(y_Gust_zlb - FIT{3})./S.y*100;
+meanperc_err{3} = mean(perc_errGust_zlb(:));
+
+disp('RMSE (residual standard error) in linear models')
+disp(['ART, n: ', num2str(lm_ART_lin.RMSE), ' consumption units'])
+disp(['Gust, n: ', num2str(lm_Gust_lin.RMSE), ' consumption units'])
+disp(['Gust, n_zlb: ',num2str(lm_Gust_lin_zlb.RMSE), ' consumption units'])
+
+disp('Average percent error of consumption policy function from linear fitted model')
+disp(['ART, n: ', num2str(meanperc_err{1}), '%'])
+disp(['Gust, n: ',num2str(meanperc_err{2}), '%'])
+disp(['Gust, n_zlb: ', num2str(meanperc_err{3}), '%'])
 
 figure('Renderer', 'painters', 'Position', [100 100 825 525])
 
@@ -92,7 +112,7 @@ for i = 1:3
     end
 %hold on
 surf(squeeze(G.in_gr(2,:,2,:,3,3,3)),squeeze(G.s_gr(2,:,2,:,3,3,3)), z{i})
-zlim([.32,.36])
+zlim([.32,.37])
 colormap winter
 freezeColors %from MATLAB file exchange
 %xlim([.98, 1.04])
@@ -107,9 +127,11 @@ ylabel('Risk premium')
 zlabel('Labor')
 title(label{i})
 [az, el] = view;
-view(az-90,el-10)
-text(1.01,1.03,.365,['RMSE: ',num2str(RMSE{i})])
-text(1.01,1.03,.36,'Black dots: ZLB')
+view(az+90-25,el-20)
+% view(az-90,el-10)
+%view(-37.5-90,30-10)
+text(1.015,1.03,.365,['mean % err: ',num2str(meanperc_err{i})])
+text(1.015,1.03,.36,'Black dots: ZLB')
 end
 
 saving = 'on';
