@@ -26,14 +26,12 @@ RMeanEEART(:,1) = R.meanEE;
 RMaxEEART(:,1) = R.maxEE;
 load('../solutions/eeerrors_simfpGust')
 EE_Gust(:,1) = R.EE1(:);
-EE_Gust(:,2) = R.EE3(:);
-RMeanEEGust(:,1) = R.meanEE(:,1);
-RMeanEEGust(:,2) = R.meanEE(:,3);
-RMaxEEGust(:,1) = R.maxEE(:,1);
-RMaxEEGust(:,2) = R.maxEE(:,3);
+EE_Gust(:,2) = R.EE2(:);
+RMeanEEGust(:,1) = R.meanEE;
+RMaxEEGust(:,1) = R.maxEE;
 
-bins{1} = -6:.125:-2.25;
-bins{2} = -7.25:.125:-1.75;
+bins{1} = -6:.0833:-2.25;
+bins{2} = -7.25:.0833:-1.5;
 
 nEE = size(EE_ART,1);
 
@@ -80,11 +78,11 @@ for isubplot = 1:prod(plotdim)
     if isubplot < 3
         N1 = hist(EE_ART(:,iEE1),bins{iEE1}); %ART
         bar(bins{iEE1},100*N1/length(EE_ART(:,iEE1)),'grouped')
-        text(-7.5,16.5,['Mean: ', num2str(RMeanEEART(iEE1))],'Fontsize',8);
-        text(-7.5,13.5,['Max: ', num2str(RMaxEEART(iEE1))],'Fontsize',8);
+        text(-7.5,11,['Mean: ', num2str(RMeanEEART(iEE1))],'Fontsize',8);
+        text(-7.5,8.5,['Max: ', num2str(RMaxEEART(iEE1))],'Fontsize',8);
         iEE1 = iEE1 + 1;    
         ylabel('ART','interpreter','latex','fontsize',fontsize)
-        ylim([0, 20])
+        ylim([0, 15])
     else
         N2 = hist(EE_Gust(:,iEE2),bins{iEE2}); %GustEtAl
         bar(bins{iEE2},100*N2/length(EE_Gust(:,iEE2)),'grouped')
@@ -92,7 +90,7 @@ for isubplot = 1:prod(plotdim)
         text(-7.5,8.5,['Max: ', num2str(RMaxEEGust(iEE2))],'Fontsize',8);
         iEE2 = iEE2 + 1;
         ylabel('GustEtAl','interpreter','latex','fontsize',fontsize)
-        ylim([0, 20])
+        ylim([0, 15])
     end
     %title('Euler Equation','interpreter','latex','fontsize',fontsize)
     xlabel('Errors ($\log_{10}$)','interpreter','latex','fontsize',fontsize)
