@@ -92,7 +92,7 @@ for isubplot = 1:prod(plotdim)
         text(-7.5,8.5,['Max: ', num2str(RMaxEEGust(iEE2))],'Fontsize',8);
         iEE2 = iEE2 + 1;
         ylabel('GustEtAl','interpreter','latex','fontsize',fontsize)
-        ylim([0, 15])
+        ylim([0, 20])
     end
     %title('Euler Equation','interpreter','latex','fontsize',fontsize)
     xlabel('Errors ($\log_{10}$)','interpreter','latex','fontsize',fontsize)
