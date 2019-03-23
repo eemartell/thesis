@@ -102,8 +102,8 @@ R.perbind = 100*numel(R.ZLBlocs)/npers;
 if strcmp(O.alg,'Gust')
     R.EE1 = log10(EE1(2:end));
     R.EE2 = log10(EE3(2:end));
-    %EEzlb = log10(EE2(2:end));
-    %R.EE1(R.ZLBlocs) = EEzlb(R.ZLBlocs);
+    EEzlb = log10(EE2(2:end));
+    R.EE1(R.ZLBlocs) = EEzlb(R.ZLBlocs);
     R.meanEE = [mean(R.EE1),mean(R.EE2)];
     R.maxEE = [max(R.EE1),max(R.EE2)];
 elseif strcmp(O.alg,'ART')

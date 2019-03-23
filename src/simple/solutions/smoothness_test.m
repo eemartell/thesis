@@ -54,7 +54,7 @@ z_zlb{4} = z{4};
 z_zlb{4}(inp{2}>1) = nan;
 
 label{1} = 'ART policy function';
-label{2} = 'GustEtAl aggregated policy function';
+label{2} = 'GustEtAl non-ZLB policy function';
 label{3} = 'GustEtAl ZLB policy function';
 label{4} = 'GustEtAl aggregated policy function';
 
@@ -93,12 +93,12 @@ in_vec = in_vec(:);
 s_vec = squeeze(G.s_gr(4,:,4,:));
 s_vec = s_vec(:);
 
-for i = 1:3
-    if i < 3
-    subplot(2,2,i)
-    else
-    subplot(2,2,i+1)
-    end
+for i = 1:4
+%     if i < 3
+subplot(2,2,i)
+%     else
+%     subplot(2,2,i+1)
+%     end
 %hold on
 surf(squeeze(G.in_gr(4,:,4,:)),squeeze(G.s_gr(4,:,4,:)), z{i})
 colormap winter
