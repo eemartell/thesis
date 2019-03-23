@@ -99,14 +99,16 @@ R.notZLBlocs = find(inp > 1);
 %   Percent nodes binding
 R.perbind = 100*numel(R.ZLBlocs)/npers;
 
-R.EE1 = log10(EE1(2:end));
-R.EE2 = log10(EE2(2:end));
 if strcmp(O.alg,'Gust')
-    EEtemp = log10(EE3(2:end));
-    R.EE2(R.ZLBlocs) = EEtemp(R.ZLBlocs);
+    R.EE1 = log10(EE1(2:end));
+    R.EE2 = log10(EE3(2:end));
+    %EEzlb = log10(EE2(2:end));
+    %R.EE1(R.ZLBlocs) = EEzlb(R.ZLBlocs);
     R.meanEE = [mean(R.EE1),mean(R.EE2)];
     R.maxEE = [max(R.EE1),max(R.EE2)];
 elseif strcmp(O.alg,'ART')
+    R.EE1 = log10(EE1(2:end));
+    R.EE2 = log10(EE2(2:end));
     R.meanEE = [mean(R.EE1),mean(R.EE2)];
     R.maxEE = [max(R.EE1),max(R.EE2)];
 end
