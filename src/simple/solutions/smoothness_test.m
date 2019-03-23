@@ -54,7 +54,7 @@ z_zlb{4} = z{4};
 z_zlb{4}(inp{2}>1) = nan;
 
 label{1} = 'ART policy function';
-label{2} = 'GustEtAl non-ZLB policy function';
+label{2} = 'GustEtAl aggregated policy function';
 label{3} = 'GustEtAl ZLB policy function';
 label{4} = 'GustEtAl aggregated policy function';
 
