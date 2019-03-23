@@ -26,19 +26,21 @@ RMaxEEART(:,1) = R.maxEE;
 
 load('../solutions/eeerrors_simfpGust_5')
 EE_Gust(:,1) = R.EE1(:);
-EE_Gust(:,2) = R.EE3(:);
-EE_Gust(:,3) = R.EE4(:);
-EE_Gust(:,4) = R.EE5(:);
+EE_Gust(:,2) = R.EE2(:);
+EE_Gust(:,3) = R.EE3(:);
+EE_Gust(:,4) = R.EE4(:);
+RMeanEEGust(:,1) = R.meanEE;
+RMaxEEGust(:,1) = R.maxEE;
 
-RMeanEEGust(:,1) = R.meanEE(:,1);
-RMeanEEGust(:,2) = R.meanEE(:,3);
-RMeanEEGust(:,3) = R.meanEE(:,4);
-RMeanEEGust(:,4) = R.meanEE(:,5);
-
-RMaxEEGust(:,1) = R.maxEE(:,1);
-RMaxEEGust(:,2) = R.maxEE(:,3);
-RMaxEEGust(:,3) = R.maxEE(:,4);
-RMaxEEGust(:,4) = R.maxEE(:,5);
+% RMeanEEGust(:,1) = R.meanEE(:,1);
+% RMeanEEGust(:,2) = R.meanEE(:,3);
+% RMeanEEGust(:,3) = R.meanEE(:,4);
+% RMeanEEGust(:,4) = R.meanEE(:,5);
+% 
+% RMaxEEGust(:,1) = R.maxEE(:,1);
+% RMaxEEGust(:,2) = R.maxEE(:,3);
+% RMaxEEGust(:,3) = R.maxEE(:,4);
+% RMaxEEGust(:,4) = R.maxEE(:,5);
 
 bins{1} = -6:.125:-1.25;
 bins{2} = -7.25:.125:-2.25;

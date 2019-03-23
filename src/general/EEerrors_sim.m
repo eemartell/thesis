@@ -71,7 +71,7 @@ EE2 = zeros(npers,1);
 EE3 = zeros(npers,1);
 EE4 = zeros(npers,1);
 if strcmp(O.alg,'Gust')
-    EE3 = zeros(npers,1);
+    EE5 = zeros(npers,1);
 end
 for time = 2:npers
     state = [sims(time,V.g),sims(time,V.s),sims(time,V.mp),sims(time,V.in),sims(time,V.c),sims(time,V.k),sims(time,V.x)];
@@ -96,21 +96,28 @@ for time = 2:npers
 end
 % Find where ZLB binds
 %inp = sims(1:end-1,V.in).^P.rhoi.*(S.i*sims(2:end,V.pi).^P.phipi).^(1-P.rhoi).*exp(sims(2:end,V.mp));
-
-%R.ZLBlocs = find(inp <= 1);
+    inp = ...
+        sims(1:end-1,V.in,:).^P.rhoi.*(S.i*(sims(2:end,V.pi)/P.pi).^P.phipi.* ...
+        sims(2:end,V.yg,:).^P.phiy).^(1-P.rhoi).*exp(sims(2:end,V.mp,:));
+R.ZLBlocs = find(inp <= 1);
 %R.notZLBlocs = find(inp > 1);
 %   Percent nodes binding
 %R.perbind = 100*numel(R.ZLBlocs)/npers;
 
-R.EE1 = log10(EE1(2:end));
-R.EE2 = log10(EE2(2:end));
-R.EE3 = log10(EE3(2:end));
-R.EE4 = log10(EE4(2:end));
 if strcmp(O.alg,'Gust')
-    R.EE5 = log10(EE5(2:end));
-    R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3),mean(R.EE4),mean(R.EE5)];
-    R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3),max(R.EE4),max(R.EE5)];
+    R.EE1 = log10(EE1(2:end));
+    R.EEzlb = log10(EE2(2:end));
+    REE1(R.ZLBlocs) = R.EEzlb(R.ZLBlocs);
+    R.EE2 = log10(EE3(2:end));
+    R.EE3 = log10(EE4(2:end));
+    R.EE4 = log10(EE5(2:end));
+    R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3),mean(R.EE4)];
+    R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3),max(R.EE4)];
 elseif strcmp(O.alg,'ART')
+    R.EE1 = log10(EE1(2:end));
+    R.EE2 = log10(EE2(2:end));
+    R.EE3 = log10(EE3(2:end));
+    R.EE4 = log10(EE4(2:end));
     R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3),mean(R.EE4)];
     R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3),max(R.EE4)];
 end
