@@ -8,7 +8,7 @@ clc
 saving = 'on';
 
 O.it = 'fp';
-O.alg = 'Gust';
+O.alg = 'ART';
 
 if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
     load('solutions/solutionfpART_5.mat')
@@ -17,7 +17,7 @@ elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
 end
 
 O.it = 'fp';
-O.alg = 'Gust';
+O.alg = 'ART';
 V = variables;
 % Numerical pdf of state variables
 %   Simulation parameters
@@ -102,7 +102,7 @@ end
 R.ZLBlocs = find(inp <= 1);
 %R.notZLBlocs = find(inp > 1);
 %   Percent nodes binding
-%R.perbind = 100*numel(R.ZLBlocs)/npers;
+R.perbind = 100*numel(R.ZLBlocs)/npers;
 
 if strcmp(O.alg,'Gust')
     R.EE1 = log10(EE1(2:end));
