@@ -8,7 +8,7 @@ clc
 saving = 'on';
 
 O.it = 'fp';
-O.alg = 'ART';
+O.alg = 'Gust';
 
 if strcmp(O.it,'fp') && strcmp(O.alg, 'ART')
     load('solutions/solutionfpART_5.mat')
@@ -17,7 +17,7 @@ elseif strcmp(O.it,'fp') && strcmp(O.alg, 'Gust')
 end
 
 O.it = 'fp';
-O.alg = 'ART';
+O.alg = 'Gust';
 V = variables;
 % Numerical pdf of state variables
 %   Simulation parameters
