@@ -73,6 +73,7 @@ EE4 = zeros(npers,1);
 if strcmp(O.alg,'Gust')
     EE5 = zeros(npers,1);
 end
+
 for time = 2:npers
     state = [sims(time,V.g),sims(time,V.s),sims(time,V.mp),sims(time,V.in),sims(time,V.c),sims(time,V.k),sims(time,V.x)];
         if strcmp(O.alg, 'ART')
@@ -107,7 +108,7 @@ R.perbind = 100*numel(R.ZLBlocs)/npers;
 if strcmp(O.alg,'Gust')
     R.EE1 = log10(EE1(2:end));
     R.EEzlb = log10(EE2(2:end));
-    REE1(R.ZLBlocs) = R.EEzlb(R.ZLBlocs);
+    R.EE1(R.ZLBlocs) = R.EEzlb(R.ZLBlocs);
     R.EE2 = log10(EE3(2:end));
     R.EE3 = log10(EE4(2:end));
     R.EE4 = log10(EE5(2:end));
@@ -121,6 +122,7 @@ elseif strcmp(O.alg,'ART')
     R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3),mean(R.EE4)];
     R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3),max(R.EE4)];
 end
+
 %% Save results
 if strcmp(saving,'on')
     fname = ['eeerrors_sim' O.it O.alg '_5'];
