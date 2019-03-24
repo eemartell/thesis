@@ -79,7 +79,7 @@ x = zeros(1,runs);
 val = zeros(1,runs);
 
 for i = 1:runs
-parfor time = 2:npers
+for time = 2:npers
     state = [sims(time,V.g),sims(time,V.s),sims(time,V.mp),sims(time,V.in),sims(time,V.c),sims(time,V.k),sims(time,V.x)];
         if strcmp(O.alg, 'ART')
             start = [sims(time,V.pi)/P.pi,sims(time,V.n),sims(time,V.q),sims(time,V.mc)]';
@@ -127,8 +127,10 @@ elseif strcmp(O.alg,'ART')
     R.meanEE = [mean(R.EE1),mean(R.EE2),mean(R.EE3),mean(R.EE4)];
     R.maxEE = [max(R.EE1),max(R.EE2),max(R.EE3),max(R.EE4)];
 end
-T = npers;
-M1 = sum(sims(:,V.n,:).*EE1)/T;
+burn = 2000;
+EE1 = EE1(burn+1:end);
+T = length(EE1);
+M1 = sum(sims(burn+1:end,V.n,:).*EE1)/T;
 W1 = sum(EE1.*EE1)/T;
 %J = T*M'.*inv(W).*M;
 J1 = (M1/(sqrt(W1/T)))^2;
