@@ -149,7 +149,7 @@ title(label{i})
 view(az+90-25,el-20)
 % view(az-90,el-10)
 %view(-37.5-90,30-10)
-text(0.999,1.01,.365,['mean % err: ',num2str(meanperc_err{i},'%.6f')])
+text(0.999,1.01,.365,['mean \% err: ',num2str(meanperc_err{i},'%.6f'),'\%'])
 text(0.999,1.01,.36,'Black dots: ZLB')
 end
 
