@@ -101,9 +101,7 @@ where $y^{gdp}$ is real GDP (i.e., output, $y$, minus the resources lost due to 
 \end{gather}
 The model does not have a steady-state due to the unit root in technology, $z_t$. Therefore, we define the variables with a trend in terms of technology (i.e., $\tilde{x}_t \equiv x_t/z_t$). The detrended equilibrium system is provided in \hyperlink{Appendix A}{Appendix A}. A competitive equilibrium consists of sequences of quantities, $\{\tilde{c}_t, \tilde{y}_t, \tilde{y}_t^{gdp}, x^g_t, y^g_t, n_t, \tilde{k}_t, \tilde{x}_t\}_{t=0}^\infty$, prices, $\{\tilde{w}_t, i_t, i^n_t, \pi_t, \tilde{\lambda}_t, q_t, r^k_t, mc_t\}_{t=0}^\infty$, and exogenous variables, $\{s_t,g_t\}_{t=0}^\infty$, that satisfy the detrended equilibrium system, given the initial conditions, $\{\tilde{c}_{-1}, i^n_{-1}, \tilde{k}_{-1}, \tilde{x}_{-1}, \tilde{w}_{-1}, s_0, g_0, \varepsilon_{i,0}\}$, and three sequences of shocks, $\{\varepsilon_{g,t}, \varepsilon_{s,t}, \varepsilon_{i,t}\}_{t=1}^\infty$.
 
-\subsection{Parameter Values} \hyperlink{Table 1}{Table 1} shows the true model parameters. The parameters were chosen so our data generating process is characteristic of U.S. data. The steady-state growth rate ($\bar{g}$), inflation rate ($\bar{\pi}$), risk-premium ($\bar{s}$), and capital share of income ($\alpha$) are equal to the time averages of per capital real GDP growth, the percent change in the GDP implicit price deflator, the Baa corporate bond yield relative to the yield on the 10-Year Treasury, and the Fernald (2012) utilization-adjusted quarterly-TFP estimates of the capital share of income from 1988Q1-2017Q4.
-
-The subjective discount factor, $\beta$, is set to $0.9949$, which is the time average of the values implied by the steady-state consumption Euler equation and the federal funds rate. The corresponding annualized steady-state nominal interest rate is $3.3\%$ which is consistent with the sample average and current long-run estimates of the federal funds rate. The leisure preference parameter, $\chi$, is set to steady-state labor equals $1/3$ of the available time. The elasticities of substitution between intermediate goods $\theta$, is set to $6$, which corresponds to a $20\%$ average markup and match the values used in Gust et al. (2017). The Frisch elasticity of labor supply, $1/\eta$, is set to $3$ to match the macro estimate in Peterman (2016). The remainin parameters are set to round numbers that are in line with the posterior estimates from similar models in the literature.
+\subsection{Parameter Values} \hyperlink{Table 1}{Table 1} shows the model parameters. Parameters are from Atkinson et al. (2019), and were chosen to be characteristic of U.S. data.
 
 \begin{table}
   \hypertarget{Table 1}
@@ -129,10 +127,10 @@ The subjective discount factor, $\beta$, is set to $0.9949$, which is the time a
 
 \section{Solution Methods}
 \subsection{Richter et al. (2014)}
-We consider the solution methods of Richter et al. (2014) and Gust et al. (2017). The Richter et al. (2014) solution method is policy function iteration with time iteration and linear interpolation, which is based on the theoretical work on monotone operators in Coleman (1991). We discretize the endogenous state variables and approximate the exogenous states $s_t$, $g_t$, and $\varepsilon_{i,t}$ using the N-state Markov chain in Rouwenhorst (1995). We use the Rowenhorst method so that we only have to interpolate along the dimensions of the endogenous state variables, allowing the solution to be faster and more accurate than quadrature methods. To obtain initial conjectures for the nonlinear policy functions, we solve the level-linear version of our model with Sims's (2002) gensys algorithm. Next, we update the policy functions on each node using a fixed point iteration scheme and compute the maximum distance between the updated policy functions and the inital conjectures. Finally, we replace the initial conjectures with the updated policy functions and iterate until the maximum distance is below the tolerance level. \hyperlink{Appendix B}{Appendix B} provides a more detailed discussion of the solution method. %PLEASE REWRITE THIS SO YOU ARE NOT COPYING
+The Richter et al. (2014) solution method is policy function iteration with time iteration and linear interpolation. We first construct an evely-spaced state space by discretizing the endogenous state variables and using the Rouwenhorst (1995) method to approximate the exogenous state variables $s_t$, $g_t$, and $\varepsilon_{i,t}$. As in Richter et al. (2014), we use the Rouwenhorst method so that we do not have to interpolate along the dimensions of the exogenous state variables, providing a faster and more accurate than quadrature methods. To construct the initial policy functions, we solve the log-linear analog of our model with the ZLB not imposed using Sims's (2002) gensys algorithms. We update the policy functions using a fixed point iteration scheme on each node in the discretized state space and calculate the maximum distance between the updated policy functions and the previous guess. Finally, we update the policy functions with our new guess and iterate until the maximum distance is below a convergence criterion. \hyperlink{Appendix B}{Appendix B} provides a more detailed discussion of the solution method. The baseline code for this algorithm is provided as a companion to Richter et al (2014). 
 %Add Gust et al solution method
-\subsection{Gust et al. (2017)}
-The Gust et al. (2017) solution method similarly uses time iteration on a fixed point solution with linear interpolations. Following this solution method, instead of directly computing the policy functions, we estimate smoother functions at and away from the ZLB following Gust, L{\o g}pez-Salido, and Smith (2012) which builds on Christiano and Fisher (2000). Since the policy functions depend directly on the nominal interetst rate, they have a kink or non-differentiability associated with the ZLB.  On the other hand, the regime-indexed policy functions do not depend on the current indicator function and are thus more likely to be smooth. The smoother functions are approximated by specifying:
+\subsection{Gust et al. (2014)}
+The Gust et al. (2014) solution method similarly uses time iteration on a fixed point solution with linear interpolations. Following this solution method, instead of directly computing the policy functions, we estimate smoother functions at and away from the ZLB following Gust, L{\o g}pez-Salido, and Smith (2012) which builds on Christiano and Fisher (2000). Since the policy functions depend directly on the nominal interetst rate, they have a kink or non-differentiability associated with the ZLB.  On the other hand, the regime-indexed policy functions do not depend on the current indicator function and are thus more likely to be smooth. The smoother functions are approximated by specifying:
 \begin{gather}
   \textbf{pf}_t(d) = \textbf{pf}_{t,1}(d)\mathds{I}_t(d) + \textbf{pf}_{t,2}(d)(1-\mathds{I}_t(d))
 \end{gather}
@@ -155,13 +153,17 @@ The functions $\textbf{pf}_{t,j}$ satisfy the residual functions $R_{t,l,j}$ for
   \end{gather}
 
   \subsection{Euler Equation Errors}
-Richter et al. (2014) use Euler equation errors to measure the accuracy of their solutions. To measure errors between nodes, we use Gauss-Hermite quadrature instead of the Rouwenhorst method to allow exogenous variables to be off the grid. The Euler equation errors are reported in absolute value of the errors in base 10 logarithms. A consumption Euler equation error of -3 means the household makes an error equal to one out of every 1,000 consumption goods. 
+We use Euler equation errors to measure the accuracy of our solutions. To measure errors between nodes, we use Gauss-Hermite quadrature instead of the Rouwenhorst method following Richter et al. (2014) to allow exogenous variables to have realizations between grid points. The Euler equation errors are represented in absolute value of the errors in base 10 logarithms. An Euler equation error of -3 means the household makes an error equivalent to one per 1,000 consumption goods. 
+
+
+
+  Richter et al. (2014) use Euler equation errors to measure the accuracy of their solutions. To measure errors between nodes, we use Gauss-Hermite quadrature instead of the Rouwenhorst method to allow exogenous variables to be off the grid. The Euler equation errors are reported in absolute value of the errors in base 10 logarithms. A consumption Euler equation error of -3 means the household makes an error equal to one out of every 1,000 consumption goods. 
 
 
 \section{Results}
 
 \subsection{Solution Times}
-\hyperlink{Table 2}{Table 2} reports the solution times for the Richter et al. (2013) and Gust et al. (2017) solution methods for the models with and without capital. The solution times were computed with multi-core processing using the Parallel Computing Toolbox and integrate Fortran in the interpolation steps of our algorithm through MATLAB executable functions. The solution times represent one run of each algorithm. The machine used to compute solution times has two CPUs (at 2.30GHz), each with 16 cores. %Say something about the solution times%
+\hyperlink{Table 2}{Table 2} reports the solution times for the Richter et al. (2013) and Gust et al. (2017) solution methods for the models with and without capital. The solution times were computed with multi-core processing using the Parallel Computing Toolbox. With MATLAB executable functions (MEX) provided by the companion Toolbox to Richter et al. (2013), we integrate Fortran in the interpolation steps of the algorithm. The solution times represent one run of each algorithm. The machine used to compute the solutions has two CPUs (at 2.30GHz), each with 16 cores. %Say something about the solution times%
 \begin{itemize}
 \item Gust et al. method slower, particularly on the model with capital. The differential blows up for the model with capital.
 \item The speed and speed differential is influenced by the parameterization, and appears to take more time on the boundary of convergence for each algorithm.
@@ -231,7 +233,14 @@ Richter et al. (2014) use Euler equation errors to measure the accuracy of their
   \caption{Euler equation errors for model with capital}    
   \end{figure}
 
-
+\section{Conclusion}
+% summarize results
+Opportunities for future work
+\begin{itemize}
+\item Chebyshev polynomials
+\item Smolyak grids
+  \item This might make solution method faster, so we could potentially increase the number of grid points and make it better than Richter et al
+  \end{itemize}
 
 \appendix
   \section{Detrended Equilibrium System} \hypertarget{Appendix A}
@@ -267,29 +276,29 @@ The variables are $\tilde{c},\tilde{n},\tilde{x},\tilde{k},\tilde{y^{gdp}},\tild
 The variables are $\tilde{c},i^n,i,\tilde{\lambda},\tilde{w},\pi^{gap},\tilde{y},n,g,$ and $s$.\\ 
 
 \section{Nonlinear Solution Method}\hypertarget{Appendix B}
-We begin by compactly writing the detrended nonlinear system as
+The following discussion is based on Atkinson et al. (2019) and Richter and Throckmorton (2014). We express the detrended nonlinear system compactly as
 \begin{gather*}
   E[f(\textbf{s}_{t+1},\textbf{s}_t,\varepsilon_{t+1})|\textbf{z}_t,\vartheta] = 0,
 \end{gather*}
 where $f$ is a vector-valued function, $\textbf{s}_t$ is a vector of variables, $\varepsilon_t \equiv [\varepsilon_{s,t}, \varepsilon_{g,t},\varepsilon_{i,t}]'$ is a vector of shocks, $\textbf{z}_t$ is a vector of states ($\textbf{z}_t \equiv [\tilde{c}_{-1}, i^n_{t-1},\tilde{k}_{t-1},\tilde{x}_{t-1},s_t,g_t,\varepsilon_{i,t}]'$ for the model with capital and $\textbf{z}_t \equiv [\tilde{c}_{t-1},i^n_{t-1},s_t,g_t,\varepsilon_{i,t}]'$ for the model without capital), and $\vartheta$ is a vector of parameters.
 
-We use the Markov chain method in Rouwenhorst (1995) to discretize the endogenous state variables, $s_t$, $g_t$, and $\varepsilon_{i,t}$. Kopecky and Suen (2010) show the Rouwenhorst method outperforms other methods for approximating autoregressive processes. The bounds on $\tilde{c}_{t-1}, i^n_{t-1}, \tilde{k}_{t-1},$ and $\tilde{x}_{t-1}$ are set to $\pm 2.5\%, \pm 6\%, \pm 8\%, \pm 15\%$, respectively. Richter and Throckmorton chose these bounds so the grids contain 99.9\% of the simulated values for each state variable and during ZLB duration. We discretize the states into 5 evenly-spaced points for the model with capital and 7 evenly-spaced points for the model without capital. The product of the points in each dimension, D, represents the total nodes in the state space ($D = 78125$ for the model with capital and $D = 2401$ for the model without capital). The realization of $\textbf{z}_t$ on node $d$ is denoted $\textbf{z}_t(d)$. The Rouwenhorst method provides integration nodes, $[s_{t+1}(m), g_{t+1}(m), \varepsilon_{i,t+1}(m)]$, with weights, $\phi(m)$, for $m \in \{1, \dots, M\}$. Since the exogenous variables evolve according to a Markov chain, the number of future realizations is the same as the state variables.
+We use the Markov chain method in Rouwenhorst (1995) to discretize the endogenous state variables, $s_t$, $g_t$, and $\varepsilon_{i,t}$ follwing Richter et al (2014). The bounds on $\tilde{c}_{t-1}, i^n_{t-1}, \tilde{k}_{t-1},$ and $\tilde{x}_{t-1}$ are set to $\pm 2.5\%, \pm 6\%, \pm 8\%, \pm 15\%$, respectively, following Atkinson et al. (2019). We discretize the states into 5 evenly-spaced points for the model with capital and 7 evenly-spaced points for the model without capital. The product of the points in each dimension, D, represents the total nodes in the state space ($D = 78125$ for the model with capital and $D = 2401$ for the model without capital). The realization of $\textbf{z}_t$ on node $d$ is denoted $\textbf{z}_t(d)$. The Rouwenhorst method provides integration nodes, $[s_{t+1}(m), g_{t+1}(m), \varepsilon_{i,t+1}(m)]$, with weights, $\phi(m)$, for $m \in \{1, \dots, M\}$.
 
-The vector of policy functions is denoted $\textbf{pf}_t$ and the realization on node $d$ is denoted $\textbf{pf}_t(d)$ ($\textbf{pf}_t(d) \equiv [\tilde{\pi}^{gap}_t(\textbf{z}_t), n_t(\textbf{z}_t), q_t(\textbf{z}_t), mc_t(\textbf{z}_t)]$ for the model with capital and $\textbf{pf}_t(d) \equiv [\tilde{\pi}^{gap}_t(\textbf{z}_t), \tilde{c}_t(\textbf{z}_t)]$. Our choice of policy functions is not unique, but it helps solving for the other variables in the nonlinear system of equations given $\textbf{z}_t$.
+The vector of policy functions is denoted $\textbf{pf}_t$ and the realization on node $d$ is denoted $\textbf{pf}_t(d)$ ($\textbf{pf}_t(d) \equiv [\tilde{\pi}^{gap}_t(\textbf{z}_t), n_t(\textbf{z}_t), q_t(\textbf{z}_t), mc_t(\textbf{z}_t)]$ for the model with capital and $\textbf{pf}_t(d) \equiv [\tilde{\pi}^{gap}_t(\textbf{z}_t), \tilde{c}_t(\textbf{z}_t)]$. The policy functions are selected so that solving fr other variables in the nonlinear system is straightforwards. 
 
-The following steps outline our global policy function iteration algorithm:
+The following steps outline the global policy function iteration algorithm:
 
 \begin{enumerate}
-  \item Use Sims's (2002) \texttt{gensys} algorithm to solve the level-linear model without the ZLB constraint. Then map the solution to the discretized state space to initialize the policy functions. 
-  \item On each node $d \in \{1,\dots,D\}$, use fixed point iteration to find $\textbf{pf}_t(d)$ to satisfy $E[f(\cdot)|\textbf{z}_t(d), \vartheta] \approx 0$. Guess $\textbf{pf}_t(d) = \textbf{pf}_{j-1}(d)$ Then apply the following: 
+  \item Use Sims's (2002) \texttt{gensys} algorithm to solve the log-linear model without the ZLB constraint and obtain conjectures for the policy functions $\textbf{pf}_0$.  
+  \item On each node $d \in \{1,\dots,D\}$,% use fixed point iteration to find $\textbf{pf}_t(d)$ to satisfy $E[f(\cdot)|\textbf{z}_t(d), \vartheta] \approx 0$. Guess $\textbf{pf}_j(d) = \textbf{pf}_{j-1}(d)$ Then: 
     \begin{enumerate}
     \item Solve for all variables dated at time $t$, given $\textbf{pf}_t(d)$ and $\textbf{z}_t(d)$.
     \item Linearly interpolate the policy functions $\textbf{pf}_{j-1}$, at the updated state variables $\textbf{z}_{t+1}(m)$, to obtain $\textbf{pf}_{t+1}(m)$ on every integration node, $m \in \{1,\dots,M\}$.
-    \item Given $\{\textbf{pf}_{t+1}(m)\}_{m=1}^M$, solve for the other elements of $\textbf{s}_{t+1}(m)$ and compute%and back out the updated \textbf{pf}$_t(d)$.
+    \item Given $\{\textbf{pf}_{t+1}(m)\}_{m=1}^M$, solve for the other elements of $\textbf{s}_{t+1}(m)$ and approximate the expectation operators %and back out the updated \textbf{pf}$_t(d)$.
       \begin{gather*}
         E[f(\textbf{s}_{t+1},\textbf{s}_t(d),\varepsilon_{t+1})|\textbf{z}_t(d),\vartheta] \approx \sum_{m=1}^M \phi(m)f(\textbf{s}_{t+1}(m),\textbf{s}_t(d),\varepsilon_{t+1}(m)).
       \end{gather*}
-      \item Back out $\textbf{pf}_t(d)$ from the expectation operators and updated state.
+      \item Solve for $\textbf{pf}_t(d)$ from the expectation operators and $\textbf{s}_{t+1}(m)$. Set $\textbf{pf}_j(d) = \textbf{pf}_t(d)$.
     \end{enumerate}
        \item Repeat step 2 until $\text{maxdist}_j < 10^{-6}$, where $\text{maxdist}_j \equiv \text{max}\{|\textbf{pf}_j - \textbf{pf}_{j-1}|\}$. When that criterion is satisfied, the algorithm has converged to an approximate nonlinear solution.
 \end{enumerate}
