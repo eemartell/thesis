@@ -157,5 +157,6 @@ saving = 'on';
 savename = '../figs/pfs3D';
 %% Save figure
 if strcmp(saving,'on')
+    print(gcf,'-depsc2','-painters',[savename '.eps'])    
     savefig([savename '.fig'])
 end

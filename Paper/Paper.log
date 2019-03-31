@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  31 MAR 2019 08:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  31 MAR 2019 10:41
 entering extended mode
 **./Paper.tex
 (Paper.tex
@@ -565,18 +565,68 @@ Overfull \hbox (24.5606pt too wide) in paragraph at lines 112--126
 [][] 
  []
 
-[3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 208--210
+[3]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 166.
+
+ (C:\Users\Test\Desktop\Laytech\tex\latex\psnfss\omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 166.
+ [4]
+<pfs3D_CAPITAL-eps-converted-to.pdf, id=130, 800.9925pt x 430.60875pt>
+File: pfs3D_CAPITAL-eps-converted-to.pdf Graphic file (type pdf)
+
+<use pfs3D_CAPITAL-eps-converted-to.pdf>
+Package pdftex.def Info: pfs3D_CAPITAL-eps-converted-to.pdf used on input line 
+198.
+(pdftex.def)             Requested size: 480.5992pt x 258.36723pt.
+
+Overfull \hbox (10.84418pt too wide) in paragraph at lines 198--199
+ [][] 
+ []
+
+
+Overfull \hbox (68.07677pt too wide) in paragraph at lines 208--217
+ [][] 
+ []
+
+[5 <./pfs3D_CAPITAL-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <eeerrors_C.eps>
+(epstopdf)                    date: 2019-03-31 09:06:40
+(epstopdf)                    size: 288959 bytes
+(epstopdf)             Output file: <eeerrors_C-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-03-31 10:22:31
+(epstopdf)                    size: 192683 bytes
+(epstopdf)             Command: <epstopdf --outfile=eeerrors_C-eps-converted-to
+.pdf eeerrors_C.eps>
+(epstopdf)             \includegraphics on input line 230.
+Package epstopdf Info: Output file is already uptodate.
+
+<eeerrors_C-eps-converted-to.pdf, id=145, 324.21124pt x 179.67125pt>
+File: eeerrors_C-eps-converted-to.pdf Graphic file (type pdf)
+
+<use eeerrors_C-eps-converted-to.pdf>
+Package pdftex.def Info: eeerrors_C-eps-converted-to.pdf used on input line 230
+.
+(pdftex.def)             Requested size: 486.31567pt x 269.50618pt.
+
+Overfull \hbox (16.56065pt too wide) in paragraph at lines 230--231
+ [][] 
+ []
+
+[6 <./eeerrors_C-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 258--260
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--218
+Underfull \hbox (badness 10000) in paragraph at lines 266--268
 
  []
 
-[5]
-Overfull \hbox (4.1384pt too wide) in paragraph at lines 228--229
+[7]
+Overfull \hbox (4.1384pt too wide) in paragraph at lines 278--279
 \OT1/ptm/m/n/12 ($[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m/n/12 ) \OMS
 /cmsy/m/n/12  \OT1/cmr/m/n/12 [[]\OML/cmm/m/it/12 []\OT1/cmr/m/n/12 ([][])\OM
 L/cmm/m/it/12 ; n[]\OT1/cmr/m/n/12 ([][])\OML/cmm/m/it/12 ; q[]\OT1/cmr/m/n/12 
@@ -586,12 +636,12 @@ odel with cap-i-tal and $[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m/n/12
 ][])\OML/cmm/m/it/12 ; []c[]\OT1/cmr/m/n/12 ([][])]$\OT1/ptm/m/n/12 .
  []
 
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 233.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 283.
 
 (C:\Users\Test\Desktop\Laytech\tex\latex\psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Overfull \hbox (17.87202pt too wide) in paragraph at lines 234--236
+Overfull \hbox (17.87202pt too wide) in paragraph at lines 284--286
 []\OT1/ptm/m/n/12 On each node $\OML/cmm/m/it/12 d \OMS/cmsy/m/n/12 2 f\OT1/cmr
 /m/n/12 1\OML/cmm/m/it/12 ; [] ; D\OMS/cmsy/m/n/12 g$\OT1/ptm/m/n/12 , use fixe
 d point it-er-a-tion to find $[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m
@@ -601,25 +651,65 @@ mm/m/it/12 f\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 \OT1/cmr/m/n/12 )\OMS/cmsy/m/n/1
 \OT1/cmr/m/n/12 ] \OMS/cmsy/m/n/12 
  []
 
+Package epstopdf Info: Source file: <pfs3D.eps>
+(epstopdf)                    date: 2019-03-31 09:03:12
+(epstopdf)                    size: 117152 bytes
+(epstopdf)             Output file: <pfs3D-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-03-31 09:10:12
+(epstopdf)                    size: 21475 bytes
+(epstopdf)             Command: <epstopdf --outfile=pfs3D-eps-converted-to.pdf 
+pfs3D.eps>
+(epstopdf)             \includegraphics on input line 303.
+Package epstopdf Info: Output file is already uptodate.
+<pfs3D-eps-converted-to.pdf, id=191, 529.98pt x 357.335pt>
+File: pfs3D-eps-converted-to.pdf Graphic file (type pdf)
+
+<use pfs3D-eps-converted-to.pdf>
+Package pdftex.def Info: pfs3D-eps-converted-to.pdf used on input line 303.
+(pdftex.def)             Requested size: 317.99043pt x 214.40265pt.
+ [8]
+Package epstopdf Info: Source file: <eeerrors.eps>
+(epstopdf)                    date: 2019-03-31 09:02:50
+(epstopdf)                    size: 194913 bytes
+(epstopdf)             Output file: <eeerrors-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-03-31 10:22:22
+(epstopdf)                    size: 102936 bytes
+(epstopdf)             Command: <epstopdf --outfile=eeerrors-eps-converted-to.p
+df eeerrors.eps>
+(epstopdf)             \includegraphics on input line 315.
+Package epstopdf Info: Output file is already uptodate.
+
+<eeerrors-eps-converted-to.pdf, id=207, 316.18124pt x 179.67125pt>
+File: eeerrors-eps-converted-to.pdf Graphic file (type pdf)
+
+<use eeerrors-eps-converted-to.pdf>
+Package pdftex.def Info: eeerrors-eps-converted-to.pdf used on input line 315.
+(pdftex.def)             Requested size: 474.27069pt x 269.50618pt.
+
+Overfull \hbox (4.51567pt too wide) in paragraph at lines 315--316
+ [][] 
+ []
+
+[9 <./pfs3D-eps-converted-to.pdf> <./eeerrors-eps-converted-to.pdf>]
 Excluding 'comment' comment.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 493.
- [6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 493.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 565.
+ [10]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 565.
  (Paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 493.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 493.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 565.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 565.
 Package rerunfilecheck Info: File `Paper.out' has not changed.
-(rerunfilecheck)             Checksum: E78723B22F8B7FFF5C4111B548839ED4;763.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 493.
+(rerunfilecheck)             Checksum: E1811397ACC97476B43E4E90D597B2B9;983.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 565.
  ) 
 Here is how much of TeX's memory you used:
- 9318 strings out of 493323
- 137412 string characters out of 3138232
- 253077 words of memory out of 3000000
- 12628 multiletter control sequences out of 15000+200000
- 23691 words of font info for 61 fonts, out of 3000000 for 9000
+ 9396 strings out of 493323
+ 138810 string characters out of 3138232
+ 252108 words of memory out of 3000000
+ 12678 multiletter control sequences out of 15000+200000
+ 25678 words of font info for 72 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,16n,43p,1305b,351s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,16n,43p,1305b,426s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Test/Desktop/Laytech/fonts/enc/dvips/base/8r.enc}<C:/Users/Test/Des
 ktop/Laytech/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Test/Desktop/L
 aytech/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Test/Desktop/Laytech
@@ -634,9 +724,9 @@ ers/Test/Desktop/Laytech/fonts/type1/public/doublestroke/dsrom12.pfb><C:/Users/
 Test/Desktop/Laytech/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Test/Desktop/
 Laytech/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/t
 ype1/urw/times/utmr8a.pfb>
-Output written on Paper.pdf (6 pages, 190816 bytes).
+Output written on Paper.pdf (10 pages, 672677 bytes).
 PDF statistics:
- 223 PDF objects out of 1000 (max. 8388607)
- 73 named destinations out of 1000 (max. 500000)
- 97 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 292 PDF objects out of 1000 (max. 8388607)
+ 91 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

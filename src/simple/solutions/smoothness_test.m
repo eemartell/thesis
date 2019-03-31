@@ -75,10 +75,11 @@ meanperc_err{3} = mean(perc_errGust_zlb(:));
 perc_errGust_agg = abs(y_Gust_agg - FIT{4})./S.y*100;
 meanperc_err{4} = mean(perc_errGust_agg(:));
 
-% disp('RMSE (residual standard error) in linear models')
-% disp(['ART, c: ', num2str(lm_ART_lin.RMSE), ' consumption units'])
-% disp(['Gust, c: ', num2str(lm_Gust_lin.RMSE), ' consumption units'])
-% disp(['Gust, c_zlb: ',num2str(lm_Gust_lin_zlb.RMSE), ' consumption units'])
+disp('RMSE (residual standard error) in linear models')
+disp(['ART, c: ', num2str(lm_ART_lin.RMSE), ' consumption units'])
+disp(['Gust, c: ', num2str(lm_Gust_lin.RMSE), ' consumption units'])
+disp(['Gust, c_zlb: ',num2str(lm_Gust_lin_zlb.RMSE), ' consumption units'])
+disp(['Gust, c_agg: ',num2str(lm_Gust_lin_agg.RMSE), ' consumption units'])
 
 disp('Average percent error of consumption policy function from linear fitted model')
 disp(['ART, c: ', num2str(meanperc_err{1}), '%'])
