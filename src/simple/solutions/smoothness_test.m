@@ -87,7 +87,9 @@ disp(['Gust, c: ',num2str(meanperc_err{2}), '%'])
 disp(['Gust, c_zlb: ', num2str(meanperc_err{3}), '%'])
 disp(['Gust, c_agg: ', num2str(meanperc_err{4}), '%'])
 
-figure('Renderer', 'painters', 'Position', [100 100 825 525])
+figbox = [1,1,7,4.5];
+figure;%('Renderer', 'painters', 'Position', [100 100 825 525])
+set(gcf,'position',figbox);
 
 in_vec = squeeze(G.in_gr(4,:,4,:));
 in_vec = in_vec(:);
@@ -111,14 +113,14 @@ hold on
 scatter3(in_vec,s_vec, z_zlb{i}(:),15,'MarkerEdgeColor','k',...
         'MarkerFaceColor','k')
 hold off
-xlabel('Interest rate')
-ylabel('Risk premium')
-zlabel('Consumption')
-title(label{i})
+xlabel('Interest rate','FontSize',9)
+ylabel('Risk premium','FontSize',9)
+zlabel('Consumption','FontSize',9)
+title(label{i},'FontSize',10)
 [az, el] = view;
 view(az-90,el-10)
-text(1.013,1.04,.37,['avg % err: ',num2str(meanperc_err{i})])
-text(1.013,1.04,.36,'Black dots: ZLB')
+text(1.013,1.04,.37,['avg \% err: ',num2str(meanperc_err{i})],'FontSize',9)
+text(1.013,1.04,.36,'Black dots: ZLB','FontSize',9)
 end
 
 % % Linear regressions using regress

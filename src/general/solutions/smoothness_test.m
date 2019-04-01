@@ -113,7 +113,9 @@ disp(['Gust, n: ',num2str(meanperc_err{2}), '%'])
 disp(['Gust, n_zlb: ', num2str(meanperc_err{3}), '%'])
 disp(['Gust, n_agg: ', num2str(meanperc_err{4}), '%'])
 
-figure('Renderer', 'painters', 'Position', [100 100 825 525])
+figbox = [1,1,7,3.5];
+figure;%('Renderer', 'painters', 'Position', [100 100 825 525])
+set(gcf,'position',figbox);
 
 in_vec = squeeze(G.in_gr(2,:,2,:,3,3,3));
 in_vec = in_vec(:);
@@ -141,16 +143,16 @@ hold on
 scatter3(in_vec,s_vec, z_zlb{i}(:),15,'MarkerEdgeColor','k',...
         'MarkerFaceColor','k')
 hold off
-xlabel('Interest rate')
-ylabel('Risk premium')
-zlabel('Labor')
-title(label{i})
+xlabel('Interest rate','Fontsize',9)
+ylabel('Risk premium','Fontsize',9)
+zlabel('Labor','Fontsize',9)
+title(label{i},'Fontsize',10)
 [az, el] = view;
 view(az+90-25,el-20)
 % view(az-90,el-10)
 %view(-37.5-90,30-10)
-text(0.999,1.01,.365,['mean \% err: ',num2str(meanperc_err{i},'%.6f'),'\%'])
-text(0.999,1.01,.36,'Black dots: ZLB')
+text(0.999,1.01,.365,['mean \% err: ',num2str(meanperc_err{i},'%.6f'),'\%'],'Fontsize',8)
+text(0.999,1.01,.36,'Black dots: ZLB','Fontsize',8)
 end
 
 saving = 'on';

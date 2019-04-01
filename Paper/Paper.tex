@@ -40,6 +40,9 @@
 
 \begin{document}
 
+\section{Introduction}
+As a result of the financial crisis of 2007-9 and the subsequent recession, central banks lowered their policy rate to its zero lower bound (ZLB). Although the ZLB constraint has always existed, for most of the data prior to the recession, policy rates were well above zero. In the wake of this unprecedented lowering of policy rates, the ZLB holds for a considerable portion of historic data for three major economies – the US, Japan, and Great Britain. The ZLB creates a kink in the policy rule and calls into question linear estimation methods. Researchers have responded to this inherent nonlinearity in different ways. Some have failed to incorporate the ZLB period data. Others have chosen to estimate linear models on the entire data set; however, this provides inaccurate estimates of model parameters and model predictions. A few have estimated nonlinear models that treats the ZLB as an occasionally binding constraint. As incorporating the ZLB constraint makes traditional solution methods intractable, researchers have turned to fully nonlinear models, including those described in Richter et al (2013) and Gust et al (2017). However, not much work has been done in comparing the accuracy and speed of different global nonlinear solution methods. We will examine the performance of Richter et al (2013) and Gust et al (2017) in terms of accuracy and speed. 
+
 \section{Model}
 \subsection{Firms} The production sector consists of a continuum of monopolistically competitive intermediate goods firms and a final goods firm. Intermediate firm $f \in [0,1]$ produces a differentiated good, $y(f)$, according to $y_t(f) = (k_{t-1}(f))^\alpha(z_tn_t(f))^{1-\alpha}$, where $n(f)$ is the labor hired by firm $f$ and $k(f)$ is the capital rented by firm $f$. $z_t = g_tz_{t-1}$ is technology, which is common across firms. Deviations from the steady-state growth rate, $\bar{g}$, follow
 \begin{gather}
@@ -101,10 +104,10 @@ where $y^{gdp}$ is real GDP (i.e., output, $y$, minus the resources lost due to 
 \end{gather}
 The model does not have a steady-state due to the unit root in technology, $z_t$. Therefore, we define the variables with a trend in terms of technology (i.e., $\tilde{x}_t \equiv x_t/z_t$). The detrended equilibrium system is provided in \hyperlink{Appendix A}{Appendix A}. A competitive equilibrium consists of sequences of quantities, $\{\tilde{c}_t, \tilde{y}_t, \tilde{y}_t^{gdp}, x^g_t, y^g_t, n_t, \tilde{k}_t, \tilde{x}_t\}_{t=0}^\infty$, prices, $\{\tilde{w}_t, i_t, i^n_t, \pi_t, \tilde{\lambda}_t, q_t, r^k_t, mc_t\}_{t=0}^\infty$, and exogenous variables, $\{s_t,g_t\}_{t=0}^\infty$, that satisfy the detrended equilibrium system, given the initial conditions, $\{\tilde{c}_{-1}, i^n_{-1}, \tilde{k}_{-1}, \tilde{x}_{-1}, \tilde{w}_{-1}, s_0, g_0, \varepsilon_{i,0}\}$, and three sequences of shocks, $\{\varepsilon_{g,t}, \varepsilon_{s,t}, \varepsilon_{i,t}\}_{t=1}^\infty$.
 
-\subsection{Parameter Values} \hyperlink{Table 1}{Table 1} shows the model parameters. Parameters are from Atkinson et al. (2019), and were chosen to be characteristic of U.S. data.
-
-\begin{table}
+\begin{table}[H]
   \hypertarget{Table 1}
+  \centering
+    \captionsetup{justification=centering}
   \small
     \setlength{\tabcolsep}{10pt}      
   \begin{tabular}{l c c l c c}
@@ -124,6 +127,8 @@ The model does not have a steady-state due to the unit root in technology, $z_t$
   \caption{Parameter values}
   \label{Tab:1}
 \end{table}
+
+\subsection{Parameter Values} \hyperlink{Table 1}{Table 1} shows the model parameters. Parameters are from Atkinson et al. (2019), and were chosen to be characteristic of U.S. data.
 
 \section{Solution Methods}
 \subsection{Richter et al. (2014)}
@@ -152,24 +157,21 @@ The functions $\textbf{pf}_{t,j}$ satisfy the residual functions $R_{t,l,j}$ for
   R_{t,4,j} = \varphi(\pi_t^{gap}-1)\pi_t^{gap} - (1-\theta) - \theta mc_t - \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)]
   \end{gather}
 
+Another contribution of Gust et al (2017) is to solve their model using Smolyak discretization methods with Chebyshev polynomials. The Smolyak method, proposed by Smolyak (1963) and improved by Judd et al. (2014) is a sparse-grid method and thus avoids the curse of dimensionality associated with grid-based methods. However, we do not explore this difference in this paper. 
+
+
   \subsection{Euler Equation Errors}
-We use Euler equation errors to measure the accuracy of our solutions. To measure errors between nodes, we use Gauss-Hermite quadrature instead of the Rouwenhorst method following Richter et al. (2014) to allow exogenous variables to have realizations between grid points. The Euler equation errors are represented in absolute value of the errors in base 10 logarithms. An Euler equation error of -3 means the household makes an error equivalent to one per 1,000 consumption goods. 
+  We use Euler equation errors to measure the accuracy of our solutions. To measure errors between nodes, we use Gauss-Hermite quadrature instead of the Rouwenhorst method following Richter et al. (2014) to allow exogenous variables to have realizations between grid points. The Euler equation errors are represented in absolute value of the errors in base 10 logarithms. An Euler equation error of -3 means the household makes an error equivalent to one per 1,000 consumption goods.
 
+  We simulate 10,000 periods of the model at the nonlinear solution with random shocks. For each period, we follow one iteration of step 2 of the algorithm outlined in \hyperlink{Appendix B}{Appendix B} and then transform the residuals to Euler equation errors.
 
-
-  Richter et al. (2014) use Euler equation errors to measure the accuracy of their solutions. To measure errors between nodes, we use Gauss-Hermite quadrature instead of the Rouwenhorst method to allow exogenous variables to be off the grid. The Euler equation errors are reported in absolute value of the errors in base 10 logarithms. A consumption Euler equation error of -3 means the household makes an error equal to one out of every 1,000 consumption goods. 
-
+We considered adding a second measure of accuracy, a statistical measure from Den Haan and Marcet (1994) based on a transformation of the Euler equation residuals to a chi-square distribution. However, it proved uninformative, as several runs of the test statistic were all in the extreme tails of the distribution. 
 
 \section{Results}
 
-\subsection{Solution Times}
-\hyperlink{Table 2}{Table 2} reports the solution times for the Richter et al. (2013) and Gust et al. (2017) solution methods for the models with and without capital. The solution times were computed with multi-core processing using the Parallel Computing Toolbox. With MATLAB executable functions (MEX) provided by the companion Toolbox to Richter et al. (2013), we integrate Fortran in the interpolation steps of the algorithm. The solution times represent one run of each algorithm. The machine used to compute the solutions has two CPUs (at 2.30GHz), each with 16 cores. %Say something about the solution times%
-\begin{itemize}
-\item Gust et al. method slower, particularly on the model with capital. The differential blows up for the model with capital.
-\item The speed and speed differential is influenced by the parameterization, and appears to take more time on the boundary of convergence for each algorithm.
-\end{itemize}
 \begin{table}[H]
   \centering
+    \captionsetup{justification=centering}
   \hypertarget{Table 2}
   \small
     \setlength{\tabcolsep}{10pt}      
@@ -185,25 +187,26 @@ We use Euler equation errors to measure the accuracy of our solutions. To measur
   \caption{Solution times}
 \end{table}
 
-\subsection{Policy Functions} \hyperlink{Figure 1}{Figure 1} shows the cross-section of the labor policy functions with the interest rate and risk premium for the model with capital. \hyperlink{Table 3}{Table 3} reports the RMSE and mean \% error from linear policy functions. The corresponding results for the model without capital is reported in \hyperlink{Appendix C}{Appendix C}.
-
+\subsection{Solution Times}
+\hyperlink{Table 2}{Table 2} reports the solution times for the Richter et al. (2013) and Gust et al. (2017) solution methods for the models with and without capital. The solution times were computed with multi-core processing using the Parallel Computing Toolbox. With MATLAB executable functions (MEX) provided by the companion Toolbox to Richter et al. (2013), we integrate Fortran in the interpolation steps of the algorithm. The solution times represent one run of each algorithm. The machine used to compute the solutions has two CPUs (at 2.30GHz), each with 16 cores. %Say something about the solution times%
 \begin{itemize}
-\item ART is visually a lot smoother; matched with statistics
-  \item the Gust Et Al combined policy function si very similar to the non-ZLB policy function. All Gust Et Al policy functions have a kink corresponding to the ZLB. 
-  \item Percent error and RMSE error wise though, this is not too big of a difference?
-    \item say something about what the mean \% error and RMSE is
-  \end{itemize}
+\item Gust et al. method slower, particularly on the model with capital. The differential blows up for the model with capital.
+\item The speed and speed differential is influenced by the parameterization, and appears to take more time on the boundary of convergence for each algorithm.
+\end{itemize}
 
 \begin{figure}[H]
-\hypertarget{Figure 1}  
-    \centering
-    \includegraphics[scale=.6]{pfs3D_CAPITAL-eps-converted-to.pdf}%{pfs3D_CAPITAL.eps}
+  \hypertarget{Figure 1}
+  \centering
+    \captionsetup{justification=centering}
+    \includegraphics[scale=1.05]{pfs3DCAP.eps}
   \caption{Labor policy function for model with capital}    
-  \label{Fig:1}
   \end{figure}
+
+\subsection{Policy Functions} \hyperlink{Figure 1}{Figure 1} shows the cross-section of the labor policy functions with the interest rate and risk premium for the model with capital. The black dots on the nodes of the graph represent labor values corresponding to the ZLB.
 
 \begin{table}[H]
   \centering
+  \captionsetup{justification=centering}
   \hypertarget{Table 3}
   \small
     \setlength{\tabcolsep}{10pt}      
@@ -218,7 +221,24 @@ We use Euler equation errors to measure the accuracy of our solutions. To measur
 \end{tabular}
   \caption{Smoothness measures for labor policy functions ($c$ for model with capital and $n$ for model with capital). Gust et al. combined policy functions are reported.}
 \end{table}
-  
+
+\hyperlink{Table 3}{Table 3} reports the RMSE (root mean square error) and mean percent error from linear policy functions. The mean percent error is calculated as $1/N\sum_i^N |\textbf{pf.n}(i) - \hat{\textbf{n}}(i)|/\bar{n}$ where $N$ is the number of periods, $\textbf{pf.n}$ is the labor policy function, $\hat{\textbf{n}}$ is the linear regression model of $\textbf{pf.n}$ fit to the state variables, and $\bar{n}$ is steady state labor. The corresponding results for the model without capital is reported in \hyperlink{Appendix C}{Appendix C}. 
+
+\begin{itemize}
+\item ART is visually a lot smoother; matched with statistics
+  \item the Gust Et Al combined policy function si very similar to the non-ZLB policy function. All Gust Et Al policy functions have a kink corresponding to the ZLB. 
+  \item Percent error and RMSE error wise though, this is not too big of a difference?
+    \item say something about what the mean \% error and RMSE is
+  \end{itemize}
+
+\begin{figure}[H]
+\hypertarget{Figure 2}  
+\centering
+  \captionsetup{justification=centering}
+    \includegraphics[scale=1]{eeerrorsCAP.eps}%{pfs3_CAPITAL.eps}
+  \caption{Euler equation errors for model with capital}    
+  \end{figure}
+
 \subsection{Euler Equation Errors} \hyperlink{Figure 2}{Figure 2} shows the distribution of the absolute value of the Euler equation errors in base 10 logarithms for the household FOC bond, FOC capital, FOC investment, and price Phillips curve in the model with capital. We also report the mean and maximum error. The corresponding results for the model without capital is reported in \hyperlink{Appendix C}{Appendix C}.
 
 \begin{itemize}
@@ -226,21 +246,9 @@ We use Euler equation errors to measure the accuracy of our solutions. To measur
 \item Gust et al does slightly worse. Means are similar but max is higher.
   \end{itemize}
 
-\begin{figure}[H]
-\hypertarget{Figure 2}  
-    \centering
-    \includegraphics[scale=1.5]{eeerrors_C.eps}%{pfs3D_CAPITAL.eps}
-  \caption{Euler equation errors for model with capital}    
-  \end{figure}
-
 \section{Conclusion}
 % summarize results
-Opportunities for future work
-\begin{itemize}
-\item Chebyshev polynomials
-\item Smolyak grids
-  \item This might make solution method faster, so we could potentially increase the number of grid points and make it better than Richter et al
-  \end{itemize}
+Future work includes solving the Gust et al (2017) solution method using Smolyak discretization methods with Chebyshev polynomials. This would likely speed up the solution algorithm. We could increase the number of grid points to improve the accuracy of the solution with the regained time and compare this to the Richter et al (2013) solution method.
 
 \appendix
   \section{Detrended Equilibrium System} \hypertarget{Appendix A}
@@ -304,26 +312,32 @@ The following steps outline the global policy function iteration algorithm:
 \end{enumerate}
 
 \section{Results for model without capital} \hypertarget{Appendix C}
-The following reports the corresponding results for the model wtihout capital. \hyperlink{Figure 3}{Figure 3} shows the cross-section of the consumption policy functions with the interest rate and risk premium. \hyperlink{Figure 4}{Figure 4} shows the distribution of the absolute value of the Euler equation errors in base 10 logarithms for the consumption euler Equation and the price Phillips curve. 
+The following reports the corresponding results for the model without capital.
 
 \begin{figure}[H]
 \hypertarget{Figure 3}  
-    \centering
-    \includegraphics[scale=.6]{pfs3D.eps}
+\centering
+  \captionsetup{justification=centering}
+    \includegraphics[scale=1]{pfs3D.eps}
   \caption{Consumption policy function for model without capital}    
   \end{figure}
+
+\hyperlink{Figure 3}{Figure 3} shows the cross-section of the consumption policy functions with the interest rate and risk premium.
+
+\begin{figure}[H]
+  \hypertarget{Figure 4}
+  \centering
+    \captionsetup{justification=centering}
+    \includegraphics[scale=.75]{eeerrors.eps}
+  \caption{Euler equation errors for model without capital}    
+  \end{figure}
+
+\hyperlink{Figure 4}{Figure 4} shows the distribution of the absolute value of the Euler equation errors in base 10 logarithms for the consumption euler Equation and the price Phillips curve. 
 
 \begin{itemize}
 \item Smoother in general
 \item Very close between ART and GustEtAl
   \end{itemize}
-
-\begin{figure}[H]
-\hypertarget{Figure 4}  
-    \centering
-    \includegraphics[scale=1.5]{eeerrors.eps}
-  \caption{Euler equation errors for model without capital}    
-  \end{figure}
 
 \begin{itemize}
 \item Bimodality more distinct in Gust et al policy functions

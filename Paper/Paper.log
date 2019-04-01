@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  31 MAR 2019 16:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  31 MAR 2019 21:12
 entering extended mode
 **./Paper.tex
 (Paper.tex
@@ -562,108 +562,76 @@ Underfull \hbox (badness 10000) in paragraph at lines 93--95
 
 
 Overfull \hbox (24.5606pt too wide) in paragraph at lines 110--124
-[][] 
+ [][] 
  []
 
-[2]
-
-LaTeX Warning: Reference `eq:16' on page 3 undefined on input line 145.
-
-[3]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 168.
+[2] [3]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 187.
 
  (C:\Users\Test\Desktop\Laytech\tex\latex\psnfss\omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 168.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 187.
  [4]
-<pfs3D_CAPITAL-eps-converted-to.pdf, id=81, 800.9925pt x 430.60875pt>
-File: pfs3D_CAPITAL-eps-converted-to.pdf Graphic file (type pdf)
+Package epstopdf Info: Source file: <pfs3DCAP.eps>
+(epstopdf)                    date: 2019-03-31 20:36:12
+(epstopdf)                    size: 282742 bytes
+(epstopdf)             Output file: <pfs3DCAP-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-03-31 20:36:55
+(epstopdf)                    size: 157138 bytes
+(epstopdf)             Command: <epstopdf --outfile=pfs3DCAP-eps-converted-to.p
+df pfs3DCAP.eps>
+(epstopdf)             \includegraphics on input line 195.
+Package epstopdf Info: Output file is already uptodate.
 
-<use pfs3D_CAPITAL-eps-converted-to.pdf>
-Package pdftex.def Info: pfs3D_CAPITAL-eps-converted-to.pdf used on input line 
-200.
-(pdftex.def)             Requested size: 480.5992pt x 258.36723pt.
+<pfs3DCAP-eps-converted-to.pdf, id=134, 439.6425pt x 234.8775pt>
+File: pfs3DCAP-eps-converted-to.pdf Graphic file (type pdf)
 
-Overfull \hbox (10.84418pt too wide) in paragraph at lines 200--201
+<use pfs3DCAP-eps-converted-to.pdf>
+Package pdftex.def Info: pfs3DCAP-eps-converted-to.pdf used on input line 195.
+(pdftex.def)             Requested size: 461.62482pt x 246.62148pt.
+
+Overfull \hbox (68.07677pt too wide) in paragraph at lines 207--216
  [][] 
  []
 
-
-Overfull \hbox (68.07677pt too wide) in paragraph at lines 210--219
- [][] 
- []
-
-[5 <./pfs3D_CAPITAL-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <eeerrors_C.eps>
-(epstopdf)                    date: 2019-03-31 09:06:40
-(epstopdf)                    size: 288959 bytes
-(epstopdf)             Output file: <eeerrors_C-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-03-31 10:22:31
-(epstopdf)                    size: 192683 bytes
-(epstopdf)             Command: <epstopdf --outfile=eeerrors_C-eps-converted-to
-.pdf eeerrors_C.eps>
+[5 <./pfs3DCAP-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <eeerrorsCAP.eps>
+(epstopdf)                    date: 2019-03-31 21:10:02
+(epstopdf)                    size: 287190 bytes
+(epstopdf)             Output file: <eeerrorsCAP-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-03-31 21:11:17
+(epstopdf)                    size: 197376 bytes
+(epstopdf)             Command: <epstopdf --outfile=eeerrorsCAP-eps-converted-t
+o.pdf eeerrorsCAP.eps>
 (epstopdf)             \includegraphics on input line 232.
 Package epstopdf Info: Output file is already uptodate.
 
-<eeerrors_C-eps-converted-to.pdf, id=97, 324.21124pt x 179.67125pt>
-File: eeerrors_C-eps-converted-to.pdf Graphic file (type pdf)
+<eeerrorsCAP-eps-converted-to.pdf, id=150, 492.84125pt x 171.64125pt>
+File: eeerrorsCAP-eps-converted-to.pdf Graphic file (type pdf)
 
-<use eeerrors_C-eps-converted-to.pdf>
-Package pdftex.def Info: eeerrors_C-eps-converted-to.pdf used on input line 232
-.
-(pdftex.def)             Requested size: 486.31567pt x 269.50618pt.
+<use eeerrorsCAP-eps-converted-to.pdf>
+Package pdftex.def Info: eeerrorsCAP-eps-converted-to.pdf used on input line 23
+2.
+(pdftex.def)             Requested size: 492.84003pt x 171.64081pt.
 
-Overfull \hbox (16.56065pt too wide) in paragraph at lines 232--233
+Overfull \hbox (23.085pt too wide) in paragraph at lines 232--233
  [][] 
  []
 
-
-LaTeX Warning: Reference `eq:1' on page 6 undefined on input line 248.
-
-
-LaTeX Warning: Reference `eq:6' on page 6 undefined on input line 248.
-
-
-LaTeX Warning: Reference `eq:15' on page 6 undefined on input line 248.
-
-
-LaTeX Warning: Reference `eq:16' on page 6 undefined on input line 248.
-
-[6 <./eeerrors_C-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 267--269
+[6 <./eeerrorsCAP-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 274--276
 
  []
 
 
-LaTeX Warning: Reference `eq:1' on page 7 undefined on input line 270.
-
-
-LaTeX Warning: Reference `eq:6' on page 7 undefined on input line 270.
-
-
-LaTeX Warning: Reference `eq:15' on page 7 undefined on input line 270.
-
-
-LaTeX Warning: Reference `eq:16' on page 7 undefined on input line 270.
-
-
-LaTeX Warning: Reference `eq:m1' on page 7 undefined on input line 270.
-
-
-LaTeX Warning: Reference `eq:m2' on page 7 undefined on input line 270.
-
-
-LaTeX Warning: Reference `eq:m3' on page 7 undefined on input line 270.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 275--277
+Underfull \hbox (badness 10000) in paragraph at lines 282--284
 
  []
 
 [7]
-Overfull \hbox (4.1384pt too wide) in paragraph at lines 287--288
+Overfull \hbox (4.1384pt too wide) in paragraph at lines 294--295
 \OT1/ptm/m/n/12 ($[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m/n/12 ) \OMS
 /cmsy/m/n/12  \OT1/cmr/m/n/12 [[]\OML/cmm/m/it/12 []\OT1/cmr/m/n/12 ([][])\OM
 L/cmm/m/it/12 ; n[]\OT1/cmr/m/n/12 ([][])\OML/cmm/m/it/12 ; q[]\OT1/cmr/m/n/12 
@@ -673,84 +641,66 @@ odel with cap-i-tal and $[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m/n/12
 ][])\OML/cmm/m/it/12 ; []c[]\OT1/cmr/m/n/12 ([][])]$\OT1/ptm/m/n/12 .
  []
 
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 292.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 299.
 
 (C:\Users\Test\Desktop\Laytech\tex\latex\psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 Package epstopdf Info: Source file: <pfs3D.eps>
-(epstopdf)                    date: 2019-03-31 09:03:12
-(epstopdf)                    size: 117152 bytes
+(epstopdf)                    date: 2019-03-31 18:32:46
+(epstopdf)                    size: 339737 bytes
 (epstopdf)             Output file: <pfs3D-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-03-31 09:10:12
-(epstopdf)                    size: 21475 bytes
+(epstopdf)                    date: 2019-03-31 18:34:39
+(epstopdf)                    size: 172885 bytes
 (epstopdf)             Command: <epstopdf --outfile=pfs3D-eps-converted-to.pdf 
 pfs3D.eps>
-(epstopdf)             \includegraphics on input line 312.
+(epstopdf)             \includegraphics on input line 320.
 Package epstopdf Info: Output file is already uptodate.
 
-<pfs3D-eps-converted-to.pdf, id=135, 529.98pt x 357.335pt>
+<pfs3D-eps-converted-to.pdf, id=195, 433.62pt x 295.1025pt>
 File: pfs3D-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pfs3D-eps-converted-to.pdf>
-Package pdftex.def Info: pfs3D-eps-converted-to.pdf used on input line 312.
-(pdftex.def)             Requested size: 317.99043pt x 214.40265pt.
+Package pdftex.def Info: pfs3D-eps-converted-to.pdf used on input line 320.
+(pdftex.def)             Requested size: 433.61894pt x 295.10176pt.
  [8]
 Package epstopdf Info: Source file: <eeerrors.eps>
-(epstopdf)                    date: 2019-03-31 09:02:50
-(epstopdf)                    size: 194913 bytes
+(epstopdf)                    date: 2019-03-31 21:10:22
+(epstopdf)                    size: 189726 bytes
 (epstopdf)             Output file: <eeerrors-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-03-31 10:22:22
-(epstopdf)                    size: 102936 bytes
+(epstopdf)                    date: 2019-03-31 21:11:20
+(epstopdf)                    size: 102450 bytes
 (epstopdf)             Command: <epstopdf --outfile=eeerrors-eps-converted-to.p
 df eeerrors.eps>
-(epstopdf)             \includegraphics on input line 324.
+(epstopdf)             \includegraphics on input line 330.
 Package epstopdf Info: Output file is already uptodate.
 
-<eeerrors-eps-converted-to.pdf, id=152, 316.18124pt x 179.67125pt>
+<eeerrors-eps-converted-to.pdf, id=209, 481.8pt x 343.2825pt>
 File: eeerrors-eps-converted-to.pdf Graphic file (type pdf)
 
 <use eeerrors-eps-converted-to.pdf>
-Package pdftex.def Info: eeerrors-eps-converted-to.pdf used on input line 324.
-(pdftex.def)             Requested size: 474.27069pt x 269.50618pt.
-
-Overfull \hbox (4.51567pt too wide) in paragraph at lines 324--325
- [][] 
- []
-
-[9 <./pfs3D-eps-converted-to.pdf> <./eeerrors-eps-converted-to.pdf>]
-Excluding 'comment' comment.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 574.
+Package pdftex.def Info: eeerrors-eps-converted-to.pdf used on input line 330.
+(pdftex.def)             Requested size: 361.3491pt x 257.46123pt.
+ [9 <./pfs3D-eps-converted-to.pdf> <./eeerrors-eps-converted-to.pdf>] Excluding
+ 'comment' comment.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 587.
  [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 574.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 587.
  (Paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 574.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 574.
-
-
-Package rerunfilecheck Warning: File `Paper.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Paper.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  110F03A8E8B34BB0A2A35DC48C13DADD;1032.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 574.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 587.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 587.
+Package rerunfilecheck Info: File `Paper.out' has not changed.
+(rerunfilecheck)             Checksum: 110F03A8E8B34BB0A2A35DC48C13DADD;1032.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 587.
  ) 
 Here is how much of TeX's memory you used:
- 9381 strings out of 493323
- 138604 string characters out of 3138232
- 252572 words of memory out of 3000000
- 12662 multiletter control sequences out of 15000+200000
+ 9405 strings out of 493323
+ 138880 string characters out of 3138232
+ 252033 words of memory out of 3000000
+ 12686 multiletter control sequences out of 15000+200000
  25678 words of font info for 72 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,16n,43p,1256b,428s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,16n,61p,1256b,448s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/Test/Desktop/Laytech/fonts/enc/dvips/base/8r.enc}<C:/Users/Test/Des
 ktop/Laytech/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Test/Desktop/L
 aytech/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Test/Desktop/Laytech
@@ -765,9 +715,9 @@ ers/Test/Desktop/Laytech/fonts/type1/public/doublestroke/dsrom12.pfb><C:/Users/
 Test/Desktop/Laytech/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Test/Desktop/
 Laytech/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/t
 ype1/urw/times/utmr8a.pfb>
-Output written on Paper.pdf (10 pages, 666763 bytes).
+Output written on Paper.pdf (10 pages, 823995 bytes).
 PDF statistics:
- 236 PDF objects out of 1000 (max. 8388607)
+ 296 PDF objects out of 1000 (max. 8388607)
  92 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 149 words of extra memory for PDF output out of 10000 (max. 10000000)
 
