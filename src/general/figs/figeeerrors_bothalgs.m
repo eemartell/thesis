@@ -100,11 +100,11 @@ for isubplot = 1:prod(plotdim)
     else
         N2 = hist(EE_Gust(:,iEE2),bins{iEE2}); %GustEtAl
         bar(bins{iEE2},100*N2/length(EE_Gust(:,iEE2)),'grouped')
-        text(-7.8,11,['Mean: ', num2str(RMeanEEGust(iEE2))],'Fontsize',8);        
-        text(-7.8,8.5,['Max: ', num2str(RMaxEEGust(iEE2))],'Fontsize',8);
+        text(-7.8,16.5,['Mean: ', num2str(RMeanEEGust(iEE2))],'Fontsize',8);        
+        text(-7.8,13.5,['Max: ', num2str(RMaxEEGust(iEE2))],'Fontsize',8);
         iEE2 = iEE2 + 1;
         ylabel('GustEtAl','interpreter','latex','fontsize',fontsize)
-        ylim([0, 15])
+        ylim([0, 20])
     end
     %title('Euler Equation','interpreter','latex','fontsize',fontsize)
     xlabel('Errors ($\log_{10}$)','interpreter','latex','fontsize',fontsize)
