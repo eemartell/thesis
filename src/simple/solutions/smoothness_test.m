@@ -87,8 +87,16 @@ disp(['Gust, c: ',num2str(meanperc_err{2}), '%'])
 disp(['Gust, c_zlb: ', num2str(meanperc_err{3}), '%'])
 disp(['Gust, c_agg: ', num2str(meanperc_err{4}), '%'])
 
-figbox = [1,1,7,4.5];
-figure;%('Renderer', 'painters', 'Position', [100 100 825 525])
+set(0,'DefaultAxesFontSize',8)
+figbox = [200,200,800,400];
+subpad.bot = .25; % Increase if xaxis lables are cut off
+subpad.top = .2; % Increase if subplot title is cut off
+subpad.left = .1; % Increase if ylabel is cut off
+subpad.right = .1; % Decrease if white-space on RHS
+subpad.legend = 0; % Increase if legend overlaps subplot titles
+fontsize = 9;
+
+figure;
 set(gcf,'position',figbox);
 
 in_vec = squeeze(G.in_gr(4,:,4,:));
@@ -105,7 +113,6 @@ subplot(2,2,i)
 %hold on
 surf(squeeze(G.in_gr(4,:,4,:)),squeeze(G.s_gr(4,:,4,:)), z{i})
 colormap winter
-freezeColors %from MATLAB file exchange
 %xlim([.98, 1.04])
 %ylim([.98, 1.04])
 %zlim([.28, .39])
@@ -119,8 +126,8 @@ zlabel('Consumption','FontSize',9)
 title(label{i},'FontSize',10)
 [az, el] = view;
 view(az-90,el-10)
-text(1.013,1.04,.37,['avg \% err: ',num2str(meanperc_err{i})],'FontSize',9)
-text(1.013,1.04,.36,'Black dots: ZLB','FontSize',9)
+text(1.035,1.04,.39,['avg % err: ',num2str(meanperc_err{i})],'FontSize',9)
+text(1.035,1.04,.37,'Black dots: ZLB','FontSize',9)
 end
 
 % % Linear regressions using regress

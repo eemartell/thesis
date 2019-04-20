@@ -3,7 +3,7 @@ clear
 clc
 close all
 
-plotops
+%plotops
 saving = 'on';
 plottype = 'P';
 
@@ -64,13 +64,13 @@ if strcmp(plottype,'M')
 elseif strcmp(plottype,'P')
     savename = [figname '_pres'];
     set(0,'DefaultAxesFontSize',8)
-    figbox = [1,1,7,2.5];
-    subpad.bot = .325; % Increase if xaxis lables are cut off
-    subpad.top = .15; % Increase if subplot title is cut off
-    subpad.left = .25; % Increase if ylabel is cut off
+    figbox = [200,200,800,400];
+    subpad.bot = .25; % Increase if xaxis lables are cut off
+    subpad.top = .125; % Increase if subplot title is cut off
+    subpad.left = .2; % Increase if ylabel is cut off
     subpad.right = .05; % Decrease if white-space on RHS
     subpad.legend = 0; % Increase if legend overlaps subplot titles
-    fontsize = 9;
+    fontsize = 10;
 end
 
 plotdim = [2,4];
@@ -92,16 +92,16 @@ for isubplot = 1:prod(plotdim)
     if isubplot < 5
         N1 = hist(EE_ART(:,iEE1),bins{iEE1}); %ART
         bar(bins{iEE1},100*N1/length(EE_ART(:,iEE1)),'grouped')
-        text(-7.80,16.5,['Mean: ', num2str(RMeanEEART(iEE1))],'Fontsize',8);
-        text(-7.8,13.5,['Max: ', num2str(RMaxEEART(iEE1))],'Fontsize',8);
+        text(-7.8,16.5,['Mean: ', num2str(RMeanEEART(iEE1))],'Fontsize',9);
+        text(-7.8,13.5,['Max: ', num2str(RMaxEEART(iEE1))],'Fontsize',9);
         iEE1 = iEE1 + 1;    
         ylabel('ART','interpreter','latex','fontsize',fontsize)
         ylim([0, 20])
     else
         N2 = hist(EE_Gust(:,iEE2),bins{iEE2}); %GustEtAl
         bar(bins{iEE2},100*N2/length(EE_Gust(:,iEE2)),'grouped')
-        text(-7.8,16.5,['Mean: ', num2str(RMeanEEGust(iEE2))],'Fontsize',8);        
-        text(-7.8,13.5,['Max: ', num2str(RMaxEEGust(iEE2))],'Fontsize',8);
+        text(-7.8,16.5,['Mean: ', num2str(RMeanEEGust(iEE2))],'Fontsize',9);        
+        text(-7.8,13.5,['Max: ', num2str(RMaxEEGust(iEE2))],'Fontsize',9);
         iEE2 = iEE2 + 1;
         ylabel('GustEtAl','interpreter','latex','fontsize',fontsize)
         ylim([0, 20])
@@ -109,7 +109,7 @@ for isubplot = 1:prod(plotdim)
     %title('Euler Equation','interpreter','latex','fontsize',fontsize)
     xlabel('Errors ($\log_{10}$)','interpreter','latex','fontsize',fontsize)
     set(gca,'xlim',[-8,0],'xtick',-8:2:0);
-    title(titles{isubplot},'fontsize',fontsize)
+    title(titles{isubplot},'Fontsize',9)
     %lgd = legend('ART', 'GustEtAl');
     %lgd.FontSize = 6;
     %lgd.Location = 'northwest';

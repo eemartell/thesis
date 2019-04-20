@@ -3,7 +3,6 @@ clear
 clc
 close all
 
-plotops
 saving = 'on';
 plottype = 'P';
 
@@ -30,8 +29,8 @@ EE_Gust(:,2) = R.EE2(:);
 RMeanEEGust(:,1) = R.meanEE;
 RMaxEEGust(:,1) = R.maxEE;
 
-bins{1} = -6:.1:-2.25;
-bins{2} = -7.25:.1:-1.5;
+bins{1} = -6:.0833:-2.25;
+bins{2} = -7.25:.0833:-1.5;
 
 nEE = size(EE_ART,1);
 
@@ -40,7 +39,7 @@ titles = {'Consumption Euler','Firm Pricing','Consumption Euler','Firm Pricing'}
 % Plot options
 if strcmp(plottype,'M')
     savename = ['Figs/' figname];
-    figbox = [1,1,7,4];
+    figbox = [1,1,6.5,2.5];
     subpad.bot = .175; % Increase if xaxis lables are cut off
     subpad.top = .125; % Increase if subplot title is cut off
     subpad.left = .075; % Increase if ylabel is cut off
@@ -50,13 +49,13 @@ if strcmp(plottype,'M')
 elseif strcmp(plottype,'P')
     savename = ['Figs/' figname '_pres'];
     set(0,'DefaultAxesFontSize',8)
-    figbox = [1,1,7,5];
-    subpad.bot = .175; % Increase if xaxis lables are cut off
-    subpad.top = .125; % Increase if subplot title is cut off
-    subpad.left = .15; % Increase if ylabel is cut off
-    subpad.right = .05; % Decrease if white-space on RHS
+    figbox = [150,150,450,300];
+    subpad.bot = .25; % Increase if xaxis lables are cut off
+    subpad.top = .2; % Increase if subplot title is cut off
+    subpad.left = .225; % Increase if ylabel is cut off
+    subpad.right = .1; % Decrease if white-space on RHS
     subpad.legend = 0; % Increase if legend overlaps subplot titles
-    fontsize = 8;
+    fontsize = 9;
 end
 
 plotdim = [2,2];
@@ -78,24 +77,24 @@ for isubplot = 1:prod(plotdim)
     if isubplot < 3
         N1 = hist(EE_ART(:,iEE1),bins{iEE1}); %ART
         bar(bins{iEE1},100*N1/length(EE_ART(:,iEE1)),'grouped')
-        text(-7.5,11,['Mean: ', num2str(RMeanEEART(iEE1))],'Fontsize',10);
-        text(-7.5,8.5,['Max: ', num2str(RMaxEEART(iEE1))],'Fontsize',10);
+        text(-7.85,11.5,['Mean: ', num2str(RMeanEEART(iEE1))],'Fontsize',9);
+        text(-7.85,8.5,['Max: ', num2str(RMaxEEART(iEE1))],'Fontsize',9);
         iEE1 = iEE1 + 1;    
-        ylabel('ART','interpreter','latex','FontSize',10)
+        ylabel('ART','interpreter','latex','fontsize',fontsize)
         ylim([0, 15])
     else
         N2 = hist(EE_Gust(:,iEE2),bins{iEE2}); %GustEtAl
         bar(bins{iEE2},100*N2/length(EE_Gust(:,iEE2)),'grouped')
-        text(-7.5,11,['Mean: ', num2str(RMeanEEGust(iEE2))],'Fontsize',10);        
-        text(-7.5,8.5,['Max: ', num2str(RMaxEEGust(iEE2))],'Fontsize',10);
+        text(-7.85,11.5,['Mean: ', num2str(RMeanEEGust(iEE2))],'Fontsize',9);        
+        text(-7.85,8.5,['Max: ', num2str(RMaxEEGust(iEE2))],'Fontsize',9);
         iEE2 = iEE2 + 1;
-        ylabel('GustEtAl','interpreter','latex','FontSize',10)
+        ylabel('GustEtAl','interpreter','latex','fontsize',fontsize)
         ylim([0, 15])
     end
     %title('Euler Equation','interpreter','latex','fontsize',fontsize)
-    xlabel('Errors ($\log_{10}$)','interpreter','latex','FontSize',10)
+    xlabel('Errors ($\log_{10}$)','interpreter','latex','fontsize',fontsize)
     set(gca,'xlim',[-8,0],'xtick',-8:2:0);
-    title(titles{isubplot},'FontSize',10)
+    title(titles{isubplot},'Fontsize',9)
     %lgd = legend('ART', 'GustEtAl');
     %lgd.FontSize = 6;
     %lgd.Location = 'northwest';

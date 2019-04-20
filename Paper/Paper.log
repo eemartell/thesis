@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  11 APR 2019 19:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  12 APR 2019 16:06
 entering extended mode
 **./Paper.tex
 (Paper.tex
@@ -579,57 +579,71 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <7> not available
  [1
 
 {C:/Users/Test/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3]
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 115.
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 116.
 
 
 (C:\Users\Test\Desktop\Laytech\tex\latex\doublestroke\udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 ) [4] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 150--152
+Underfull \hbox (badness 10000) in paragraph at lines 151--153
 
  []
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 154.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 155.
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--162
+Underfull \hbox (badness 10000) in paragraph at lines 161--163
 
  []
 
 [6] [7]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 233.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 238.
 
  (C:\Users\Test\Desktop\Laytech\tex\latex\psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) [8] [9]
-<pfs3DCAP.pdf, id=244, 640.3925pt x 301.125pt>
+<pfs3DCAP.pdf, id=242, 614.295pt x 320.54454pt>
 File: pfs3DCAP.pdf Graphic file (type pdf)
  <use pfs3DCAP.pdf>
-Package pdftex.def Info: pfs3DCAP.pdf used on input line 294.
-(pdftex.def)             Requested size: 640.39093pt x 301.12425pt.
+Package pdftex.def Info: pfs3DCAP.pdf used on input line 297.
+(pdftex.def)             Requested size: 614.29349pt x 320.54375pt.
 
-Overfull \hbox (21.06218pt too wide) in paragraph at lines 294--295
+Overfull \hbox (21.06299pt too wide) in paragraph at lines 297--298
  [][] 
  []
 
-[10] [11 <./pfs3DCAP.pdf>] <eeerrorsCAP.pdf, id=272, 592.2125pt x 281.05pt>
+[10] <pfs3D.pdf, id=251, 508.90125pt x 277.035pt>
+File: pfs3D.pdf Graphic file (type pdf)
+ <use pfs3D.pdf>
+Package pdftex.def Info: pfs3D.pdf used on input line 317.
+(pdftex.def)             Requested size: 458.0069pt x 249.3292pt.
+ [11 <./pfs3DCAP.pdf>]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 364.
+ [12 <./pfs3D.pdf>] <eeerrorsCAP.pdf, id=367, 614.295pt x 317.56744pt>
 File: eeerrorsCAP.pdf Graphic file (type pdf)
 
 <use eeerrorsCAP.pdf>
-Package pdftex.def Info: eeerrorsCAP.pdf used on input line 341.
-(pdftex.def)             Requested size: 473.77063pt x 224.84029pt.
- [12 <./eeerrorsCAP.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 380--382
+Package pdftex.def Info: eeerrorsCAP.pdf used on input line 377.
+(pdftex.def)             Requested size: 491.43666pt x 254.05428pt.
+ <eeerrors.pdf, id=369, 310.15875pt x 209.78375pt>
+File: eeerrors.pdf Graphic file (type pdf)
+
+<use eeerrors.pdf>
+Package pdftex.def Info: eeerrors.pdf used on input line 393.
+(pdftex.def)             Requested size: 310.15799pt x 209.78322pt.
+ [13 <./eeerrorsCAP.pdf>] [14 <./eeerrors.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 428--430
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 388--390
+Underfull \hbox (badness 10000) in paragraph at lines 436--438
 
  []
 
-[13]
-Overfull \hbox (1.1384pt too wide) in paragraph at lines 400--401
+[15]
+Overfull \hbox (1.1384pt too wide) in paragraph at lines 448--449
 \OT1/ptm/m/n/12 ($[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m/n/12 ) \OMS
 /cmsy/m/n/12  \OT1/cmr/m/n/12 [[]\OML/cmm/m/it/12 []\OT1/cmr/m/n/12 ([][])\OM
 L/cmm/m/it/12 ; n[]\OT1/cmr/m/n/12 ([][])\OML/cmm/m/it/12 ; q[]\OT1/cmr/m/n/12 
@@ -639,27 +653,7 @@ odel with cap-i-tal and $[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m/n/12
 ][])\OML/cmm/m/it/12 ; []c[]\OT1/cmr/m/n/12 ([][])]$
  []
 
-[14] <pfs3D.pdf, id=342, 509.905pt x 278.03876pt>
-File: pfs3D.pdf Graphic file (type pdf)
- <use pfs3D.pdf>
-Package pdftex.def Info: pfs3D.pdf used on input line 438.
-(pdftex.def)             Requested size: 458.91025pt x 250.23256pt.
- [15]
-<eeerrors.pdf, id=352, 327.2225pt x 218.8175pt>
-File: eeerrors.pdf Graphic file (type pdf)
- <use eeerrors.pdf>
-Package pdftex.def Info: eeerrors.pdf used on input line 452.
-(pdftex.def)             Requested size: 327.2217pt x 218.81696pt.
- [16 <./pfs3D.pdf> <./eeerrors.pdf>]
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no œ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no  in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
+[16]
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no œ in font ptmr7t!
@@ -674,9 +668,6 @@ Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
 Missing character: There is no œ in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
@@ -689,9 +680,12 @@ Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
+Missing character: There is no œ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no  in font ptmr7t!
 
-Overfull \hbox (19.74301pt too wide) in paragraph at lines 477--479
+Overfull \hbox (19.74301pt too wide) in paragraph at lines 488--490
 []\OT1/ptm/m/sc/12 Ferna[]ndez-Villaverde, J., G. Gor-don, P. Guerro[]n-Quintan
 a, and J. F. Rubio-Rami[]rez
  []
@@ -704,67 +698,10 @@ Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
 Missing character: There is no œ in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no œ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no  in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no œ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no  in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no œ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no œ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no  in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no œ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no  in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no œ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no  in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no œ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no  in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
 [17]
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
@@ -774,7 +711,13 @@ Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
+Missing character: There is no œ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no  in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no œ in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no œ in font ptmr7t!
@@ -783,7 +726,10 @@ Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
+Missing character: There is no œ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no  in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no œ in font ptmr7t!
@@ -792,31 +738,58 @@ Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
-Missing character: There is no “ in font ptmr7t!
+Missing character: There is no œ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no  in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no œ in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 522.
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no œ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no  in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no œ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no  in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no œ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no  in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no œ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no  in font ptmr7t!
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 536.
  [18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 522.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 536.
  (Paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 522.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 522.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 536.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 536.
 Package rerunfilecheck Info: File `Paper.out' has not changed.
-(rerunfilecheck)             Checksum: 212756001AF366BC16DF5B9D0A6E8463;1087.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 522.
+(rerunfilecheck)             Checksum: 1E880382314A1014C886503160198D1B;1014.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 536.
  ) 
 Here is how much of TeX's memory you used:
- 9913 strings out of 493323
- 144594 string characters out of 3138232
- 260419 words of memory out of 3000000
- 13139 multiletter control sequences out of 15000+200000
- 33091 words of font info for 86 fonts, out of 3000000 for 9000
+ 9914 strings out of 493323
+ 144607 string characters out of 3138232
+ 260406 words of memory out of 3000000
+ 13140 multiletter control sequences out of 15000+200000
+ 34717 words of font info for 88 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,16n,61p,1657b,561s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,17n,61p,1481b,559s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{RTW} has been referenced but does not exist, repl
 aced by a fixed one
 
@@ -836,12 +809,13 @@ C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/User
 s/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Test/
 Desktop/Laytech/fonts/type1/public/doublestroke/dsrom12.pfb><C:/Users/Test/Desk
 top/Laytech/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Test/Desktop/Laytech/f
-onts/type1/urw/times/utmb8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/urw/
-times/utmr8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/urw/times/utmri8a.p
-fb>
-Output written on Paper.pdf (18 pages, 405555 bytes).
+onts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/u
+rw/helvetic/uhvr8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/urw/times/utm
+b8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/urw/times/utmr8a.pfb><C:/Use
+rs/Test/Desktop/Laytech/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Paper.pdf (18 pages, 535303 bytes).
 PDF statistics:
- 470 PDF objects out of 1000 (max. 8388607)
- 132 named destinations out of 1000 (max. 500000)
- 157 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 630 PDF objects out of 1000 (max. 8388607)
+ 131 named destinations out of 1000 (max. 500000)
+ 149 words of extra memory for PDF output out of 10000 (max. 10000000)
 

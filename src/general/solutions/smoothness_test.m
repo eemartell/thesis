@@ -4,7 +4,7 @@ clc
 close all
 
 % Load solutions
-load('solutionfpART.mat')
+load('solutionfpART_5.mat')
 y_ART = pf.n(:);
 n_ART = pf.n;
 % Production function (2)
@@ -18,7 +18,7 @@ rgdpg = G.g_gr.*rgdpp./(P.g.*rgdp);
 inp_ART = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi.*rgdpg.^P.phiy).^(1-P.rhoi).*exp(G.mp_gr);   
 %inp_ART = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
 
-load('solutionfpGust.mat')
+load('solutionfpGust_5.mat')
 y_Gust = pf.n(:);
 n_Gust = pf.n;
 %inp_Gust = G.in_gr.^P.rhoi.*(S.i*pf.pigap.^P.phipi).^(1-P.rhoi).*exp(G.mp_gr);
@@ -113,8 +113,16 @@ disp(['Gust, n: ',num2str(meanperc_err{2}), '%'])
 disp(['Gust, n_zlb: ', num2str(meanperc_err{3}), '%'])
 disp(['Gust, n_agg: ', num2str(meanperc_err{4}), '%'])
 
-figbox = [1,1,7,3.5];
-figure;%('Renderer', 'painters', 'Position', [100 100 825 525])
+set(0,'DefaultAxesFontSize',8)
+figbox = [200,200,850,400];
+subpad.bot = .175; % Increase if xaxis lables are cut off
+subpad.top = .15; % Increase if subplot title is cut off
+subpad.left = -.2; % Increase if ylabel is cut off
+subpad.right = -.2; % Decrease if white-space on RHS
+subpad.legend = 0; % Increase if legend overlaps subplot titles
+fontsize = 8;
+
+figure
 set(gcf,'position',figbox);
 
 in_vec = squeeze(G.in_gr(2,:,2,:,3,3,3));
@@ -133,9 +141,9 @@ subplot(2,2,i)
 %     end
 %hold on
 surf(squeeze(G.in_gr(2,:,2,:,3,3,3)),squeeze(G.s_gr(2,:,2,:,3,3,3)), z{i})
-zlim([.32,.37])
+zlim([.32,.39])
 colormap winter
-freezeColors %from MATLAB file exchange
+%freezeColors %from MATLAB file exchange
 %xlim([.98, 1.04])
 %ylim([.98, 1.04])
 %zlim([.28, .39])
@@ -143,16 +151,16 @@ hold on
 scatter3(in_vec,s_vec, z_zlb{i}(:),15,'MarkerEdgeColor','k',...
         'MarkerFaceColor','k')
 hold off
-xlabel('Interest rate','Fontsize',9)
-ylabel('Risk premium','Fontsize',9)
-zlabel('Labor','Fontsize',9)
-title(label{i},'Fontsize',10)
+xlabel('Interest rate','FontSize',9)
+ylabel('Risk premium','FontSize',9)
+zlabel('Labor','FontSize',9)
+title(label{i},'FontSize',10)
 [az, el] = view;
 view(az+90-25,el-20)
 % view(az-90,el-10)
 %view(-37.5-90,30-10)
-text(0.999,1.01,.365,['mean \% err: ',num2str(meanperc_err{i},'%.6f'),'\%'],'Fontsize',8)
-text(0.999,1.01,.36,'Black dots: ZLB','Fontsize',8)
+text(0.999,1.011,.385,['mean % err: ',num2str(meanperc_err{i},'%.6f'),'%'])
+text(0.999,1.011,.375,'Black dots: ZLB')
 end
 
 saving = 'on';
