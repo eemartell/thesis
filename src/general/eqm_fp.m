@@ -18,7 +18,7 @@ mc = pf0(4);      %Marginal cost current period
 % Current period
 %----------------------------------------------------------------------
 % Production function (2)
-yf = (k/g)^P.alpha*n^(1-P.alpha); 
+yf = (k/g)^P.alpha*n^(1-P.alpha);
 % Real gdp
 y = c + x;
 yp = (1-P.varphi*(pigap-1)^2/2)*yf;

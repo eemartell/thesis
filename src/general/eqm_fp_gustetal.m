@@ -40,6 +40,7 @@ else
     % FOC labor
     cp = w/(S.chi*n_zlb^P.eta)+P.h*c/g;
 end
+% Aggregate resource constraint
 xp = yp - cp;
 % Investment growth gap (14)
 xg = g*xp/(P.g*x);    
@@ -56,7 +57,7 @@ lam = cp-P.h*c/g;
     G.in_grid,G.c_grid,G.k_grid,G.x_grid,...
     inp,cp,kp,xp,...
     pf.pigap,pf.n,pf.q,pf.mc);
-[pigappArr3,npArr3_zlb,qpArr3,mcpArr3] = Fallterp743_R(...
+[~,npArr3_zlb,~,~] = Fallterp743_R(...
     O.g_pts,O.s_pts,O.mp_pts,...
     O.in_pts,O.c_pts,O.k_pts,O.x_pts,...
     G.in_grid,G.c_grid,G.k_grid,G.x_grid,...
@@ -68,14 +69,13 @@ lam = cp-P.h*c/g;
 % Production function (2)
 yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3.^(1-P.alpha);
 % Real gdp
+yp = cp + xp;
 yppArr3 = (1-P.varphi.*(pigappArr3-1).^2/2).*yfpArr3;
 % Output growth
-ygpArr3 = g.*yppArr3./(P.g.*yp);  
+ygpArr3 = gpArr3.*yppArr3./(P.g.*yp);
 % Notional Interest Rate (9)
 inpArr3 = inp.^P.rhoi.*(S.i.*pigappArr3.^P.phipi.*ygpArr3.^P.phiy).^(1-P.rhoi).*exp(mpArr3);
 npArr3_combined = npArr3.*(inpArr3>1) + npArr3_zlb.*(inpArr3<=1);
-% Production function (2)
-yfpArr3 = (kp./gpArr3).^P.alpha.*npArr3_combined.^(1-P.alpha);
 % Firm FOC capital (4)
 rkpArr3 = P.alpha.*mcpArr3.*gpArr3.*yfpArr3/kp;
 % Firm FOC labor (5)
@@ -121,7 +121,6 @@ x_up(5) = (w*x_up(2))/((1-P.alpha)*y_pf);
 
 pf_lam_zlb = 1/(s*Ebond/lam);
 c_pf = pf_lam_zlb + P.h*c/g;
-x_pf = xg_pf*P.g*x/g;
 ygdp_pf = c_pf + x_pf;
 
 y_pf = ygdp_pf/(1-P.varphi*(x_up(1)-1)^2/2);
