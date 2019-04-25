@@ -87,7 +87,7 @@ The \hyperlink{Atkinson}{\color{black}{Atkinson et al.\ (2019)}} solution method
 
 The \hyperlink{Gust}{\color{black}{Gust et al.\ (2017)}} solution method approximates policy functions underlying the model's decision rule using an antistropic Smolyak method with Chebyshev polynomials. (See \hyperlink{Judd2}{\color{black}{Judd et al.\, 2014}} for a discussion of antistropic Smolyak methods). They approximate the exogenous state variables using Gauss-Hermite quadrature. Instead of directly computing the policy functions, they estimate functions at and away from the ZLB, which builds on \hyperlink{Christiano}{\color{black}{Christiano and Fisher (2000)}}. The idea is that the policy functions feature a kink or non-differentiability at the ZLB and regime-indexing the policy functions will yield smoother functions. This is appropriate for the choice of Chebyshev polynomial approximation, which performs better on smoother functions. 
 
-In this paper, we consider the effect of making the policy functions conditional on whether the ZLB binds. To isolate the effect of splitting the policy functions, we use policy function iteration on a fixed point with linear interpolation following \hyperlink{Atkinson}{\color{black}{Atkinson et al.\ (2019)}}. This solution method also provides the motivation for a single policy function, and the \hyperlink{Gust}{\color{black}{Gust et al.\ (2017)}} solution provides the motivation for a regime-indexed policy function. Henceforth, the solution method based on the \hyperlink{Atkinson}{\color{black}{Atkinson et al.\ (2019)}} solution algorithm will be denoted ART and the solution algorithm that estimates smoother functions based on \hyperlink{Gust}{\color{black}{Gust et al.\ (2017)}} will be denoted GHLS. It is important to note that we do not consider the effect of a Smolyak basis with Chebyshev polynomials, so this is a modified \hyperlink{Gust}{\color{black}{Gust et al.\ (2017)}} solution method. The key point in this paper is to explore how splitting up the policy functions conditional on the ZLB impacts the speed and accuracy of the solution of a nonlinear model. 
+In this paper, we consider the effect of making the policy functions conditional on whether the ZLB binds. To isolate the effect of splitting the policy functions, we use policy function iteration on a fixed point with linear interpolation following \hyperlink{Atkinson}{\color{black}{Atkinson et al.\ (2019)}}. This solution method directly computes the policy functions, while the \hyperlink{Gust}{\color{black}{Gust et al.\ (2017)}} solution method indirectly computes the policy functions through regime-indexed policy functions. Henceforth, the solution method based on the \hyperlink{Atkinson}{\color{black}{Atkinson et al.\ (2019)}} solution algorithm will be denoted ART and the solution algorithm that estimates smoother functions based on \hyperlink{Gust}{\color{black}{Gust et al.\ (2017)}} will be denoted GHLS. It is important to note that we do not consider the effect of a Smolyak basis with Chebyshev polynomials, so this is a modified \hyperlink{Gust}{\color{black}{Gust et al.\ (2017)}} solution method. The key point in this paper is to explore how splitting up the policy functions conditional on the ZLB impacts the speed and accuracy of the solution of a nonlinear model. 
 
 First, we construct the state space with evenly-spaced nodes and approximate the exogenous state variables with \hyperlink{Rouwenhorst}{\color{black}{Rouwenhorst (1995)}}. After obtaining initial conjectures for a set of policy functions from the log-linear solution, we iterate on the policy functions, linearly interpolating and numerically integrating the policy functions each step, using a fixed point iteration scheme. The algorithm converges once the maximum distance between successive guesses of policy functions falls below a convergence criterion. For the ART portion, we update a single policy function. For the GHLS portion, we update regime-indexed policy functions.
 
@@ -98,7 +98,7 @@ The interest rate enters directly in the consumption Euler equation, which for o
 \end{gather*}
 where $E_t$ is the expectation operator, $0<\beta<1$ is the discount factor, and $c_t$, $s_t$, $i_t$, and $\pi_t$ are consumption, the risk premium, the interest rate, and inflation at time $t$. The interest rate appears because the household has the choice of owning a nominal bond, and must choose a combination of consumption, labor, and bond holdings to maximize expected lifetime utility. For this reason, consumption $c_t$ depends on the interest rate. At the ZLB, the presence of the interest rate creates a nonlinearity in the consumption Euler equation and motivates the use of regime-indexed policy functions. 
 
-To approximate regime-indexed consumption policy functions $c_t^{ZLB}$ and $c_t^{normal}$, we provide initial guesses based on the log-linear solution. We refine the policy function guesses as follows: For each node in the state space, we solve for the time $t$ variables with either $c_t^{ZLB}$  or $c_t^{normal}$ according to $i_t$, the interest rate at time $t$. With the time $t$ variables, we linearly interpolate both policy functions. Next, we calculate the interest rate on each node in the state space, construct an aggregate consumption policy function based on whether the economy is at the ZLB on each node, and calculate time $t+1$ variables accordingly. We then update $c_t^{ZLB}$ with an interest rate of 1, and $c_t^{normal}$ with $i_t$.
+To approximate regime-indexed consumption policy functions $c_t^{ZLB}$ and $c_t^{normal}$, we provide initial guesses based on the log-linear solution. We refine the policy function guesses as follows: For each node in the state space, we solve for the time $t$ variables with either $c_t^{ZLB}$  or $c_t^{normal}$ according to $i_t$, the interest rate at time $t$. With the time $t$ variables, we linearly interpolate both policy functions. Next, we calculate the interest rate on each node in the state space, construct an aggregate consumption policy function based on whether the economy is at the ZLB on each node, and calculate time $t+1$ variables accordingly. We then update $c_t^{ZLB}$ with the interest rate constrained at the ZLB, and $c_t^{normal}$ with a positive interest rate.
 
 %It might help to explain in the intro the key difference in the approximation of the policy functions. You could show a standard Euler Equation, point out the nominal interest rate, and then explain you would approximate a policy function for consumption that depends on whether the economy is at the ZLB. 
 
@@ -157,9 +157,9 @@ where $1/\lambda$ is the marginal utility of consumption and $q$ is Tobin's q.\\
     \label{eq:15}
     i_t=\max\{1,i_t^n\},\\
       \label{eq:16}
-  i_t^n=(i^n_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi}(y^{g}_{t})^{\phi_y})^{1-\rho_i}\exp(\sigma_i\varepsilon_{i,t}), 0 \leq \rho_i < 1, \varepsilon_i \sim \mathds{N}(0,1),
+  i_t^n=(i^n_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi}(y^{gdp}_{t})^{\phi_y})^{1-\rho_i}\exp(\sigma_i\varepsilon_{i,t}), 0 \leq \rho_i < 1, \varepsilon_i \sim \mathds{N}(0,1),
   \end{gather}
-where $y^{gdp}$ is real GDP (i.e., output, $y$, minus the resources lost due to adjustment costs, $adj^p$), $i^n$ is the gross notional interest rate, $\bar i$ and $\bar{\pi}$ are the target values of the inflation and nominal interest rates, and $\phi_\pi$ and $\phi_y$ are the responses to the inflation and output growth gaps. A more negative net notional rate indicates that the central bank is more constrained.\\
+where $y^{gdp}$ is real GDP (i.e., output, $y$, minus the resources lost due to adjustment costs, $adj^p$), $i^n$ is the gross notional interest rate, $\bar i$ is the target values of the nominal interest rate, and $\phi_\pi$ and $\phi_y$ are the responses to the inflation and output growth gaps. A more negative net notional rate indicates that the central bank is more constrained.\\
 
 \noindent
 \textbf{Competitive Equilibrium} The aggregate resource constraint and real GDP definition are given by
@@ -184,8 +184,8 @@ The model does not have a steady-state due to the unit root in technology, $z_t$
   Steady-State Risk Premium & $\bar{s}$ & $1.0058$ & Risk Premium Persistence & $\rho_s$ & $0.80$ \\
   Steady-State Growth Rate & $\bar{g}$ & $1.0034$ & Notional Rate Persistence & $\rho_i$ & $0.80$ \\
   Steady-State Inflation Rate & $\bar{\pi}$ & $1.0053$ & Technology Growth Shock SD & $\sigma_g$ & $0.005$ \\
-  Capital Share of Income & $\alpha$ & $0.35$ & Risk Premium Shock SD & $\sigma_s$ & $0.005$ \\
-  Capital Depreciation Rate & $\delta$ & $0.025$ & Notional Interest Rate Shock SD & $\sigma_i$ & $0.0035$ \\
+  Capital Share of Income & $\alpha$ & $0.35$ & Risk Premium Shock SD & $\sigma_s$ & $0.0085$ \\
+  Capital Depreciation Rate & $\delta$ & $0.025$ & Notional Interest Rate Shock SD & $\sigma_i$ & $0.002$ \\
   Investment Adjustment Cost & $\nu$ & $4$ & & &\\
   \hline
   \end{tabular}
@@ -194,7 +194,7 @@ The model does not have a steady-state due to the unit root in technology, $z_t$
 \end{table}
 
 
-\subsection{Parameter Values} \hyperlink{Table 1}{Table 1} shows the model parameters. Parameters are from \hyperlink{Atkinson}{\color{black}{Atkinson et al.\ (2019)}}, and are chosen to be characteristic of U.S. data. The subjective discount factor, $\beta$ is set to $0.9949$, the time average of the values implied by the steady-state consumption Euler equation and the federal funds rate. The Frisch labor supply elasticity $1/\eta$ is set to 3 to match the macro estimate in \hyperlink{Peterman}{\color{black}{Peterman (2016)}}. The price elasticity of substitution $\theta$ is set to 6, matching GHLS and corresponding to to a 20\% average markup. Steady-state labor hours $\bar{n}$ is set to 1/3 of available time. The steady-state risk premium, growth rate, and inflation rate are set to the time averages of per capital real DGP growth, the percent GDP implicit price deflator, and the Baa corporate bond yield relative to the yield on the 10-Year Treasury. The capital share of income $\alpha$ is equal to the \hyperlink{Fernald}{\color{black}{Fernald (2012)}} utilization-adjusted quarterly-TFP estimates of the capital share of income from 1988-2017Q4. The other parameters are set to values consistent with posterior estimates from similar models in the literature. For the model without capital, all parameters are equivalent to those above except we set $\sigma_s=0.006$ and $\sigma_i=0.002$ allow the GHLS algorithm to converge.
+\subsection{Parameter Values} \hyperlink{Table 1}{Table 1} shows the model parameters. Parameters are from \hyperlink{Atkinson}{\color{black}{Atkinson et al.\ (2019)}}, and are chosen to be characteristic of U.S. data. The subjective discount factor, $\beta$ is set to $0.9949$, the time average of the values implied by the steady-state consumption Euler equation and the federal funds rate. The Frisch labor supply elasticity $1/\eta$ is set to 3 to match the macro estimate in \hyperlink{Peterman}{\color{black}{Peterman (2016)}}. The price elasticity of substitution $\theta$ is set to 6, matching GHLS and corresponding to to a 20\% average markup. Steady-state labor hours $\bar{n}$ is set to 1/3 of available time. The steady-state risk premium, growth rate, and inflation rate are set to the time averages of per capital real DGP growth, the percent GDP implicit price deflator, and the Baa corporate bond yield relative to the yield on the 10-Year Treasury. The capital share of income $\alpha$ is equal to the \hyperlink{Fernald}{\color{black}{Fernald (2012)}} utilization-adjusted quarterly-TFP estimates of the capital share of income from 1988-2017Q4. The other parameters are set to values consistent with posterior estimates from similar models in the literature. For the model without capital, all parameters are equivalent to those above except we set $\sigma_s=0.006$ to allow the GHLS algorithm to converge.
 
 \section[Section 3]{Solution Methods \hypertarget{Section 3}{}} 
 \subsection{Regime-indexed policy functions} Instead of directly approximating the policy functions, some papers elect to approximate alternative functions to avoid the kink experienced at the ZLB (e.g., \hyperlink{Gust}{\color{black}{Gust et al.,\ 2017}}; \hyperlink{Aruoba}{\color{black}{Aruoba et al.,\ 2018}}). \hyperlink{Gust}{\color{black}{Gust et al.\ (2017)}} uses policy functions that are indexed by the interest-rate regime. Because these functions do not depend on the current indicator function, \hyperlink{Gust}{\color{black}{Gust et al.\ (2017)}} claims that they are more likely to be smooth. The regime-specific functions still depend on a secondary effect that the non-differentiability in the nominal rate in the following period has on expectations of future variables.  However, following \hyperlink{Christiano}{\color{black}{Christiano and Fisher (2000)}} this effect should be small due to the presence of the expectations operators which act to smooth out regime-specific functions. Let the vector of policy functions at time $t$ be denoted $\textbf{pf}_t$ and the realization on node $d$ be denoted $\textbf{pf}_t(d)$. The idea for regime-indexed policy functions is as follows:
@@ -213,7 +213,7 @@ where $\mathds{I}_t(d)$ is defined by
 \end{cases}
 \end{gather}
 The variable $i_t=\max\{1,i_t^n\}$ represents the value of the notional rate derived from evaluating the functions $\textbf{pf}_{t,j}(d)$ for $j \in \{1,2\}$ and using equation (\ref{eq:16}). (For each variable, $j=1$ denotes the function associated with the regime with a positive nominal rate and $j=2$ denotes the function associated with the ZLB regime.) %In calculating the fixed point, we use $i=1$ when the model is in the ZLB regime. 
-The functions $\textbf{pf}_{t,j}$ satisfy the residual functions $R_{t,l,j}$ for and $l \in \{1,2,3,4\}$ which correspond to the household FOC bond, FOC capital, FOC investment, and the price Phillips curve, respectively, and $j \in \{1,2\}$.
+The functions $\textbf{pf}_{t,j}$ satisfy the residual functions $R_{t,l,j}$ for $l \in \{1,2,3,4\}$ which correspond to the household FOC bond, FOC capital, FOC investment, and the price Phillips curve, respectively, and $j \in \{1,2\}$.
 \begin{gather}
 \label{eq:20}
   R_{t,1,1} = 1 - s_ti_t\beta E_t[(\lambda_t/\lambda_{t+1})(1/(\bar{\pi}\pi_{t+1}^{gap}))],\\
@@ -269,8 +269,8 @@ tails of the distribution.
     & \multicolumn{3}{c}{Model without capital} & \multicolumn{3}{c}{Model with capital} \\
     & Total nodes & Iterations & Total Time & Total Nodes & Iterations & Total time\\
     \hline
-  ART & 2401  & 76 & 21.6s & 78125 & 65 & 0h 15m 37.1s\\    
-  GHLS & 2401  & 62 & 18.5s & 78125 & 1170 &  5h 32m 48.6s\\
+  ART & 2401  & 76 & 23.01s (avg. 30 runs) & 78125 & 56 & 0h 9m 16.1s\\    
+  GHLS & 2401  & 62 & 19.34s (avg. 30 runs) & 78125 & 1231 &  3h 28m 28.8s\\
   \hline
 \end{tabular}
   \caption{Solution times}
@@ -308,7 +308,6 @@ Visually, the ART labor policy function cross-section is quite a bit smoother. L
 increase as the interest rate falls and hits the ZLB. The GHLS labor policy function
 features a kink at the ZLB where labor rises dramatically.
 
-For the model without capital, the GHLS policy functions do not experience as pronounced a nonlinearity.
 
 \begin{figure}[H]
 \hypertarget{Figure 2}  
@@ -320,7 +319,7 @@ For the model without capital, the GHLS policy functions do not experience as pr
 
 \hyperlink{Figure 2}{Figure 2} shows the cross-section of the consumption policy functions with the interest rate and
 risk premium. The policy functions are all fairly smooth and only have a slight nonlinearity at the
-ZLB. The GHLS policy functions are smoother than the ART policy function with respect to both the average percent error from a linear plane and the RMSE.
+ZLB. The GHLS policy functions do not experience a profound nonlinearity as they do in the model with capital. The GHLS policy functions are smoother than the ART policy function with respect to both the average percent error from a linear plane and the RMSE.
 
 \begin{table}[H]
   \centering
@@ -333,8 +332,8 @@ ZLB. The GHLS policy functions are smoother than the ART policy function with re
     & \multicolumn{2}{c}{Model without capital} & \multicolumn{2}{c}{Model with capital} \\
     & Mean \% Error & RMSE & Mean \% Error & RMSE\\
     \hline
-    ART policy & 0.64407\% &0.0027327 $c$  units & 0.201367\% & 0.0029924 $l$ units \\    
-  GHLS policy & 0.62694\% & 0.0026704 $c$ units & 0.732262\% & 0.010799 $l$ units \\
+    ART policy & 0.64407\% &0.0027327 $c$  units & 0.271154\% & 0.0039806 $l$ units \\    
+  GHLS policy & 0.62694\% & 0.0026704 $c$ units & 0.578098\% & 0.0080785 $l$ units \\
   \hline
 \end{tabular}
   \caption{Smoothness measures for labor policy functions ($c$ for model with capital and $n$ for model with capital). GHLS combined policy functions are reported.}
@@ -374,17 +373,16 @@ capital, both functions are smooth, but the GHLS policy function is slightly smo
 \hypertarget{Figure 3}  
     \centering
 \captionsetup{justification=centering}
-    \includegraphics[width=16cm,scale=.8]{eeerrorsCAP.pdf}%{pfs3D_CAPITAL.eps}
+    \includegraphics[width=16cm,scale=.8]{eeerrorsCAP.pdf}%{pfs3D_CAPITAL.pdf}
   \caption{Euler equation errors for model with capital}    
   \end{figure}
 
 \subsection{Euler Equation Errors} \hyperlink{Figure 3}{Figure 3} shows the distribution of the absolute value of the Euler equation errors in base 10 logarithms for the household FOC bond, FOC capital, FOC investment, and price Phillips curve in the model with capital. We also report the mean and maximum error. %The corresponding results for the model without capital is reported in \hyperlink{Appendix C}{Appendix C}.
 
-The Euler equation errors are very similar between solution algorithm, though the ART
-Euler equation errors are slightly more negative, and thus correspond to a smaller household error.
-The mean errors are similar, though the GHLS maximum errors are larger. The shapes of the errors are comparable.
+The Euler equation errors are comparable between solution algorithms. The household FOC bond and the price Phillips curve are slightly more negative thought the Euler equation errors are slightly more negative in general, and thus correspond to a smaller household error. The shapes of the errors are similar. %though the ART
+%Euler equation errors are slightly more negative, and thus correspond to a smaller household error.
+%The mean errors are similar, though the GHLS maximum errors are larger.
 
-For the model without capital, GHLS performs slightly better.
 
 \begin{figure}[H]
 \hypertarget{Figure 4}  
@@ -395,7 +393,8 @@ For the model without capital, GHLS performs slightly better.
   \end{figure}
 
 \hyperlink{Figure 4}{Figure 4} shows the distribution of the absolute value of the Euler equation errors in base 10
-logarithms for the consumption Euler equation and the price Phillips curve. The mean and maximum Euler equations are comparable between algorithms, although GHLS has slightly smaller errors.
+logarithms for the consumption Euler equation and the price Phillips curve. The mean and maximum Euler equations are comparable between algorithms, although GHLS has slightly smaller errors. Unlike the model with capital, GHLS performs better. 
+
 
 \section[Section 5]{Conclusion \hypertarget{Section 5}{}} 
 

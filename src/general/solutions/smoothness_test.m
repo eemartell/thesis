@@ -156,11 +156,11 @@ ylabel('Risk premium','FontSize',9)
 zlabel('Labor','FontSize',9)
 title(label{i},'FontSize',10)
 [az, el] = view;
-view(az+90-25,el-20)
+view(az+90-25,el-15)
 % view(az-90,el-10)
 %view(-37.5-90,30-10)
-text(0.999,1.011,.385,['mean % err: ',num2str(meanperc_err{i},'%.6f'),'%'])
-text(0.999,1.011,.375,'Black dots: ZLB')
+text(0.999,1.013,.385,['mean % err: ',num2str(meanperc_err{i},'%.6f'),'%'])
+text(0.999,1.013,.375,'Black dots: ZLB')
 end
 
 saving = 'on';

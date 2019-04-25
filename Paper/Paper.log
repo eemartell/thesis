@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  12 APR 2019 16:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.26)  21 APR 2019 22:04
 entering extended mode
 **./Paper.tex
 (Paper.tex
@@ -597,53 +597,109 @@ Underfull \hbox (badness 10000) in paragraph at lines 161--163
  []
 
 [6] [7]
+
+LaTeX Warning: Reference `eq:16' on page 8 undefined on input line 215.
+
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 238.
 
- (C:\Users\Test\Desktop\Laytech\tex\latex\psnfss\ot1pcr.fd
+(C:\Users\Test\Desktop\Laytech\tex\latex\psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [8] [9]
-<pfs3DCAP.pdf, id=242, 614.295pt x 320.54454pt>
+) [8]
+
+LaTeX Warning: Reference `eq:18' on page 9 undefined on input line 243.
+
+
+LaTeX Warning: Reference `eq:19' on page 9 undefined on input line 243.
+
+
+LaTeX Warning: Reference `eq:20' on page 9 undefined on input line 244.
+
+
+LaTeX Warning: Reference `eq:24' on page 9 undefined on input line 244.
+
+[9] <pfs3DCAP.pdf, id=239, 542.025pt x 277.035pt>
 File: pfs3DCAP.pdf Graphic file (type pdf)
  <use pfs3DCAP.pdf>
 Package pdftex.def Info: pfs3DCAP.pdf used on input line 297.
-(pdftex.def)             Requested size: 614.29349pt x 320.54375pt.
+(pdftex.def)             Requested size: 542.02367pt x 277.03432pt.
 
-Overfull \hbox (21.06299pt too wide) in paragraph at lines 297--298
+Overfull \hbox (21.07347pt too wide) in paragraph at lines 297--298
  [][] 
  []
 
-[10] <pfs3D.pdf, id=251, 508.90125pt x 277.035pt>
+[10] <pfs3D.pdf, id=248, 508.90125pt x 277.035pt>
 File: pfs3D.pdf Graphic file (type pdf)
  <use pfs3D.pdf>
-Package pdftex.def Info: pfs3D.pdf used on input line 317.
+Package pdftex.def Info: pfs3D.pdf used on input line 316.
 (pdftex.def)             Requested size: 458.0069pt x 249.3292pt.
  [11 <./pfs3DCAP.pdf>]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 364.
- [12 <./pfs3D.pdf>] <eeerrorsCAP.pdf, id=367, 614.295pt x 317.56744pt>
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 363.
+ [12 <./pfs3D.pdf>]
+<eeerrorsCAP.pdf, id=281, 592.2125pt x 280.04625pt>
 File: eeerrorsCAP.pdf Graphic file (type pdf)
+ <use eeerrorsCAP.pdf>
+Package pdftex.def Info: eeerrorsCAP.pdf used on input line 376.
+(pdftex.def)             Requested size: 473.77063pt x 224.0373pt.
 
-<use eeerrorsCAP.pdf>
-Package pdftex.def Info: eeerrorsCAP.pdf used on input line 377.
-(pdftex.def)             Requested size: 491.43666pt x 254.05428pt.
- <eeerrors.pdf, id=369, 310.15875pt x 209.78375pt>
+<eeerrors.pdf, id=283, 310.15875pt x 209.78375pt>
 File: eeerrors.pdf Graphic file (type pdf)
-
-<use eeerrors.pdf>
-Package pdftex.def Info: eeerrors.pdf used on input line 393.
+ <use eeerrors.pdf>
+Package pdftex.def Info: eeerrors.pdf used on input line 391.
 (pdftex.def)             Requested size: 310.15799pt x 209.78322pt.
  [13 <./eeerrorsCAP.pdf>] [14 <./eeerrors.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 428--430
+
+LaTeX Warning: Reference `eq:1' on page 15 undefined on input line 408.
+
+
+LaTeX Warning: Reference `eq:6' on page 15 undefined on input line 408.
+
+
+LaTeX Warning: Reference `eq:15' on page 15 undefined on input line 408.
+
+
+LaTeX Warning: Reference `eq:16' on page 15 undefined on input line 408.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 427--429
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 436--438
+LaTeX Warning: Reference `eq:1' on page 15 undefined on input line 430.
+
+
+LaTeX Warning: Reference `eq:6' on page 15 undefined on input line 430.
+
+
+LaTeX Warning: Reference `eq:15' on page 15 undefined on input line 430.
+
+
+LaTeX Warning: Reference `eq:16' on page 15 undefined on input line 430.
+
+
+LaTeX Warning: Reference `eq:m1' on page 15 undefined on input line 430.
+
+
+LaTeX Warning: Reference `eq:m2' on page 15 undefined on input line 430.
+
+
+LaTeX Warning: Reference `eq:m3' on page 15 undefined on input line 430.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 435--437
 
  []
 
 [15]
-Overfull \hbox (1.1384pt too wide) in paragraph at lines 448--449
+
+LaTeX Warning: Reference `eq:18' on page 16 undefined on input line 447.
+
+
+LaTeX Warning: Reference `eq:19' on page 16 undefined on input line 447.
+
+
+Overfull \hbox (1.1384pt too wide) in paragraph at lines 447--448
 \OT1/ptm/m/n/12 ($[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m/n/12 ) \OMS
 /cmsy/m/n/12  \OT1/cmr/m/n/12 [[]\OML/cmm/m/it/12 []\OT1/cmr/m/n/12 ([][])\OM
 L/cmm/m/it/12 ; n[]\OT1/cmr/m/n/12 ([][])\OML/cmm/m/it/12 ; q[]\OT1/cmr/m/n/12 
@@ -654,6 +710,12 @@ odel with cap-i-tal and $[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 d\OT1/cmr/m/n/12
  []
 
 [16]
+
+LaTeX Warning: Reference `eq:20' on page 17 undefined on input line 465.
+
+
+LaTeX Warning: Reference `eq:21' on page 17 undefined on input line 465.
+
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no œ in font ptmr7t!
@@ -685,7 +747,7 @@ Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
 
-Overfull \hbox (19.74301pt too wide) in paragraph at lines 488--490
+Overfull \hbox (19.74301pt too wide) in paragraph at lines 487--489
 []\OT1/ptm/m/sc/12 Ferna[]ndez-Villaverde, J., G. Gor-don, P. Guerro[]n-Quintan
 a, and J. F. Rubio-Rami[]rez
  []
@@ -772,24 +834,31 @@ Missing character: There is no œ in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no  in font ptmr7t!
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 536.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 535.
  [18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 536.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 535.
  (Paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 536.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 536.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 535.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 535.
 Package rerunfilecheck Info: File `Paper.out' has not changed.
 (rerunfilecheck)             Checksum: 1E880382314A1014C886503160198D1B;1014.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 536.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 535.
  ) 
 Here is how much of TeX's memory you used:
  9914 strings out of 493323
  144607 string characters out of 3138232
- 260406 words of memory out of 3000000
+ 259449 words of memory out of 3000000
  13140 multiletter control sequences out of 15000+200000
  34717 words of font info for 88 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,17n,61p,1481b,559s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,17n,61p,1463b,561s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{RTW} has been referenced but does not exist, repl
 aced by a fixed one
 
@@ -809,13 +878,12 @@ C:/Users/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/User
 s/Test/Desktop/Laytech/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Test/
 Desktop/Laytech/fonts/type1/public/doublestroke/dsrom12.pfb><C:/Users/Test/Desk
 top/Laytech/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Test/Desktop/Laytech/f
-onts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/u
-rw/helvetic/uhvr8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/urw/times/utm
-b8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/urw/times/utmr8a.pfb><C:/Use
-rs/Test/Desktop/Laytech/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Paper.pdf (18 pages, 535303 bytes).
+onts/type1/urw/times/utmb8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/urw/
+times/utmr8a.pfb><C:/Users/Test/Desktop/Laytech/fonts/type1/urw/times/utmri8a.p
+fb>
+Output written on Paper.pdf (18 pages, 408745 bytes).
 PDF statistics:
- 630 PDF objects out of 1000 (max. 8388607)
+ 448 PDF objects out of 1000 (max. 8388607)
  131 named destinations out of 1000 (max. 500000)
  149 words of extra memory for PDF output out of 10000 (max. 10000000)
 
