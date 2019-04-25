@@ -107,10 +107,10 @@
 \begin{frame}\frametitle{Introduction}
 
 \begin{itemize}\setlength{\itemsep}{7pt}
-  \item  As a result of the global financial crisis of 2007-9 and the subsequent recession, central banks lowered their policy rate to its zero lower bound (ZLB)
-  \item  The ZLB now holds for a significant portion of historic data for the US, Japan, and the Euro Area
-  \item  The ZLB introduces a kink in the central bank's policy rule and calls into question linear estimation methods
-  \item  Responses in the literature to this nonlinearity include:
+  \item <1-|handout:1>As a result of the global financial crisis of 2007-9 and the subsequent recession, central banks lowered their policy rate to its zero lower bound (ZLB)
+  \item  <2-|handout:1>The ZLB now holds for a significant portion of historic data for the US, Japan, and the Euro Area
+  \item  <3-|handout:1>The ZLB introduces a kink in the central bank's policy rule and calls into question linear estimation methods
+  \item <4-|handout:1> Responses in the literature to this nonlinearity include:
   %\item This paper:
   \begin{enumerate}\setlength{\itemsep}{4pt}
 	\item  Failing to incorporate ZLB period data
@@ -125,9 +125,9 @@
 
 \begin{frame}\frametitle{Nonlinear Solution Methods}
 \begin{itemize}\setlength{\itemsep}{10pt}
-	\item  As it is important to incorporate all historical data and yield acurate parameter values and predictions, the path forward seems to be in fully nonlinear models
-	\item Solving nonlinear models with projection methods (e.g. Aruoba et al., 2018; Ferna\'ndez-Villaverde et al., 2015).
-	\item  Researchers have used different methods for solving fully nonlinear models:
+	\item  <1-|handout:1>As it is important to incorporate all historical data and yield acurate parameter values and predictions, the path forward seems to be in fully nonlinear models
+	\item <2-|handout:1>Solving nonlinear models with projection methods (e.g. Aruoba et al., 2018; Ferna\'ndez-Villaverde et al., 2015).
+	\item  <3-|handout:1>Researchers have used different methods for solving fully nonlinear models:
 	\begin{enumerate} \setlength{\itemsep}{4pt}
 		\item  Policy function iteration with linear interpolation (e.g., Plante et al., 2018; Richter and Throckmorton, 2016).
 		\item  Alternate approximating functions: regime-indexed policy functions (Gust et al., 2017), piecewise smooth policy functions (Aruoba et al. 2018)
@@ -150,19 +150,19 @@
 \end{tabularx}
 \end{table}\normalsize
 \begin{itemize}\setlength{\itemsep}{10pt}
-\item  Evenly-spaced grid points work well with linear interpolation
-\item  The Smolyak method is optimal for Chebyshev polynomials
-\item  The Rouwenhorst (1995) method improves approximation on exogenous dimensions when the driving processes are autoregressive
+\item  <2-|handout:1>Evenly-spaced grid points work well with linear interpolation
+\item  <3-|handout:1>The Smolyak method is optimal for Chebyshev polynomials
+\item  <4-|handout:1>The Rouwenhorst (1995) method improves approximation on exogenous dimensions when the driving processes are autoregressive
 \end{itemize}
 
 \end{frame}
 %=========================================================================
 \begin{frame}\frametitle{Atkinson et al.\ (2019)}
 \begin{itemize}\setlength{\itemsep}{10pt}
-\item  Time iteration with linear interpolation
-\item Directly approximates policy functions
-\item  State space features evenly-spaced nodes
-\item  Exogenous variables are approximated with the Markov chain from Rouwenhorst (1995)
+\item <1-|handout:1> Time iteration with linear interpolation
+\item <2-|handout:1>Directly approximates policy functions
+\item <3-|handout:1> State space features evenly-spaced nodes
+\item<4-|handout:1>  Exogenous variables are approximated with the Markov chain from Rouwenhorst (1995)
   \begin{itemize}\setlength{\itemsep}{4pt}
 \item Only requires interpolation along the dimensions of the endogenous state variables
 \end{itemize}
@@ -171,41 +171,41 @@
 %=========================================================================
 \begin{frame}\frametitle{Gust et al.\ (2017)}
 \begin{itemize}\setlength{\itemsep}{6pt}
-\item  Approximates policy functions using an antistropic Smolyak method with Chebyshev polynomials
-\item  Approximates exogenous state variables using Gauss-Hermite quadrature%why if we know Rouwenhorst is better?
-\item  Instead of directly computing the policy functions, they estimate functions at and away from the ZLB, building on Christiano and Fisher (2000)
+\item  <1-|handout:1>Approximates policy functions using an antistropic Smolyak method with Chebyshev polynomials
+\item  <2-|handout:1>Approximates exogenous state variables using Gauss-Hermite quadrature%why if we know Rouwenhorst is better?
+\item  <3-|handout:1>Instead of directly computing the policy functions, they estimate functions at and away from the ZLB, building on Christiano and Fisher (2000)
   \begin{itemize}\setlength{\itemsep}{4pt}
 \item  Policy functions feature a kink or non-differentiability at the ZLB and regime-indexing the policy functions will yield smoother functions
-\item  Low-order Chebyshev polynomials perform better on smoother functions and are inexpensive to compute
+\item Low-order Chebyshev polynomials perform better on smoother functions and are inexpensive to compute
 \end{itemize}
 \end{itemize}
 \end{frame}
 %=========================================================================
 \begin{frame}\frametitle{This Project}
 \begin{itemize}\setlength{\itemsep}{8pt}
-\item  In this project, we consider how splitting up the policy functions conditional on the ZLB impacts the speed and accuracy of the solution of a nonlinear model
-\item  We use policy function iteration on a fixed point with linear interpolation
-\item  Atkinson et al.\ (2019) provides the motivation for a single policy function;  Gust et al.\ (2017) provides the motivation for a regime-indexed policy function
-\item  Solution algorithm based on Atkinson et al.\ (2019) denoted henceforth as ART; solution algorithm based on Gust et al.\ (2017) denoted henceforth as GHLS
+\item  <1-|handout:1>In this project, we consider how splitting up the policy functions conditional on the ZLB impacts the speed and accuracy of the solution of a nonlinear model
+\item  <2-|handout:1>We use policy function iteration on a fixed point with linear interpolation
+\item  <3-|handout:1>Atkinson et al.\ (2019) provides the motivation for a single policy function;  Gust et al.\ (2017) provides the motivation for a regime-indexed policy function
+\item <4-|handout:1> Solution algorithm based on Atkinson et al.\ (2019) denoted henceforth as ART; solution algorithm based on Gust et al.\ (2017) denoted henceforth as GHLS
 \end{itemize}
 \end{frame}
 %=========================================================================
 \begin{frame}\frametitle{Our Solution Algorithm} %NEED TO PUT SOME ABOUT GHLS?
 \begin{itemize}\setlength{\itemsep}{8pt}
-\item   Construct the state space with evenly-spaced nodes and approximate exogenous state variables with Rouwenhorst (1995)
-\item  Obtain initial conjectures for a set of policy functions from the log-linear solution
-\item  Using a fixed point iteration scheme, linearly interpolate and numerically integrate the policy functions each step
+\item   <1-|handout:1>Construct the state space with evenly-spaced nodes and approximate exogenous state variables with Rouwenhorst (1995)
+\item  <2-|handout:1>Obtain initial conjectures for a set of policy functions from the log-linear solution
+\item  <3-|handout:1>Using a fixed point iteration scheme, linearly interpolate and numerically integrate the policy functions each step
 \begin{itemize}
-\item  For ART portion, we update a single policy function, and for the GHLS portion we update regime-indexed policy functions
+\item For ART portion, we update a single policy function, and for the GHLS portion we update regime-indexed policy functions
 \end{itemize}
-\item  The algorithm converges once the maximum distance between successive guesses of policy functions falls below a convergence criterion
+\item <5-|handout:1> The algorithm converges once the maximum distance between successive guesses of policy functions falls below a convergence criterion
 
 \end{itemize}
 \end{frame}
 %=========================================================================
 \begin{frame}\frametitle{Motivation for Regime-Indexed Policy Functions}
 \begin{itemize}\setlength{\itemsep}{6pt}
-\item  The interest rate enters directly in the consumption Euler equation
+\item  <1-|handout:1>The interest rate enters directly in the consumption Euler equation
 \begin{gather*}
 1 =  E_t[\beta(c_t/c_{t+1})(s_ti_t/\pi_t)],
 \end{gather*}
@@ -214,14 +214,14 @@ where $E_t$ is the expectation operator, $0 < \beta < 1$ is the discount factor,
 \item $\beta(c_t/c_{t+1})$ is a stochastic discount factor used to value future real income
 \item $s_ti_t/\pi_t$ is a real interest rate on a one-period bond
 \end{itemize}\normalfont
-\item  At the ZLB, the presence of the interest rate creates a nonlinearity in the consumption Euler equation 
-\item  $c_t$ depends directly on the interest rate
+\item <2-|handout:1> At the ZLB, the presence of the interest rate creates a nonlinearity in the consumption Euler equation 
+\item <3-|handout:1> $c_t$ depends directly on the interest rate
 \end{itemize}
 \end{frame}
 %=========================================================================
 \begin{frame}\frametitle{The Model (With Capital)}
 \begin{itemize}\setlength{\itemsep}{6pt}
-\item The households choose $\{c_t, n_t, b_t, x_t, k_t\}_{t=0}^\infty$ to maximize expected lifetime utility given by
+\item <1-|handout:1>The households choose $\{c_t, n_t, b_t, x_t, k_t\}_{t=0}^\infty$ to maximize expected lifetime utility given by
 \begin{gather*}
 E_0\sum_{t=0}^\infty\beta[\log(c_t-hc^a_{t-1}) - \chi n_t^{1+\eta}/(1+\eta)],
 \end{gather*} 
@@ -229,7 +229,7 @@ subject to their budget constraint
 \begin{gather*}
     c_t+x_t+b_t/(i_ts_t)=w_tn_t+r_t^kk_{t-1}+b_{t-1}/\pi_t+d_t.
   \end{gather*} 
-\item The nominal bond, $b$, is subject to a risk premium, $s$, that follows
+\item <2-|handout:1>The nominal bond, $b$, is subject to a risk premium, $s$, that follows
 \begin{gather*}
   s_t = (1-\rho_s)\bar{s} + \rho_ss_{t-1} + \sigma_s\varepsilon_{s,t},
 \end{gather*}
@@ -239,11 +239,11 @@ where $\bar{s}$ is the steady-state value. %An increase in $s_t$ boosts saving, 
 %=========================================================================
 \begin{frame}\frametitle{Households}
 \begin{itemize}\setlength{\itemsep}{8pt}
-\item Households also face an investment adjustment cost, so the law of motion for capital is given by
+\item <1-|handout:1>Households also face an investment adjustment cost, so the law of motion for capital is given by
 \begin{gather*}
   k_t = (1-\delta)k_{t-1} + x_t(1-\nu(x^g_t - 1)^2/2),\; 0 \leq \delta \leq 1.
   \end{gather*} %$x_t^g$ is investment growth relative to its steady-state and $\nu \geq 0$ scales the cost.
-\item The FOCs to each household's constrained optimization problem are
+\item <2-|handout:1>The FOCs to each household's constrained optimization problem are
 \scriptsize
 \begin{gather*}
   \lambda_t = c_t - hc^a_{t-1}, \\
@@ -259,13 +259,13 @@ where $\bar{s}$ is the steady-state value. %An increase in $s_t$ boosts saving, 
 %=========================================================================
 \begin{frame}\frametitle{Firms}
 \begin{itemize}\setlength{\itemsep}{8pt}
-\item The production sector consists of a continuum of monopolistically competitive intermediate goods firms and a final goods firm 
-\item Technology is $z_t = g_tz_{t-1}$, which is common across firms
-\item Deviations from the steady-state growth rate, $\bar{g}$, follow
+\item <1-|handout:1>The production sector consists of a continuum of monopolistically competitive intermediate goods firms and a final goods firm 
+\item <2-|handout:1>Technology is $z_t = g_tz_{t-1}$, which is common across firms
+\item <3-|handout:1>Deviations from the steady-state growth rate, $\bar{g}$, follow
 \begin{gather*}
   g_t = \bar{g} + \sigma_g\varepsilon_{g,t}.
 \end{gather*}
-\item In symmetric equilibrium, the optimality conditions reduce to
+\item <4-|handout:1>In symmetric equilibrium, the optimality conditions reduce to
 \scriptsize
 \begin{gather*}
   y_t = (k_{t-1})^\alpha(z_tn_t)^{1-\alpha},\\
@@ -279,37 +279,37 @@ where $\bar{s}$ is the steady-state value. %An increase in $s_t$ boosts saving, 
 %=========================================================================
 \begin{frame}\frametitle{Monetary Policy}
 \begin{itemize} \setlength{\itemsep}{14pt}
-\item
+\item <1-|handout:1>\ 
 The central bank sets the gross nominal interest rate, $i$, according to
 \begin{gather*}
     i_t=\max\{1,i_t^n\},\\
   i_t^n=(i^n_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi}(y^{gdp}_{t})^{\phi_y})^{1-\rho_i}\exp(\sigma_i\varepsilon_{i,t}). 
 \end{gather*}
 %where $y^{gdp}$ is real GDP (i.e., output, $y$, minus the resources lost due to adjustment costs, $adj^p$), $i^n$ is the gross notional interest rate, $\bar i$ and $\bar{\pi}$ are the target values of the inflation and nominal interest rates, and $\phi_\pi$ and $\phi_y$ are the responses to the inflation and output growth gaps. 
-\item A more negative net notional rate indicates that the central bank is more constrained
+\item <2-|handout:1>A more negative net notional rate indicates that the central bank is more constrained
 \end{itemize}
 \end{frame}
 
 %=========================================================================
 \begin{frame}\frametitle{Competitive Equilibrium}\setlength{\itemindent}{-1.2em}
 \begin{itemize} \setlength{\itemsep}{8pt}
-\item The aggregate resource constraint and real GDP definition are given by:
+\item <1-|handout:1>The aggregate resource constraint and real GDP definition are given by:
 \begin{gather*}
   c_t + x_t = y_t^{gdp}\\
   y_t^{gdp} = [1 - \varphi(\pi_t^{gap}-1)^2/2]y_t
 \end{gather*}
-\item The model does not have a steady-state due to the unit root in technology, $z_t$. Therefore, we define the variables with a trend in terms of technology (i.e., $\tilde{x}_t \equiv x_t/z_t$)
+\item <2-|handout:1>The model does not have a steady-state due to the unit root in technology, $z_t$. Therefore, we define the variables with a trend in terms of technology (i.e., $\tilde{x}_t \equiv x_t/z_t$)
 \end{itemize}
 \end{frame}
 %=========================================================================
 \begin{frame}\frametitle{Competitive Equilibrium}
 \begin{itemize} \setlength{\itemsep}{10pt}
-\item A competitive equilibrium consists of sequences of 
+\item <1-|handout:1>A competitive equilibrium consists of sequences of 
 \begin{enumerate} \setlength{\itemsep}{5pt}
 \item quantities, $\{\tilde{c}_t, \tilde{y}_t, \tilde{y}_t^{gdp}, x^g_t, y^g_t, n_t, \tilde{k}_t, \tilde{x}_t\}_{t=0}^\infty$ \item prices, $\{\tilde{w}_t, i_t, i^n_t, \pi_t, \tilde{\lambda}_t, q_t, r^k_t, mc_t\}_{t=0}^\infty$
 \item exogenous variables, $\{s_t,g_t\}_{t=0}^\infty$
 \end{enumerate}
-\item that satisfy the detrended equilibrium system, given 
+\item <2-|handout:1>that satisfy the detrended equilibrium system, given 
 \begin{enumerate}\setlength{\itemsep}{5pt}
 \item the initial conditions, $\{\tilde{c}_{-1}, i^n_{-1}, \tilde{k}_{-1}, \tilde{x}_{-1}, \tilde{w}_{-1}, s_0, g_0, \varepsilon_{i,0}\}$
 \item three sequences of shocks, $\{\varepsilon_{g,t}, \varepsilon_{s,t}, \varepsilon_{i,t}\}_{t=1}^\infty$
@@ -340,26 +340,26 @@ The central bank sets the gross nominal interest rate, $i$, according to
 \normalfont
 \end{table}
 \begin{itemize}\setlength{\itemsep}{8pt}
-\item Parameters are from Atkinson et al.\ (2019), and are chosen to be characteristic of U.S. data
-\item For the model without capital, $\rho_s = 0.006$ %To allow the GHLS algorithm to converge
+\item <2-|handout:1>Parameters are from Atkinson et al.\ (2019), and are chosen to be characteristic of U.S. data
+\item <3-|handout:1>For the model without capital, $\rho_s = 0.006$ %To allow the GHLS algorithm to converge
 \end{itemize}
 \end{frame}
 %===================================================================================
 \begin{frame}\frametitle{Discretized State Space (No Capital)}
 
 \begin{itemize}\setlength{\itemsep}{10pt}
-  \item State variables: $g_t$, $s_t$, $mp_t$, $i^n_{t-1}$
-  \item Number of grid points: $N_g$, $N_{s}$, $N_{mp}$, $N_{i^n}$
-  \item Grid boundaries: 
+  \item <1-|handout:1>State variables: $g_t$, $s_t$, $mp_t$, $i^n_{t-1}$
+  \item <2-|handout:1>Number of grid points: $N_g$, $N_{s}$, $N_{mp}$, $N_{i^n}$
+  \item <3-|handout:1>Grid boundaries: 
 \begin{center}
 $[g_{\min},g_{\max}]$, $[s_{\min},s_{\max}]$, $[mp_{\min},mp_{\max}]$, $[i^n_{\min},i^n_{\max}]$
 \end{center}
-  \item Create evenly spaced grids:
+  \item <4-|handout:1>Create evenly spaced grids:
   \begin{center}
     $x_{grid} = \texttt{linspace}(x_{\min},x_{\max},N_x), \quad x\in\{g,s,mp,i^n\}$
   \end{center}
-  \item State space contains $N=N_g\times N_s\times N_{mp}\times N_{i^n}$ nodes
-  \item Create an array for each state variable, where every position is a unique permutation of the state space:
+  \item <5-|handout:1>State space contains $N=N_g\times N_s\times N_{mp}\times N_{i^n}$ nodes
+  \item <6-|handout:1>Create an array for each state variable, where every position is a unique permutation of the state space:
   \begin{center}
     $[g_{gr},s_{gr},mp_{gr},i^n_{gr}] = \texttt{ndgrid}(g_{grid},s_{grid},mp_{grid},i^n_{grid})$
   \end{center}
@@ -371,12 +371,12 @@ $[g_{\min},g_{\max}]$, $[s_{\min},s_{\max}]$, $[mp_{\min},mp_{\max}]$, $[i^n_{\m
 \begin{frame}\frametitle{Functional Approximation}
 
 \begin{itemize}\setlength{\itemsep}{12pt}
-  \item True RE solution only exists in special cases %(e.g., $\delta=1$)
-  \item Goal: Find an approximating function that maps the state space to the optimal decision rule for consumption:
+  \item <1-|handout:1>True RE solution only exists in special cases %(e.g., $\delta=1$)
+  \item <2-|handout:1>Goal: Find an approximating function that maps the state space to the optimal decision rule for consumption:
   \begin{gather*}
     \underbrace{c(g,s,mp,i^n)}_{\textrm{True RE Solution}} \approx \underbrace{{\cal{P}}_c(g,s,mp,i^n)}_{\textrm{Approximating Function}}
   \end{gather*}
-  \item Basic elements of the algorithm:
+  \item <3-|handout:1>Basic elements of the algorithm:
   \begin{enumerate}\setlength{\itemsep}{6pt}
     \item Interpolation: Linear, Chebyshev polynomials %Leasst Squares
     \item Integration: Rouwenhorst, Gauss-Hermite %Trapezoid, 
@@ -391,14 +391,14 @@ $[g_{\min},g_{\max}]$, $[s_{\min},s_{\max}]$, $[mp_{\min},mp_{\max}]$, $[i^n_{\m
 \begin{frame}\frametitle{Local Approximation}
 
 \begin{itemize}\setlength{\itemsep}{8pt}
-  \item Piecewise Linear Interpolation: 4 state variables $(g,s,mp,i^n)$
-  \item Goal: Find the policy function value ${\cal{P}}_c(g',s',mp',{i^n}')$
-  \item We have policy function values on nearest 24 nodes
+  \item <1-|handout:1>Piecewise Linear Interpolation: 4 state variables $(g,s,mp,i^n)$
+  \item <2-|handout:1>Goal: Find the policy function value ${\cal{P}}_c(g',s',mp',{i^n}')$
+  \item <3-|handout:1>We have policy function values on nearest 24 nodes
   \begin{gather*}
    [{\cal{P}}_c(g_i,s_j,mp_k,i^n_l), {\cal{P}}_c(g_i,s_j,mp_k,i^n_{l+1}), {\cal{P}}_c(g_i,s_j,mp_{k+1},i^n_l), \\ \dots, {\cal{P}}_c(g_{i+1},s_{j+1},mp_{k+1},i^n_{l+1})]
   \end{gather*}
   once we determine the grid indices, $i,j,k,l$
-  \item Locate the grid point left of $x'$, $x \in \{g,s,mp,i^n\}$ %nearest point to the left
+\item   <4-|handout:1>Locate the grid point left of $x'$, $x \in \{g,s,mp,i^n\}$ %nearest point to the left
    \begin{gather*}
     \textrm{step} = x_2 - x_1, \qquad \textrm{dist} = x' - x_1\\
     \textrm{loc} = \min(N_x-1,\max(1,\operatorname{floor}(\textrm{dist}/\textrm{step}) + 1))
@@ -412,12 +412,12 @@ $[g_{\min},g_{\max}]$, $[s_{\min},s_{\max}]$, $[mp_{\min},mp_{\max}]$, $[i^n_{\m
 \begin{frame}\frametitle{Global Approximation}
 
 \begin{itemize}\setlength{\itemsep}{10pt}
-  \item A general class of polynomials can be written as:
+  \item <1-|handout:1>A general class of polynomials can be written as:
   \begin{gather*}
   {\cal{P}}(x;\eta) = \sum_{i=0}^n\eta_i\varphi_i(x).
   \end{gather*}
-  \item Linear interpolation is a special case of this general class (i.e., $n=1$, $\varphi_i(x)=x^i$, and weights chosen appropriately)
-  \item Can also use bases consisting of orthogonal polynomials (e.g., Chebyshev Polynomials)
+  \item <2-|handout:1>Linear interpolation is a special case of this general class (i.e., $n=1$, $\varphi_i(x)=x^i$, and weights chosen appropriately)
+  \item <3-|handout:1>Can also use bases consisting of orthogonal polynomials (e.g., Chebyshev Polynomials)
 \end{itemize}
 
 \end{frame}
@@ -426,9 +426,9 @@ $[g_{\min},g_{\max}]$, $[s_{\min},s_{\max}]$, $[mp_{\min},mp_{\max}]$, $[i^n_{\m
 \begin{frame}\frametitle{Solving the Model}
 
 \begin{enumerate}\setlength{\itemsep}{10pt}
-  \item Calculate $z(s')$ for each realization of the state
-  \item Find the updated policy function, $n(s')$, for each state
-  \item Numerical Integration:
+  \item <1-|handout:1>Calculate $z(s')$ for each realization of the state
+  \item <2-|handout:1>Find the updated policy function, $n(s')$, for each state
+  \item <3-|handout:1>Numerical Integration:
   \begin{itemize}\setlength{\itemsep}{5pt}
     \item First integrate across the continuous random variable, $z$, conditional on the future realizations of the discrete stochastic variable, $s'$.%, to obtain:
         %\begin{gather*}
@@ -448,15 +448,15 @@ $[g_{\min},g_{\max}]$, $[s_{\min},s_{\max}]$, $[mp_{\min},mp_{\max}]$, $[i^n_{\m
 \begin{frame}\frametitle{Rouwenhorst Method}
 
 \begin{itemize}\setlength{\itemsep}{8pt}
-  \item Used to approximate an exogenous $AR(1)$ process
-  \item Kopecky and Suen (2010) show the Rouwenhorst method outperforms other approximations of an $AR(1)$ process
-  \item The approximation is a Markov switching process like the time-varying intercept example, but with $n$ states
-  \item The method determines the bounds of the exogenous state variables, the nodes, and the transition probabilities
-  \item Let $z\sim AR(1)$ with persistence $\rho$, mean $\mu_z$, and variance %Idea for approximation of an AR(1) process
+  \item<1-|handout:1> Used to approximate an exogenous $AR(1)$ process
+  \item <2-|handout:1>Kopecky and Suen (2010) show the Rouwenhorst method outperforms other approximations of an $AR(1)$ process
+  \item <3-|handout:1>The approximation is a Markov switching process like the time-varying intercept example, but with $n$ states
+  \item <4-|handout:1>The method determines the bounds of the exogenous state variables, the nodes, and the transition probabilities
+  \item <5-|handout:1>Let $z\sim AR(1)$ with persistence $\rho$, mean $\mu_z$, and variance %Idea for approximation of an AR(1) process
   \begin{gather*}
     \sigma_z^2 = \sigma_\varepsilon^2/(1-\rho^2).
   \end{gather*}
-  \item The $n$ states for the discretized process $z$ are evenly spaced on $[\mu_z-\sigma_z\sqrt{n-1},\mu_z+\sigma_z\sqrt{n-1}]$
+  \item   <6-|handout:1>The $n$ states for the discretized process $z$ are evenly spaced on $[\mu_z-\sigma_z\sqrt{n-1},\mu_z+\sigma_z\sqrt{n-1}]$
 \end{itemize}
 
 \end{frame}
@@ -465,8 +465,8 @@ $[g_{\min},g_{\max}]$, $[s_{\min},s_{\max}]$, $[mp_{\min},mp_{\max}]$, $[i^n_{\m
 
 \begin{frame}\frametitle{Regime-Indexed Policy Functions}
 \begin{itemize}\setlength{\itemsep}{10pt}
-\item Let the vector of policy functions at time $t$ be denoted $\textbf{pf}_t$ and the realization on node $d$ be denoted $\textbf{pf}_t(d)$
-\item The regime-indexed policy functions are as follows: 
+\item <1-|handout:1>Let the vector of policy functions at time $t$ be denoted $\textbf{pf}_t$ and the realization on node $d$ be denoted $\textbf{pf}_t(d)$
+\item <2-|handout:1>The regime-indexed policy functions are as follows: 
 \begin{gather*}
   \textbf{pf}_t(d) = \textbf{pf}_{t,1}(d)\mathds{I}_t(d) + \textbf{pf}_{t,2}(d)(1-\mathds{I}_t(d)),
 \end{gather*}
@@ -499,15 +499,15 @@ R_{t,2,j} = q_t - \beta E_t[(\lambda_t/\lambda_{t+1})(r^k_{t+1}+(1-\delta)q_{t+1
  Construct an evenly-spaced grid using the Rouwenhorst method. Denote the vector of states $\textbf{z}_t$. % by discretizing the endogenous state variables and using \hyperlink{Rouwenhorst}{\color{black}{Rouwenhorst (1995)}} method to approximate the exogenous processes for $s_t$, $g_t$, and $\varepsilon_{i,t}$.
 \begin{itemize}\setlength{\itemsep}{8pt}
 
-\item Solve the linear model using Sims's (2002) \texttt{gensys} algorithm. 
-\item Solve the nonlinear model using fixed point iteration. For each node in the state space $d \in \{1,\dots,D\}:$
+\item <2-|handout:1>Solve the linear model using Sims's (2002) \texttt{gensys} algorithm. 
+\item <3-|handout:1>Solve the nonlinear model using fixed point iteration. For each node in the state space $d \in \{1,\dots,D\}:$
 \begin{enumerate}\setlength{\itemsep}{2pt}
-\item Solve for the variables dated at time $t$ given $\textbf{pf}_t$ and $\textbf{z}_t$. %For GHLS, if $i_t > 1$, update time $t$ variables with non-ZLB policy functions; if $i_t \leq 1$, update time $t$ variables with ZLB policy functions.
-\item  Linearly interpolate the policy functions at the updated state variables $\textbf{z}_{t+1}$ to obtain $\textbf{pf}_{t+1}(m)$ on every integration node $m \in \{1,\dots,M\}$.% For GHLS, interpolate both non-ZLB and ZLB policy functions.
-\item Given the interpolated policy functions $\{\textbf{pf}(m)\}_{m=1}^M$, and integration nodes and weights provided by the Rouwenhorst method, approximate the expectation operators for the model. %For GHLS, determine whether the model is at the ZLB at each node, and construct the policy function grids according to .
-\item Back out the policy functions $\textbf{pf}_t(d)$ from the expectation operators and time $t+1$ variables. %For GHLS, solve for regime-indexed polynomials based on 
+\item <4-|handout:1>Solve for the variables dated at time $t$ given $\textbf{pf}_t$ and $\textbf{z}_t$. %For GHLS, if $i_t > 1$, update time $t$ variables with non-ZLB policy functions; if $i_t \leq 1$, update time $t$ variables with ZLB policy functions.
+\item  <5-|handout:1>Linearly interpolate the policy functions at the updated state variables $\textbf{z}_{t+1}$ to obtain $\textbf{pf}_{t+1}(m)$ on every integration node $m \in \{1,\dots,M\}$.% For GHLS, interpolate both non-ZLB and ZLB policy functions.
+\item <6-|handout:1>Given the interpolated policy functions $\{\textbf{pf}(m)\}_{m=1}^M$, and integration nodes and weights provided by the Rouwenhorst method, approximate the expectation operators for the model. %For GHLS, determine whether the model is at the ZLB at each node, and construct the policy function grids according to .
+\item <7-|handout:1>Back out the policy functions $\textbf{pf}_t(d)$ from the expectation operators and time $t+1$ variables. %For GHLS, solve for regime-indexed polynomials based on 
 \end{enumerate}
-\item Repeat step 2 until the maximum distance between successive approximations of the policy functions is below $10^{-6}$. 
+\item <8-|handout:1>Repeat step 2 until the maximum distance between successive approximations of the policy functions is below $10^{-6}$. 
 \end{itemize}
 \end{frame}
 
@@ -515,13 +515,13 @@ R_{t,2,j} = q_t - \beta E_t[(\lambda_t/\lambda_{t+1})(r^k_{t+1}+(1-\delta)q_{t+1
 \begin{frame}\frametitle{Euler Equation Errors}
 \begin{itemize}\setlength{\itemsep}{8pt}
 %We use Euler equation errors to measure the accuracy of our solutions.
-\item Measure of solution accuracy
-\item To approximate errors between nodes, we use Gauss-Hermite quadrature instead of the Rouwenhorst method %to allow exogenous variables to have realizations between grid points. 
-\item The Euler equation errors are represented in absolute value of the errors in base 10 logarithms
+\item <1-|handout:1>Measure of solution accuracy
+\item <2-|handout:1>To approximate errors between nodes, we use Gauss-Hermite quadrature instead of the Rouwenhorst method %to allow exogenous variables to have realizations between grid points. 
+\item <3-|handout:1>The Euler equation errors are represented in absolute value of the errors in base 10 logarithms
 \begin{itemize}\setlength{\itemsep}{2pt}
 \item An Euler equation error of -3 means the household makes an error equivalent to one per 1,000 consumption goods
 \end{itemize}
-\item Obtaining Euler equation errors:
+\item <4-|handout:1>Obtaining Euler equation errors:
 \begin{itemize}\setlength{\itemsep}{2pt}
 \item Simulate 10,000 periods of the model using the nonlinear solution with random shocks 
 \item Follow one iteration of step 2 of our solution algorithm and transform the residuals to Euler equation errors
@@ -535,8 +535,8 @@ R_{t,2,j} = q_t - \beta E_t[(\lambda_t/\lambda_{t+1})(r^k_{t+1}+(1-\delta)q_{t+1
 \begin{frame}\frametitle{Parallel Processing in Matlab}
 
 \begin{itemize}\setlength{\itemsep}{14pt}
-  \item Any calculations that are not dependent on the results of other calculations can be performed in parallel (e.g., solving for policy values at each node in the state space)
-  \item We replace \texttt{for} loops with \texttt{parfor} loops where applicable. This tells MATLAB to distribute each step in the loop across the specified number of processors
+  \item <1-|handout:1>Any calculations that are not dependent on the results of other calculations can be performed in parallel (e.g., solving for policy values at each node in the state space)
+  \item <2-|handout:1>We replace \texttt{for} loops with \texttt{parfor} loops where applicable. This tells MATLAB to distribute each step in the loop across the specified number of processors
 \end{itemize}
 
 \end{frame}
@@ -561,9 +561,9 @@ R_{t,2,j} = q_t - \beta E_t[(\lambda_t/\lambda_{t+1})(r^k_{t+1}+(1-\delta)q_{t+1
   \caption{Solution times}
 \end{table}
 \begin{itemize}\setlength{\itemsep}{10pt}
-\item The solution times
+\item <1-|handout:1>The solution times
 were computed with multi-core processing using the Parallel Computing Toolbox
-\item We implemented the interpolation steps of the algorithm in Fortran with MATLAB
+\item<2-|handout:1> We implemented the interpolation steps of the algorithm in Fortran with MATLAB
 executable functions (MEX) provided in the companion toolbox to \hyperlink{RTW}{\color{black}{Richter et al. (2014)}} %This may be due to the following: The GHLS solution algorithm has a labor policy (consumption policy for model without capital) both at and away from the ZLB. As a result, the solution algorithm requires an additional interpolation step. In addition, the GHLS solution algorithm must determine at which nodes the state space is at the ZLB, and solve for time $t$ and $t + 1$ variables accordingly.
 \end{itemize}
 \end{frame}
@@ -600,9 +600,9 @@ executable functions (MEX) provided in the companion toolbox to \hyperlink{RTW}{
   \caption{Smoothness measures for labor policy functions ($c$ for model with capital and $n$ for model with capital). GHLS combined policy functions are reported.}
 \end{table} 
  \begin{itemize}\setlength{\itemsep}{8pt}
-\item RMSE (root mean square error)
-\item Mean percent error from linear policy functions
-\item  GHLS smoother for model without capital; ART smoother for model with capital
+\item <1-|handout:1>RMSE (root mean square error)
+\item <2-|handout:1>Mean percent error from linear policy functions
+\item  <3-|handout:1>GHLS smoother for model without capital; ART smoother for model with capital
 \end{itemize}
 \end{frame}
 %===================================================================================
@@ -642,12 +642,12 @@ executable functions (MEX) provided in the companion toolbox to \hyperlink{RTW}{
 %===================================================================================
 \begin{frame}\frametitle{Conclusion}
 \begin{itemize}\setlength{\itemsep}{8pt}
-\item During the Great Recession, policy rates hit zero, calling into question traditional solution methods
-\item There is a literature in solving nonlinear models, but not much work comparing nonlinear solution methods
-\item This paper discusses the impact of regime-indexing the policy functions on a nonlinear solution algorithm
+\item <1-|handout:1>During the Great Recession, policy rates hit zero, calling into question traditional solution methods
+\item <2-|handout:1>There is a literature in solving nonlinear models, but not much work comparing nonlinear solution methods
+\item <3-|handout:1>This paper discusses the impact of regime-indexing the policy functions on a nonlinear solution algorithm
 \begin{enumerate}\setlength{\itemsep}{4pt}
-\item Motivation for directly approximating the policy functions from Atkinson et al.\ (2019)
-\item Motivation for regime-indexing the policy functions from Gust et al.\ (2017). They claim that regime-indexed policy functions are smoother and easier to approximate
+\item Example of directly approximating the policy functions from Atkinson et al.\ (2019)
+\item Example of for regime-indexing the policy functions from Gust et al.\ (2017). They claim that regime-indexed policy functions are smoother and easier to approximate
 \end{enumerate}
 
 \end{itemize}
@@ -656,12 +656,12 @@ executable functions (MEX) provided in the companion toolbox to \hyperlink{RTW}{
 %===============================================================================================================
 \begin{frame}\frametitle{Conclusion}
 \begin{itemize}\setlength{\itemsep}{10pt}
-\item Key takeaways:
+\item <1-|handout:1>Key takeaways:
 \begin{itemize}\setlength{\itemsep}{4pt}
 \item In the model without capital, regime-indexed policy functions were smoother and solution algorithm was faster
 \item In model with capital,  the regime-indexed policy functions were more nonlinear and solution algorithm was slower
 \end{itemize}
-\item Extensions:
+\item <2-|handout:1>Extensions:
 \begin{itemize}\setlength{\itemsep}{4pt}
 \item Solve the GHLS solution method using Smolyak discretization methods and Chebyshev polynomials 
 \item This would be expected to speed up the solution algorithm, but may lead to a less accurate solution
