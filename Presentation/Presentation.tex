@@ -1,4 +1,4 @@
-%\documentclass[handout, bigger]{beamer} %For Handouts
+%\documentclass[handout, 11pt]{beamer} %For Handouts
 \documentclass[11pt]{beamer}
 \usetheme{Singapore}
 \usefonttheme[header]{structuresmallcapsserif}
@@ -121,103 +121,6 @@
 \end{itemize}
 \end{frame}
 
-%===============================================================================================================
-
-\begin{frame}\frametitle{Nonlinear Solution Methods}
-\begin{itemize}\setlength{\itemsep}{10pt}
-	\item  <1-|handout:1>As it is important to incorporate all historical data and yield acurate parameter values and predictions, the path forward seems to be in fully nonlinear models
-	\item <2-|handout:1>Solving nonlinear models with projection methods (e.g. Aruoba et al., 2018; Ferna\'ndez-Villaverde et al., 2015).
-	\item  <3-|handout:1>Researchers have used different methods for solving fully nonlinear models:
-	\begin{enumerate} \setlength{\itemsep}{4pt}
-		\item  Policy function iteration with linear interpolation (e.g., Plante et al., 2018; Richter and Throckmorton, 2016).
-		\item  Alternate approximating functions: regime-indexed policy functions (Gust et al., 2017), piecewise smooth policy functions (Aruoba et al. 2018)
-		\item  Alternate grid construction: Smolyak method with Chebyshev polynomials (e.g., Gust et al., 2017; Ferna\'ndez-Villaverde et al. 2015; Aruoba et al., 2018)
-	\end{enumerate}
-\end{itemize}
-\end{frame}
-
-%=========================================================================
-\begin{frame}\frametitle{Two Solution Methods}
-\begin{table}\scriptsize
-    \renewcommand*{\arraystretch}{1.4}
-    \setlength{\tabcolsep}{6pt}      
-  \begin{tabularx}{\textwidth}{l | X | X}
-    \hline
-    & \textbf{Atkinson et al.\ (2019)} & \textbf{Gust et al.\ (2017)} \\ \hline
-    	Discretization Method & Evenly-spaced grid points & Smolyak Method\\
-	Policy Function Evaluation & Linear Interpolation & Chebyshev Polynomials \\
-	Integration Method & Rouwenhorst & Gauss-Hermite quadrature  \\ \hline
-\end{tabularx}
-\end{table}\normalsize
-\begin{itemize}\setlength{\itemsep}{10pt}
-\item  <2-|handout:1>Evenly-spaced grid points work well with linear interpolation
-\item  <3-|handout:1>The Smolyak method is optimal for Chebyshev polynomials
-\item  <4-|handout:1>The Rouwenhorst (1995) method improves approximation on exogenous dimensions when the driving processes are autoregressive
-\end{itemize}
-
-\end{frame}
-%=========================================================================
-\begin{frame}\frametitle{Atkinson et al.\ (2019)}
-\begin{itemize}\setlength{\itemsep}{10pt}
-\item <1-|handout:1> Time iteration with linear interpolation
-\item <2-|handout:1>Directly approximates policy functions
-\item <3-|handout:1> State space features evenly-spaced nodes
-\item<4-|handout:1>  Exogenous variables are approximated with the Markov chain from Rouwenhorst (1995)
-  \begin{itemize}\setlength{\itemsep}{4pt}
-\item Only requires interpolation along the dimensions of the endogenous state variables
-\end{itemize}
-\end{itemize}
-\end{frame}
-%=========================================================================
-\begin{frame}\frametitle{Gust et al.\ (2017)}
-\begin{itemize}\setlength{\itemsep}{6pt}
-\item  <1-|handout:1>Approximates policy functions using an antistropic Smolyak method with Chebyshev polynomials
-\item  <2-|handout:1>Approximates exogenous state variables using Gauss-Hermite quadrature%why if we know Rouwenhorst is better?
-\item  <3-|handout:1>Instead of directly computing the policy functions, they estimate functions at and away from the ZLB, building on Christiano and Fisher (2000)
-  \begin{itemize}\setlength{\itemsep}{4pt}
-\item  Policy functions feature a kink or non-differentiability at the ZLB and regime-indexing the policy functions will yield smoother functions
-\item Low-order Chebyshev polynomials perform better on smoother functions and are inexpensive to compute
-\end{itemize}
-\end{itemize}
-\end{frame}
-%=========================================================================
-\begin{frame}\frametitle{This Project}
-\begin{itemize}\setlength{\itemsep}{8pt}
-\item  <1-|handout:1>In this project, we consider how splitting up the policy functions conditional on the ZLB impacts the speed and accuracy of the solution of a nonlinear model
-\item  <2-|handout:1>We use policy function iteration on a fixed point with linear interpolation
-\item  <3-|handout:1>Atkinson et al.\ (2019) provides the motivation for a single policy function;  Gust et al.\ (2017) provides the motivation for a regime-indexed policy function
-\item <4-|handout:1> Solution algorithm based on Atkinson et al.\ (2019) denoted henceforth as ART; solution algorithm based on Gust et al.\ (2017) denoted henceforth as GHLS
-\end{itemize}
-\end{frame}
-%=========================================================================
-\begin{frame}\frametitle{Our Solution Algorithm} %NEED TO PUT SOME ABOUT GHLS?
-\begin{itemize}\setlength{\itemsep}{8pt}
-\item   <1-|handout:1>Construct the state space with evenly-spaced nodes and approximate exogenous state variables with Rouwenhorst (1995)
-\item  <2-|handout:1>Obtain initial conjectures for a set of policy functions from the log-linear solution
-\item  <3-|handout:1>Using a fixed point iteration scheme, linearly interpolate and numerically integrate the policy functions each step
-\begin{itemize}
-\item For ART portion, we update a single policy function, and for the GHLS portion we update regime-indexed policy functions
-\end{itemize}
-\item <5-|handout:1> The algorithm converges once the maximum distance between successive guesses of policy functions falls below a convergence criterion
-
-\end{itemize}
-\end{frame}
-%=========================================================================
-\begin{frame}\frametitle{Motivation for Regime-Indexed Policy Functions}
-\begin{itemize}\setlength{\itemsep}{6pt}
-\item  <1-|handout:1>The interest rate enters directly in the consumption Euler equation
-\begin{gather*}
-1 =  E_t[\beta(c_t/c_{t+1})(s_ti_t/\pi_t)],
-\end{gather*}
-where $E_t$ is the expectation operator, $0 < \beta < 1$ is the discount factor, and $c_t$, $s_t$, $i_t$, and $\pi_t$ are consumption, the risk premium, the interest rate, and inflation at time $t$. 
-\begin{itemize} \small
-\item $\beta(c_t/c_{t+1})$ is a stochastic discount factor used to value future real income
-\item $s_ti_t/\pi_t$ is a real interest rate on a one-period bond
-\end{itemize}\normalfont
-\item <2-|handout:1> At the ZLB, the presence of the interest rate creates a nonlinearity in the consumption Euler equation 
-\item <3-|handout:1> $c_t$ depends directly on the interest rate
-\end{itemize}
-\end{frame}
 %=========================================================================
 \begin{frame}\frametitle{The Model (With Capital)}
 \begin{itemize}\setlength{\itemsep}{6pt}
@@ -243,15 +146,14 @@ where $\bar{s}$ is the steady-state value. %An increase in $s_t$ boosts saving, 
 \begin{gather*}
   k_t = (1-\delta)k_{t-1} + x_t(1-\nu(x^g_t - 1)^2/2),\; 0 \leq \delta \leq 1.
   \end{gather*} %$x_t^g$ is investment growth relative to its steady-state and $\nu \geq 0$ scales the cost.
-\item <2-|handout:1>The FOCs to each household's constrained optimization problem are
+\item <2-|handout:1>The FOCs to the representative household's constrained optimization problem are
 \scriptsize
 \begin{gather*}
   \lambda_t = c_t - hc^a_{t-1}, \\
   w_t = \chi n_t^\eta \lambda_t,\\
   1 =  \beta E_t[(\lambda_t/\lambda_{t+1})(s_ti_t/(\bar{\pi}\pi_{t+1}^{gap}))],\\
   q_t = \beta E_t[(\lambda_t/\lambda_{t+1})(r^k_{t+1}+(1-\delta)q_{t+1})],\\
-  1 = q_t[1-\nu(x^g_t-1)^2/2 - \nu(x_t^g-1)x_t^g] + \nu\beta\bar{g}E_t[q_{t+1}(\lambda_t/\lambda_{t+1})(x^g_{t+1})^2(x^g_{t+1}-1)],\\
-  \varphi(\pi_t^{gap}-1)\pi_t^{gap} = 1-\theta + \theta mc_t + \beta\varphi E_t[(\lambda_t/\lambda_{t+1})(\pi_{t+1}^{gap}-1)\pi_{t+1}^{gap}(y_{t+1}/y_t)].
+  1 = q_t[1-\nu(x^g_t-1)^2/2 - \nu(x_t^g-1)x_t^g] + \nu\beta\bar{g}E_t[q_{t+1}(\lambda_t/\lambda_{t+1})(x^g_{t+1})^2(x^g_{t+1}-1)].\\
 \end{gather*} %where $1/\lambda$ is the marginal utility of consumption and $q$ is Tobin's q 
 \normalsize
 \end{itemize}
@@ -283,7 +185,7 @@ where $\bar{s}$ is the steady-state value. %An increase in $s_t$ boosts saving, 
 The central bank sets the gross nominal interest rate, $i$, according to
 \begin{gather*}
     i_t=\max\{1,i_t^n\},\\
-  i_t^n=(i^n_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi}(y^{gdp}_{t})^{\phi_y})^{1-\rho_i}\exp(\sigma_i\varepsilon_{i,t}). 
+  i_t^n=(i^n_{t-1})^{\rho_i}(\bar{\imath}(\pi^{gap}_t)^{\phi_\pi}(y^{g}_{t})^{\phi_y})^{1-\rho_i}\exp(\sigma_i\varepsilon_{i,t}). 
 \end{gather*}
 %where $y^{gdp}$ is real GDP (i.e., output, $y$, minus the resources lost due to adjustment costs, $adj^p$), $i^n$ is the gross notional interest rate, $\bar i$ and $\bar{\pi}$ are the target values of the inflation and nominal interest rates, and $\phi_\pi$ and $\phi_y$ are the responses to the inflation and output growth gaps. 
 \item <2-|handout:1>A more negative net notional rate indicates that the central bank is more constrained
@@ -341,9 +243,106 @@ The central bank sets the gross nominal interest rate, $i$, according to
 \end{table}
 \begin{itemize}\setlength{\itemsep}{8pt}
 \item <2-|handout:1>Parameters are from Atkinson et al.\ (2019), and are chosen to be characteristic of U.S. data
-\item <3-|handout:1>For the model without capital, $\rho_s = 0.006$ %To allow the GHLS algorithm to converge
+\item <3-|handout:1>For the model without capital, $\sigma_s = 0.006$ %To allow the GHLS algorithm to converge
 \end{itemize}
 \end{frame}
+%===============================================================================================================
+
+\begin{frame}\frametitle{Nonlinear Solution Methods}
+\begin{itemize}\setlength{\itemsep}{10pt}
+	\item  <1-|handout:1>As it is important to incorporate all historic data and yield accurate parameter values and predictions, the path forward seems to be in fully nonlinear models
+	\item <2-|handout:1>Solving nonlinear models with projection methods:
+\begin{enumerate}
+		\item  <3-|handout:1>Policy function iteration with linear interpolation on an evenly spaced grid (e.g., Plante et al., 2018; Richter and Throckmorton, 2016).
+		\item  <3-|handout:1>Alternate approximating functions: regime-indexed policy functions (Gust et al., 2017), piecewise smooth policy functions (Aruoba et al. 2018)
+		\item  <3-|handout:1>Alternate grid construction and policy function evaluation method: Smolyak method with Chebyshev polynomials (e.g., Gust et al., 2017; Ferna\'ndez-Villaverde et al. 2015; Aruoba et al., 2018)
+	\end{enumerate}
+\end{itemize}
+\end{frame}
+
+%=========================================================================
+\begin{frame}\frametitle{Two Solution Methods}
+\begin{table}\scriptsize
+    \renewcommand*{\arraystretch}{1.4}
+    \setlength{\tabcolsep}{6pt}      
+  \begin{tabularx}{\textwidth}{l | X | X}
+    \hline
+    & \textbf{Atkinson et al.\ (2019)} & \textbf{Gust et al.\ (2017)} \\ \hline
+    	Discretization Method & Evenly-spaced grid points & Smolyak Method\\
+	Policy Function Evaluation & Linear Interpolation & Chebyshev Polynomials \\
+	Integration Method & Rouwenhorst & Gauss-Hermite quadrature  \\ \hline
+\end{tabularx}
+\end{table}\normalsize
+\begin{itemize}\setlength{\itemsep}{10pt}
+\item  <2-|handout:1>Evenly-spaced grid points work well with linear interpolation
+\item  <3-|handout:1>The Smolyak method is optimal for Chebyshev polynomials
+\item  <4-|handout:1>The Rouwenhorst (1995) method improves approximation on exogenous dimensions when the driving processes are autoregressive
+\end{itemize}
+
+\end{frame}
+%=========================================================================
+\begin{frame}\frametitle{Atkinson et al.\ (2019)}
+\begin{itemize}\setlength{\itemsep}{10pt}
+\item <1-|handout:1> Time iteration with linear interpolation
+\item <2-|handout:1>Directly approximates policy functions
+\item <3-|handout:1> State space features evenly-spaced nodes
+\item<4-|handout:1>  Exogenous variables are approximated with the Markov chain from Rouwenhorst (1995)
+  \begin{itemize}\setlength{\itemsep}{4pt}
+\item Only requires interpolation along the dimensions of the endogenous state variables
+\end{itemize}
+\end{itemize}
+\end{frame}
+%=========================================================================
+\begin{frame}\frametitle{Gust et al.\ (2017)}
+\begin{itemize}\setlength{\itemsep}{6pt}
+\item  <1-|handout:1>Approximates policy functions using an anisotropic Smolyak method with Chebyshev polynomials
+\item  <2-|handout:1>Approximates exogenous state variables using Gauss-Hermite quadrature%why if we know Rouwenhorst is better?
+\item  <3-|handout:1>Instead of directly computing the policy functions, they estimate functions at and away from the ZLB, building on Christiano and Fisher (2000)
+  \begin{itemize}\setlength{\itemsep}{4pt}
+\item  Policy functions feature a kink or non-differentiability at the ZLB and regime-indexing the policy functions will yield smoother functions
+\item Low-order Chebyshev polynomials perform better on smoother functions and are inexpensive to compute
+\end{itemize}
+\end{itemize}
+\end{frame}
+%=========================================================================
+\begin{frame}\frametitle{This Project}
+\begin{itemize}\setlength{\itemsep}{8pt}
+\item  <1-|handout:1>In this project, we consider how splitting up the policy functions conditional on the ZLB impacts the speed and accuracy of the solution of a nonlinear model
+\item  <2-|handout:1>We use policy function iteration on a fixed point with linear interpolation
+\item  <3-|handout:1>Atkinson et al.\ (2019) directly computes the policy functions;  Gust et al.\ (2017) indirectly computes the policy functions through regime-indexed policy functions
+\item <4-|handout:1> Solution algorithm based on Atkinson et al.\ (2019) denoted henceforth as ART; solution algorithm based on Gust et al.\ (2017) denoted henceforth as GHLS
+\end{itemize}
+\end{frame}
+%=========================================================================
+\begin{frame}\frametitle{Motivation for Regime-Indexed Policy Functions}
+\begin{itemize}\setlength{\itemsep}{6pt}
+\item  <1-|handout:1>The interest rate enters directly in the consumption Euler equation
+\begin{gather*}
+1 =  E_t[\beta(c_t/c_{t+1})(s_ti_t/\pi_t)],
+\end{gather*}
+where $E_t$ is the expectation operator, $0 < \beta < 1$ is the discount factor, and $c_t$, $s_t$, $i_t$, and $\pi_t$ are consumption, the risk premium, the interest rate, and inflation at time $t$. 
+\begin{itemize} \small
+\item $\beta(c_t/c_{t+1})$ is a stochastic discount factor used to value future real income
+\item $s_ti_t/\pi_t$ is a real interest rate on a one-period bond
+\end{itemize}\normalfont
+\item <2-|handout:1> At the ZLB, the presence of the interest rate creates a nonlinearity in the consumption Euler equation 
+\item <3-|handout:1> $c_t$ depends directly on the interest rate
+\end{itemize}
+\end{frame}%=========================================================================
+\begin{frame}\frametitle{Our Solution Algorithm} %NEED TO PUT SOME ABOUT GHLS?
+\begin{itemize}\setlength{\itemsep}{8pt}
+\item   <1-|handout:1>Construct the state space with evenly-spaced nodes and approximate exogenous state variables with Rouwenhorst (1995)
+\item  <2-|handout:1>Obtain initial conjectures for a set of policy functions from the log-linear solution
+\item  <3-|handout:1>Using a fixed point iteration scheme, linearly interpolate and numerically integrate the policy functions each step
+\begin{itemize}
+\item For ART portion, we update a single policy function, and for the GHLS portion we update regime-indexed policy functions
+\end{itemize}
+\item <5-|handout:1> The algorithm converges once the maximum distance between successive guesses of policy functions falls below a convergence criterion
+
+\end{itemize}
+\end{frame}
+
+
 %===================================================================================
 \begin{frame}\frametitle{Discretized State Space (No Capital)}
 
@@ -386,6 +385,8 @@ $[g_{\min},g_{\max}]$, $[s_{\min},s_{\max}]$, $[mp_{\min},mp_{\max}]$, $[i^n_{\m
 
 \end{frame}
 
+
+
 %===============================================================================================================
 
 \begin{frame}\frametitle{Local Approximation}
@@ -423,42 +424,79 @@ $[g_{\min},g_{\max}]$, $[s_{\min},s_{\max}]$, $[mp_{\min},mp_{\max}]$, $[i^n_{\m
 \end{frame}
 
 %===============================================================================================================
-\begin{frame}\frametitle{Solving the Model}
 
-\begin{enumerate}\setlength{\itemsep}{10pt}
-  \item <1-|handout:1>Calculate $z(s')$ for each realization of the state
-  \item <2-|handout:1>Find the updated policy function, $n(s')$, for each state
-  \item <3-|handout:1>Numerical Integration:
-  \begin{itemize}\setlength{\itemsep}{5pt}
-    \item First integrate across the continuous random variable, $z$, conditional on the future realizations of the discrete stochastic variable, $s'$.%, to obtain:
-        %\begin{gather*}
-         % E[\Phi(z')|s'=1], \quad E[\Phi(z')|s'=2]
-        %\end{gather*}
-    \item Then weight the conditional expectations by their corresponding likelihood. %The conditional expectations are:
-  %  \begin{gather*}
-    %  E\left[\Phi(z')|s = i\right] = p_{i1}E[\Phi(z')|s'=1] + p_{i2}E[\Phi(z')|s'=2]
-   % \end{gather*}
+\begin{frame}\frametitle{Rouwenhorst Method}
+
+\begin{itemize}\setlength{\itemsep}{12pt}
+  \item<1-|handout:1> Used to approximate an exogenous $AR(p)$ process
+  \item <2-|handout:1>Kopecky and Suen (2010) show the Rouwenhorst method outperforms other approximations of an $AR(1)$ process
+  \item <3-|handout:1>The method determines the bounds of the exogenous state variables, the nodes, and the transition probabilities
+\end{itemize}
+\end{frame}
+
+%===============================================================================================================
+%===============================================================================================================
+
+\begin{frame}\frametitle{Example: Time Iteration}
+
+On iteration $q$, solve for the ${\cal P}_c^q(g,s,mp,i^n)$ that \textit{satisfies} equilibrium
+\begin{enumerate}\setlength{\itemsep}{12pt}
+  \item<1-|handout:1> Use log-linear solution on each node to obtain ${\cal P}_c^0$
+  \begin{itemize}
+    \item Local: ${\cal P}_c^1={\cal P}_c^0$
+    \item Global: set initial basis $\hat{\eta}^0$%$\hat{\eta}^0 = ({X^T}X)^{-1}{X^T}\operatorname{vec}({\cal P}_c^0)$ so ${\cal P}_c^1=X\hat{\eta}^0$
   \end{itemize}
+  \item<2-|handout:1> Solve for $g'$, $s'$, $mp'$, ${i^n}'$, given $\varepsilon_g'$, $\varepsilon_s'$, $\varepsilon_i'$ \label{updated vars}
+  \item<3-|handout:1> Find ${\cal P}_c^q(g',s',mp',{i^n}')$ given the updated state
+  \begin{itemize}
+    \item Local: use piecewise linear interpolation
+    \item Global: update the basis %so ${\cal P}_c^q(g',s',mp',{i^n}') = X'\hat{\eta}^{q-1}$
+  \end{itemize}
+  \item<4-|handout:1> Evaluate expectations (Rouwenhorst or Gauss Hermite) \label{expectation}
+    %\begin{gather*}
+      %E[\Phi(z')] = \beta E[{\cal P}_c^q(k',z')^{-\sigma}(\alpha z'k'^{\alpha-1}+1-\delta)]
+    %\end{gather*}
 \end{enumerate}
 
+\end{frame}
+\setcounter{savedenumi}{\value{enumi}}
+
+%===============================================================================================================
+
+\begin{frame}\frametitle{Example: Time Iteration}
+
+\begin{enumerate}
+  \setcounter{enumi}{\value{savedenumi}}
+  \item<1-|handout:1> Use nonlinear solver to find a ${\cal P}_c^q(g,s,mp,i^n)$ that satisfies the consumption Euler equation%, ${\cal P}_c^q(g,s,mp,i^n)^{-\sigma}=E[\Phi(z')]$.
+  \item<2-|handout:1> Update policy function \label{update}
+  \begin{itemize}
+    \item Local: ${\cal P}_c^{q+1}={\cal P}_c^q$
+    \item Global: update basis $\hat{\eta}^q$  %$\hat{\eta}^q = ({X^T}X)^{-1}{X^T}\operatorname{vec}({\cal P}_c^q(g,s,mp,i^n))$, ${\cal P}_c^{q+1}(g,s,mp,i^n) = X\hat{\eta}^{q}$
+  \end{itemize}
+  \item<3-|handout:1> Calculate distance between updates
+  \begin{itemize}
+    \item Local: $\textrm{dist} = {\cal P}_c^q(g,s,mp,i^n) - {\cal P}_c^{q-1}(g,s,mp,i^n)$
+    \item Global: $\textrm{dist} = \hat{\eta}^q - \hat{\eta}^{q-1}$
+  \end{itemize}
+  \item<4-|handout:1> If $|\textrm{dist}| < \textrm{tol}$, then stop. If not, then set $q=q+1$ and repeat steps 2-7 using ${\cal P}_c^{q+1}$ as the new initial conjecture. \label{tol criterion}
+\end{enumerate}
+\onslide<5-|handout:1>{\underline{Advantage}: Satisfies the equilibrium system on each node and nodes can be run in parallel.\\[6pt]
+\underline{Disadvantage}: Nonlinear solver must execute on each node.}
 \end{frame}
 
 %===============================================================================================================
 
-\begin{frame}\frametitle{Rouwenhorst Method}
+\begin{frame}\frametitle{Example: Fixed-Point Iteration}
 
-\begin{itemize}\setlength{\itemsep}{8pt}
-  \item<1-|handout:1> Used to approximate an exogenous $AR(1)$ process
-  \item <2-|handout:1>Kopecky and Suen (2010) show the Rouwenhorst method outperforms other approximations of an $AR(1)$ process
-  \item <3-|handout:1>The approximation is a Markov switching process like the time-varying intercept example, but with $n$ states
-  \item <4-|handout:1>The method determines the bounds of the exogenous state variables, the nodes, and the transition probabilities
-  \item <5-|handout:1>Let $z\sim AR(1)$ with persistence $\rho$, mean $\mu_z$, and variance %Idea for approximation of an AR(1) process
-  \begin{gather*}
-    \sigma_z^2 = \sigma_\varepsilon^2/(1-\rho^2).
-  \end{gather*}
-  \item   <6-|handout:1>The $n$ states for the discretized process $z$ are evenly spaced on $[\mu_z-\sigma_z\sqrt{n-1},\mu_z+\sigma_z\sqrt{n-1}]$
-\end{itemize}
-
+Solve for the ${\cal P}_c^q(g,s,mp,i^n)$ \textit{implied} by the equilibrium system
+\begin{enumerate}
+  \item<1-|handout:1> Obtain an initial conjecture\\(step 1 in the time iteration algorithm)
+  \item<2-|handout:1> Calculate updated variables and expectations\\(steps \ref{updated vars}-\ref{expectation} in the time iteration algorithm)
+  \item<3-|handout:1> Calculate ${\cal P}_c^q(g,s,mp,i^n)$ on each node %=(E[\Phi(z')])^{-1/\sigma}$ on each node
+  \item<4-|handout:1> Execute steps \ref{update}-\ref{tol criterion} in the time iteration algorithm
+\end{enumerate}
+\onslide<5-|handout:1>{\underline{Advantage}: Does not require a loop, since all of the nodes are evaluated simultaneously.\\[6pt]
+\underline{Disadvantage}: Algorithm is less stable because it does not solve for the optimal policy function on each node.\\[6pt]}
 \end{frame}
 
 %===============================================================================================================
@@ -497,18 +535,18 @@ R_{t,2,j} = q_t - \beta E_t[(\lambda_t/\lambda_{t+1})(r^k_{t+1}+(1-\delta)q_{t+1
 %===================================================================================
 \begin{frame}\frametitle{Solution Algorithm} %NEED TO PUT SOME ABOUT GHLS?
  Construct an evenly-spaced grid using the Rouwenhorst method. Denote the vector of states $\textbf{z}_t$. % by discretizing the endogenous state variables and using \hyperlink{Rouwenhorst}{\color{black}{Rouwenhorst (1995)}} method to approximate the exogenous processes for $s_t$, $g_t$, and $\varepsilon_{i,t}$.
-\begin{itemize}\setlength{\itemsep}{8pt}
+\begin{enumerate}\setlength{\itemsep}{8pt}
 
 \item <2-|handout:1>Solve the linear model using Sims's (2002) \texttt{gensys} algorithm. 
 \item <3-|handout:1>Solve the nonlinear model using fixed point iteration. For each node in the state space $d \in \{1,\dots,D\}:$
 \begin{enumerate}\setlength{\itemsep}{2pt}
-\item <4-|handout:1>Solve for the variables dated at time $t$ given $\textbf{pf}_t$ and $\textbf{z}_t$. %For GHLS, if $i_t > 1$, update time $t$ variables with non-ZLB policy functions; if $i_t \leq 1$, update time $t$ variables with ZLB policy functions.
-\item  <5-|handout:1>Linearly interpolate the policy functions at the updated state variables $\textbf{z}_{t+1}$ to obtain $\textbf{pf}_{t+1}(m)$ on every integration node $m \in \{1,\dots,M\}$.% For GHLS, interpolate both non-ZLB and ZLB policy functions.
-\item <6-|handout:1>Given the interpolated policy functions $\{\textbf{pf}(m)\}_{m=1}^M$, and integration nodes and weights provided by the Rouwenhorst method, approximate the expectation operators for the model. %For GHLS, determine whether the model is at the ZLB at each node, and construct the policy function grids according to .
-\item <7-|handout:1>Back out the policy functions $\textbf{pf}_t(d)$ from the expectation operators and time $t+1$ variables. %For GHLS, solve for regime-indexed polynomials based on 
+\item[a.] <4-|handout:1>Solve for the variables dated at time $t$ given $\textbf{pf}_t$ and $\textbf{z}_t$. %For GHLS, if $i_t > 1$, update time $t$ variables with non-ZLB policy functions; if $i_t \leq 1$, update time $t$ variables with ZLB policy functions.
+\item[b.]  <5-|handout:1>Linearly interpolate the policy functions at the updated state variables $\textbf{z}_{t+1}$ to obtain $\textbf{pf}_{t+1}(m)$ on every integration node $m \in \{1,\dots,M\}$.% For GHLS, interpolate both non-ZLB and ZLB policy functions.
+\item[c.] <6-|handout:1>Given the interpolated policy functions $\{\textbf{pf}(m)\}_{m=1}^M$, and integration nodes and weights provided by the Rouwenhorst method, approximate the expectation operators for the model. %For GHLS, determine whether the model is at the ZLB at each node, and construct the policy function grids according to .
+\item[d.] <7-|handout:1>Back out the policy functions $\textbf{pf}_t(d)$ from the expectation operators and time $t+1$ variables. %For GHLS, solve for regime-indexed polynomials based on 
 \end{enumerate}
 \item <8-|handout:1>Repeat step 2 until the maximum distance between successive approximations of the policy functions is below $10^{-6}$. 
-\end{itemize}
+\end{enumerate}
 \end{frame}
 
 %===================================================================================
